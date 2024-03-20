@@ -51,3 +51,29 @@ I: Information
 T: Task
 D: Decision
 I: Information
+
+# Daily Meeting: 21-03-2024
+
+| Assistant  | Role  |  
+|---|---|
+| Giovani, Quim, Albert  | Developer  |   
+| Pau, Arnau |  Front-End Expert |  
+| Albert |  Scrum Master |  
+
+## Problems/Difficulties
+| Problem | Task | Owner | Description |
+|---------|------|-------|-------------|
+| xxx     | xxx  | xxx   | xxx         |
+
+
+
+## Actions
+| Type | Description           | Owner                             | Deadline   |
+|------|-----------------------|-----------------------------------|------------|
+| T    | Elaboració de la Wiki | Arnau, Albert, Giovani, Pau, Quim | 21-03-2024 |
+
+
+
+T: Task
+D: Decision
+I: Information
