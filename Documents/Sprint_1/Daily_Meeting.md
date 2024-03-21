@@ -68,9 +68,10 @@ I: Information
 
 
 ## Actions
-| Type | Description           | Owner                             | Deadline   |
-|------|-----------------------|-----------------------------------|------------|
-| T    | Elaboració de la Wiki | Arnau, Albert, Giovani, Pau, Quim | 21-03-2024 |
+| Type | Description                  | Owner                             | Deadline   |
+|------|------------------------------|-----------------------------------|------------|
+| T    | Continuació de la Wiki       | Arnau, Albert, Giovani, Pau, Quim | 21-03-2024 |
+| T    | Continuació del model Kanban | Arnau, Albert, Giovani, Pau, Quim | 21-03-2024 |
 
 
 
