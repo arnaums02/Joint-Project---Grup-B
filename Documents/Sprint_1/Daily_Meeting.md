@@ -4,7 +4,7 @@
 |---|---|
 | Giovani, Quim, Albert  | Developer  |   
 | Pau, Arnau |  Front-End Expert |  
-| Albert |  Scrum Master |  
+| Quim |  Scrum Master |  
 
 ## Problems/Difficulties
 | Problem                   | Task                     | Owner      | Description                                                                    |
@@ -60,7 +60,7 @@ I: Information
 |---|---|
 | Giovani, Quim, Albert  | Developer  |   
 | Pau, Arnau |  Front-End Expert |  
-| Albert |  Scrum Master |  
+| Quim |  Scrum Master |  
 
 ## Problems/Difficulties
 | Problem | Task | Owner | Description |
