@@ -9,17 +9,23 @@
 
         <div class="login_div">
             <h1>Iniciar sesión</h1>
-            <form method="post">
-                {% csrf_token %}
-                 {% for error in form.non_field_errors %}
-                     <p class="form_error">{{ error }}</p>
-                 {% endfor %}
-                <p>Correo electrónico</p>
-                {{ form.email }}
-                <p>Contraseña</p>
-                {{ form.password }}
-                <button type="Submit">Iniciar sesión</button>
-            </form>
+            <div class="form_div">
+                <form method="post">
+                    <div class="form_error">
+                        {% csrf_token %}
+                         {% for error in form.non_field_errors %}
+                             <p>{{ error }}</p>
+                         {% endfor %}
+                    </div>
+                    <div class="form_field">
+                        {{ form.email }}
+                        {{ form.password }}
+                    
+                        
+                    </div>
+                    <button type="Submit">Iniciar sesión</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>

@@ -18,9 +18,8 @@ def signIn(request):
             return redirect('roomStaffHomePage')
         else:
             form.add_error(None, 'Correo electrónico o contraseña incorrectos.')
-    else:
-        form = SignInForm()
     return render(request, 'signIn.html', context)
+
 
 def authentificateRoomStaffUser(email, password):
     try:

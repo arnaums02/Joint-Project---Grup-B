@@ -5,35 +5,51 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: midnightblue;
+    background:
+            linear-gradient(45deg, rgb(76, 0, 255), transparent),
+            repeating-linear-gradient(45deg, rgb(183, 0, 255) 0%, rgb(183, 0, 255) 5%, transparent 5%, transparent 10%),
+            rgb(216, 118, 255) repeating-linear-gradient(-45deg, rgba(183, 0, 255, 0.5) 0%, rgba(183, 0, 255, 0.5) 5%, transparent 5%, transparent 10%)
 }
 
 .login_div {
     border: 2px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 300px;
-    height: 300px;
+    width: 25em;
+    height: 25em;
     text-align: center;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
-.login_div form {
+.form_div {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    height: 70%;
+}
+.form_error {
+    margin-bottom: 20%;
+    color: darkred;
 }
 
-
-.login_div p {
-    margin: 15px;
-    justify-items: left;
+.form_field {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.form_field > *{
+    margin-bottom: 30px;
+    border-radius: 5px;
+    height: 3em;
+    width: 20em;
 }
 
 .login_div button{
-    margin-top: 10%;
-}
-.form_error {
-    color: darkred;
+    margin-top: auto;
+    margin-bottom: 0;
+    border-radius: 5px;
+    height: 2em;
+    font-size: 1em;
+    background-color: mediumpurple;
+    cursor: pointer;
 }
