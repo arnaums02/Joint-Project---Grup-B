@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Iniciar sesión</title>
+        <link rel="stylesheet" href="{% static 'css/signIn.css' %}">
+    </head>
+    <body>
+
+        <div class="login_div">
+            <h1>Iniciar sesión</h1>
+            <div class="form_div">
+                <form method="post">
+                    <div class="form_error">
+                        {% csrf_token %}
+                         {% for error in form.non_field_errors %}
+                             <p>{{ error }}</p>
+                         {% endfor %}
+                    </div>
+                    <div class="form_field">
+                        {{ form.email }}
+                        {{ form.password }}
+                    
+                        
+                    </div>
+                    <button type="Submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
