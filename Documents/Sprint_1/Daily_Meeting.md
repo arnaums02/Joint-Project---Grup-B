@@ -1,10 +1,10 @@
 # Daily Meeting: 12-03-2024
 
-| Assistant  | Role  |  
-|---|---|
-| Giovani, Quim, Albert  | Developer  |   
-| Pau, Arnau |  Front-End Expert |  
-| Quim |  Scrum Master |  
+| Assistant            | Role             |  
+|----------------------|------------------|
+| Giovani, Quim, Albert | Developer        |   
+| Pau, Arnau           | Front-End Expert |  
+| Arnau                | Scrum Master     |  
 
 ## Problems/Difficulties
 | Problem                   | Task                     | Owner      | Description                                                                    |
@@ -28,11 +28,11 @@ I: Information
 
 # Daily Meeting: 19-03-2024
 
-| Assistant  | Role  |  
-|---|---|
-| Giovani, Quim, Albert  | Developer  |   
-| Pau, Arnau |  Front-End Expert |  
-| Quim |  Scrum Master |  
+| Assistant             | Role  |  
+|-----------------------|---|
+| Giovani, Quim, Albert | Developer  |   
+| Pau, Arnau            |  Front-End Expert |  
+| Arnau                 |  Scrum Master |  
 
 ## Problems/Difficulties
 | Problem         | Task                           | Owner                             | Description                                                                  |
@@ -56,11 +56,11 @@ I: Information
 
 # Daily Meeting: 21-03-2024
 
-| Assistant  | Role  |  
-|---|---|
-| Giovani, Quim, Albert  | Developer  |   
-| Pau, Arnau |  Front-End Expert |  
-| Quim |  Scrum Master |  
+| Assistant             | Role  |  
+|-----------------------|---|
+| Giovani, Quim, Albert | Developer  |   
+| Pau, Arnau            |  Front-End Expert |  
+| Arnau                 |  Scrum Master |  
 
 ## Problems/Difficulties
 | Problem | Task | Owner | Description |

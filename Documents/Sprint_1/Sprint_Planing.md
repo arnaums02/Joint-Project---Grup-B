@@ -1,10 +1,10 @@
 # Sprint Planing Title (19-03-2024)
 
-| Assistant  | Role  |  
-|---|---|
-| Giovani, Quim, Albert  | Developer  |   
-| Pau, Arnau |  Front-End Expert |  
-| Albert |  Scrum Master |  
+| Assistant             | Role  |  
+|-----------------------|---|
+| Giovani, Quim, Albert | Developer  |   
+| Pau, Arnau            |  Front-End Expert |  
+| Arnau                 |  Scrum Master |  
 
 
 ## Spring Planing Overview
