@@ -27,7 +27,7 @@ body {
     align-items: center;
     height: 70%;
 }
-.form_error {
+.form_error p{
     margin-bottom: 20%;
     color: darkred;
 }
