@@ -18,4 +18,3 @@ Considering the proposed distribution in the model Kanban, the overall activitie
 |-----------------------------------|------------------------------------------------------------------------------|
 | Arnau, Albert, Giovani, Pau, Quim | Creació de wikis, creació del repositori de GitHub, creació del model Kanban |   
 | Arnau, Albert, Giovani, Pau, Quim | Implementació de les User-Stories                                            |  
-
