@@ -15,13 +15,13 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, type='admin', **extra_fields):
+    def create_superuser(self, email, password=None, user_type='admin', **extra_fields):
         if not email:
             raise ValueError('El campo correo electrónico es obligatorio')
 
         email = self.normalize_email(email)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('type', type)  # Asigna el tipo proporcionado
+        extra_fields.setdefault('user_type', user_type)  # Asigna el tipo proporcionado
         extra_fields.setdefault('is_staff', True)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
