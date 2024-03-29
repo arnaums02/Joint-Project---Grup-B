@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from accounts.models import CustomUser
+from JointProject.models import RoomBookings
 
 
 # Register your models here.
@@ -24,3 +25,5 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(RoomBookings)
+
