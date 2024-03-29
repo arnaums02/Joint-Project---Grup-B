@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from JointProject.views import roomStaffHomePage
+from JointProject.views import roomStaffHomePage, obtainRoomBookings
 from accounts.views import signIn
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', signIn, name='signIn'),
-    path('roomStaffHomePage/', roomStaffHomePage, name='roomStaffHomePage')
+    path('roomStaffHomePage/', roomStaffHomePage, name='roomStaffHomePage'),
+    path('obtainRoomBookings/', obtainRoomBookings, name='obtainRoomBookings')
 ]
