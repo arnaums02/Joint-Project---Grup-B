@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.validators import MinValueValidator
 from accounts.models import CustomUser
 from django.db import models
 
@@ -32,4 +33,18 @@ class RoomBookings(models.Model):
     endDate = models.DateField()
 
 
+class Table(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    reserved = models.BooleanField(default=False)
+    capacity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
+
+class ReservedTable(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='userWhoReserved')
+    clientName = models.CharField(max_length=100)
+    clientPhoneNumber = models.CharField(max_length=20)
+    numberOfClients = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    reservationDate = models.DateField()
+    reservationTime = models.TimeField()
+    tableReserved = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='tableReserved', default=None)
