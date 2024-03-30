@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservar mesa</title>
+</head>
+<body>
+    <h1>Reserva de Mesa</h1>
+    <p>Mesa ID: {{ table_id }}</p>
+    <p>Capacidad Màxima: {{ capacity }}</p>
+    <p>Dia seleccionado: {{ selected_date }}</p>
+    <p>Hora seleccionada: {{ selected_time }}</p>
+    <h1>Formulario reservar mesa</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- Input oculto para almacenar el ID de la mesa reservada -->
+        <input type="hidden" id="tableId" name="tableId" value="{{ table_id }}">
+
+        <input type="submit" value="Enviar reserva">
+    </form>
+</body>
+</html>
