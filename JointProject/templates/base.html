@@ -9,30 +9,44 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-        <div class="logo">
-            <img src="/static/img/logo.png" alt="Logo">
+        <div class="headerGeneral">
+            <nav class="mainMenu">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="Logo">
+            </div>
+            <!-- Si crem una vista que ens indiqui si l'usuari esta login, podem mostrar:
+             - Iniciar sessió si no ha iniciat la sessió
+             - Tancar sessió si la sessió ja esta iniciada -->
+            <div class="extra-button">
+                <a href="#" class="button"> Iniciar Sessió </a>
+            </div>
         </div>
-        <div class="extra-button">
-            <a href="#" class="button"> Iniciar Sessió </a>
-        </div>
+
     </header>
 
-    <main>
-        <!-- Contenido de la página -->
-        <h1>Aqui anirà el contingut de la pàgina</h1>
-    </main>
+    {% block content %}
+    {% endblock %}
 
     <footer>
-        <p> © 2024 Hotel Las Palmeras. All rights reserved </p>
-        <p> Contact: info@mycompany.com | Phone: 123-456-7890 </p>
+        <div class="footerGeneral">
+            <div class="logoFooter">
+                <img src="/static/img/logo.png" alt="Logo">
+            </div>
+            <div class="footerCopy">
+                <p> © 2024 Hotel Las Palmeras. All rights reserved </p>
+                <p> Contact: info@mycompany.com | Phone: 123-456-7890 </p>
+            </div>
+            <div class="footerTextToCenter">
+                <p> TEXT PER CENTRAR </p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

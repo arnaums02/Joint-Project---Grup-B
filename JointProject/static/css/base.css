@@ -1,26 +1,27 @@
 body {
     margin: 0;
+    margin-top: 150px;
     font-family: Arial, sans-serif;
 }
 
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
 
-.logo {
-    flex-grow: 0;
-    text-align: center;
-
+.headerGeneral {
+    display: table;
+    width: 100%;
 }
 
-.logo img {
-    max-width: 100px;
-    height: auto;
+.mainMenu {
+    display: table-cell;
+    width: 50%;
+    vertical-align: middle;
 }
 
 nav ul {
@@ -31,7 +32,8 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 15px;
+    margin-left: 10px;
 }
 
 nav ul li:last-child {
@@ -41,18 +43,30 @@ nav ul li:last-child {
 nav ul li a {
     color: #fff;
     text-decoration: none;
-    padding: 10px 20px; /* Añadido para dar espacio alrededor del texto */
-    /*border: 1px solid #fff; /* Añadido para crear un borde */
-    border-radius: 5px; /* Añadido para redondear las esquinas */
-    transition: text-decoration 0.3s;   /* Transición para el subrayado */
+    padding: 10px 20px;
+    transition: text-decoration 0.3s;
+    font-weight: bold;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+    border-bottom: 2px solid white;
+}
+
+.logo {
+    display: table-cell;
+    width: 20%;
+    vertical-align: middle;
+}
+
+.logo img {
+    max-width: 100px;
+    height: auto;
 }
 
 .extra-button {
-    margin-right: 20px; /* Agregar un margen entre el botón extra y la barra de navegación */
+    display: table-cell;
+    width: 30%;
+    vertical-align: middle;
 }
 
 .button {
@@ -63,6 +77,7 @@ nav ul li a:hover {
     padding: 10px 20px;
     text-decoration: none;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
 .button:hover {
@@ -72,9 +87,39 @@ nav ul li a:hover {
 footer {
     background-color: #333;
     color: #fff;
-    text-align: center;
     padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.footerGeneral {
+    display: table;
+    width: 100%;
+}
+
+.logoFooter {
+    display: table-cell;
+    vertical-align: middle;
+    width: 20%;
+}
+
+.logoFooter img {
+    max-width: 100px;
+    height: auto;
+}
+
+.footerCopy {
+    display: table-cell;
+    vertical-align: middle; /* Alinea verticalmente el contenido */
+    text-align: center;
+    width: 60%; /* Ocupa el 80% restante del ancho del footer */
+}
+
+.footerTextToCenter {
+    display: table-cell;
+    vertical-align: middle; /* Alinea verticalmente el contenido */
+    text-align: center;
+    width: 20%; /* Ocupa el 80% restante del ancho del footer */
+    color: transparent;
 }
