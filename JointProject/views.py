@@ -62,3 +62,13 @@ def checkIn(request, roomBookingId):
     roomBooking.checkIn = True
     roomBooking.save()
     return render(request, 'roomBookingDetails.html', context)
+
+
+def checkOut(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
+    context={
+        'roomBooking' : roomBooking
+    }
+    roomBooking.checkOut = True
+    roomBooking.save()
+    return render(request, 'roomBookingDetails.html', context)
