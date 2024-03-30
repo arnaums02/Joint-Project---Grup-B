@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Habitaciones disponibles</title>
+    </head>
+    <body>
+        <h1>Habitaciones disponibles</h1>
+        <ul>
+            {% for room in rooms %}
+            <li>Habitacion:{{ room.roomNumber }} Tipo de habitación:{{ room.roomType }}
+            <br>
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

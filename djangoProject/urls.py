@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings
+from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings, availableRooms
 from accounts.views import signIn
 
 urlpatterns = [
@@ -26,4 +26,5 @@ urlpatterns = [
     path('obtainRoomBookings/', obtainRoomBookings, name='obtainRoomBookings'),
     path('createRoomBooking/', createRoomBookings, name='createRoomBookings'),
     path('deleteRoomBooking/<uuid:roomBookingId>', deleteRoomBookings, name='deleteRoomBookings'),
+    path('availableRooms/', availableRooms, name='availableRooms'),
 ]

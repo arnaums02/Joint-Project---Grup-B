@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import RoomBookings
+from .models import RoomBookings, Room
 from .forms import RoomBookingForm
 
 
@@ -39,3 +39,10 @@ def deleteRoomBookings(request, roomBookingId):
         return redirect('obtainRoomBookings')
     else:
         return HttpResponse("Bad Request: Only POST requests are allowed for this view.")
+
+def availableRooms(request):
+    rooms = Room.objects.filter(booked=False)
+    context = {
+        'rooms' : rooms
+    }
+    return render(request, 'availableRoomBookings.html', context)
