@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Detalles de la reserva de la habitacion</title>
+    </head>
+    <body>
+        <h1>Detalles de la reserva de la habitacion</h1>
+        <ul>
+            Habitacion:{{ roomBooking.roomBooked.roomNumber }}
+            <br>
+            Fecha de inicio:{{ roomBooking.startDate }}
+            <br>
+            Fecha de finalizacion:{{ roomBooking.endDate }}
+            <br>
+            Usuario que ha reservado:{{ roomBooking.userWhoBooked }}
+            <br>
+            Huesped:{{ roomBooking.guestName }}
+            <br>
+            Correo electronico del huesped:{{ roomBooking.guestEmail }}
+            <br>
+            Número de telefono del huesped:{{ roomBooking.guestPhoneNumber }}
+            <br>
+            DNI del huesped:{{ roomBooking.guestDNI }}
+            <br>
+            Numero de huespedes en la habitación:{{ roomBooking.numberGuest }}
+            <br>
+            Habitacion reservada:{{ roomBooking.roomBooked.roomNumber }}
+            <br>
+        </ul>
+    </body>
+</html>

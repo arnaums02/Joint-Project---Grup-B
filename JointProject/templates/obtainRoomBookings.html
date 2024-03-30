@@ -8,6 +8,7 @@
         <ul>
             {% for roomBooking in roomBookings %}
             <li>Habitacion:{{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}
+            <a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" >Ver detalles</button></a>    
             <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
                 {% csrf_token %}
                 <button type="submit">Eliminar</button>
