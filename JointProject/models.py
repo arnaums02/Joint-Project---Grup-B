@@ -35,19 +35,33 @@ class RoomBookings(models.Model):
     checkOut = models.BooleanField(default=False)
 
 
-
 class Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    reserved = models.BooleanField(default=False)
     capacity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+
+
+class Shift(models.Model):
+    SHIFT_CHOICES = (
+        ('12-13', '12:00 - 13:00'),
+        ('13-14', '13:00 - 14:00'),
+        ('14-15', '14:00 - 15:00'),
+        ('19-20', '19:00 - 20:00'),
+        ('20-21', '20:00 - 21:00'),
+        ('21-22', '21:00 - 22:00'),
+    )
+
+    shift = models.CharField(max_length=5, choices=SHIFT_CHOICES, unique=True)
 
 
 class ReservedTable(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='userWhoReserved')
-    clientName = models.CharField(max_length=100)
+    userWhoReserved = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='userWhoReserved') # cambiar table per # CustomUser
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    clientName = models.CharField(max_length=20)
     clientPhoneNumber = models.CharField(max_length=20)
     numberOfClients = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     reservationDate = models.DateField()
-    reservationTime = models.TimeField()
     tableReserved = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='tableReserved', default=None)
+
+    class Meta:
+        unique_together = ('shift', 'userWhoReserved', 'reservationDate') # Evitar duplicaciones de reservas
