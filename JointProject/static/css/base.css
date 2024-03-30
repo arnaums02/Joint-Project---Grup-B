@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    flex-grow: 0;
+    text-align: center;
+
+}
+
+.logo img {
+    max-width: 100px;
+    height: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px; /* Añadido para dar espacio alrededor del texto */
+    /*border: 1px solid #fff; /* Añadido para crear un borde */
+    border-radius: 5px; /* Añadido para redondear las esquinas */
+    transition: text-decoration 0.3s;   /* Transición para el subrayado */
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.extra-button {
+    margin-right: 20px; /* Agregar un margen entre el botón extra y la barra de navegación */
+}
+
+.button {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
