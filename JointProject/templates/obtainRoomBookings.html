@@ -7,7 +7,13 @@
         <h1>Reservas de habitaciones</h1>
         <ul>
             {% for roomBooking in roomBookings %}
-            <li>Habitacion:{{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}</li>
+            <li>Habitacion:{{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}
+            <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
+                {% csrf_token %}
+                <button type="submit">Eliminar</button>
+            </form>
+            <br>
+            </li>
             {% endfor %}
         </ul>
     </body>
