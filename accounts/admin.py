@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from accounts.models import CustomUser
-from JointProject.models import RoomBookings, Room
+from JointProject.models import RoomBookings, Room, Table, Shift, ReservedTable
 
 
 # Register your models here.
@@ -29,3 +29,18 @@ admin.site.register(RoomBookings)
 admin.site.register(Room)
 
 
+@admin.register(Table)
+class TableAdmin(admin.ModelAdmin):
+    list_display = ['id', 'capacity']
+
+
+@admin.register(Shift)
+class ShiftAdmin(admin.ModelAdmin):
+    list_display = ['shift']
+
+
+@admin.register(ReservedTable)
+class ReservedTableAdmin(admin.ModelAdmin):
+    list_display = ['id', 'userWhoReserved', 'clientName', 'clientPhoneNumber', 'numberOfClients', 'reservationDate', 'tableReserved']
+    list_filter = ['userWhoReserved', 'shift', 'reservationDate']
+    search_fields = ['clientName', 'clientPhoneNumber']
