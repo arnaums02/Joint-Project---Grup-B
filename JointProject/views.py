@@ -23,9 +23,13 @@ def createRoomBookings(request):
     }
     if form.is_valid():
         roomBooking = form.save(commit=False)
-        roomBooking.userWhoBooked = request.user
-        roomBooking.save()
-        return redirect('obtainRoomBookings')
+        if roomBooking.roomBooked.booked == False:
+            roomBooking.userWhoBooked = request.user
+            roomBooking.roomBooked.booked = True
+            roomBooking.save()
+            return redirect('obtainRoomBookings')
+        else:
+            return HttpResponse("Room already booked")
     return render(request, 'createRoomBooking.html', context)
 
 def deleteRoomBookings(request, roomBookingId):
