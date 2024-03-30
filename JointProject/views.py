@@ -46,3 +46,10 @@ def availableRooms(request):
         'rooms' : rooms
     }
     return render(request, 'availableRoomBookings.html', context)
+
+def roomBookingDetails(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
+    context = {
+        'roomBooking' : roomBooking
+    }
+    return render(request, 'roomBookingDetails.html', context)
