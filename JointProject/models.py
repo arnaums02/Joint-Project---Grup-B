@@ -31,6 +31,9 @@ class RoomBookings(models.Model):
     roomBooked = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='roomBooked', default=None)
     startDate = models.DateField()
     endDate = models.DateField()
+    checkIn = models.BooleanField(default=False)
+    checkOut = models.BooleanField(default=False)
+
 
 
 class Table(models.Model):
