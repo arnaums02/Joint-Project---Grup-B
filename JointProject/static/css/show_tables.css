@@ -1,0 +1,240 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff6f6;
+}
+
+h3 {
+    text-align: center;
+}
+
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 750px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: center; /* Centrar el texto en todas las celdas */
+
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.button-66 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #009879;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 14px; /* Tamaño de fuente reducido */
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 20px; /* Altura mínima reducida */
+  min-width: 0;
+  outline: none;
+  padding: 5px 10px; /* Padding reducido */
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto; /* Ancho automático para ajustarse al contenido */
+  will-change: transform;
+}
+
+.button-66:disabled {
+  pointer-events: none;
+}
+
+.button-66:hover {
+  color: #fff;
+  background-color: #009879;
+  box-shadow: rgba(188, 255, 179, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-66:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.styled-table2 {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 750px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.styled-table2 thead tr {
+    background-color: #d9394d; /* Rojo claro */
+    color: #ffffff; /* Rojo oscuro */
+    text-align: left;
+}
+
+.styled-table2 th,
+.styled-table2 td {
+    padding: 12px 15px;
+    text-align: center; /* Centrar el texto en todas las celdas */
+
+}
+
+.styled-table2 tbody tr {
+    border-bottom: 1px solid #f52336; /* Rojo más oscuro */
+}
+
+.styled-table2 tbody tr:nth-of-type(even) {
+    background-color: #ffe9ec; /* Rojo claro */
+}
+
+.styled-table2 tbody tr:last-of-type {
+    border-bottom: 2px solid #721c24; /* Rojo oscuro */
+}
+
+.styled-table2 tbody tr.active-row {
+    font-weight: bold;
+    color: #dc3545; /* Rojo más oscuro */
+}
+
+.button-55 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #d9394d; /* Cambio del color del borde a rojo claro */
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 14px; /* Tamaño de fuente reducido */
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 20px; /* Altura mínima reducida */
+  min-width: 0;
+  outline: none;
+  padding: 5px 10px; /* Padding reducido */
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto; /* Ancho automático para ajustarse al contenido */
+  will-change: transform;
+}
+
+.button-55:disabled {
+  pointer-events: none;
+}
+
+.button-55:hover {
+  color: #fff;
+  background-color: #d9394d; /* Cambio del color de fondo al rojo claro */
+  box-shadow: rgba(188, 255, 179, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+/* Estilos generales del formulario */
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los elementos del formulario */
+label {
+    margin-right: 10px;
+}
+
+input[type="date"],
+select {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 20px;
+    background-color: #009879;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para cuando el botón es presionado */
+button:active {
+    background-color: #0056b3;
+}
+
+.success-message-container {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    height: 100vh; /* Altura de la pantalla completa */
+}
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    color: #155724;
+}
+.success-message li {
+    list-style-type: none;
+    margin: 5px 0;
+}
+
+.error-message {
+    color: #ff0015; /* Color del texto rojo oscuro */
+    margin-top: 10px; /* Margen superior */
+    font-size: 14px; /* Tamaño de fuente */
+}

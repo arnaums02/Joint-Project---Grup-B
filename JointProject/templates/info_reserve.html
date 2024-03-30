@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Información de Reserva</title>
+</head>
+<body>
+    <h1>Información de la Reserva</h1>
+    <h2>Mesa Reservada</h2>
+    <p>ID de la Mesa: {{ reserva.tableReserved.id }}</p>
+    <p>Capacidad de la Mesa: {{ reserva.tableReserved.capacity }}</p>
+    <h2>Detalles de la Reserva</h2>
+    <p>Nombre del Cliente: {{ reserva.clientName }}</p>
+    <p>Teléfono del Cliente: {{ reserva.clientPhoneNumber }}</p>
+    <p>Número de Clientes: {{ reserva.numberOfClients }}</p>
+    <p>Fecha de Reserva: {{ selected_date }}</p>
+    <p>Hora de Reserva: {{ selected_time }}</p>
+
+</body>
+</html>

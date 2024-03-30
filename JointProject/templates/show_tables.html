@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionador de Fecha y Hora</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+</head>
+<body>
+
+    <h1>Mesas restaurante hotel las palmeras.</h1>
+    <h2>Obtener mesas disponibles.</h2>
+    <div class="buscador-dies">
+        <form method="post" action="/show_tables/">
+            {% csrf_token %}
+            <label for="my_date_field">Fecha:</label>
+            <input type="date" id="my_date_field" name="my_date_field">
+            <label for="my_time_field">Hora:</label>
+            <select id="my_time_field" name="my_time_field">
+                <option value="12-13">12:00 - 13:00</option>
+                <option value="13-14">13:00 - 14:00</option>
+                <option value="14-15">14:00 - 15:00</option>
+                <option value="19-20">19:00 - 20:00</option>
+                <option value="20-21">20:00 - 21:00</option>
+                <option value="21-22">21:00 - 22:00</option>
+            </select>
+            <button type="submit">Seleccionar dia y hora.</button>
+        </form>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="error-message">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'success' %}
+                <div class="success-message">
+                    <strong>¡Éxito! </strong>{{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if selected_date and selected_time %}
+    <div class="container">
+        <h3>Mesas disponibles: {{ selected_date }} {{ selected_time }} </h3>
+        <table class="styled-table available-table">
+            <thead>
+                <tr>
+                    <th>Mesa ID</th>
+                    <th>Capacidad</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for table_info in available_tables %}
+                <tr>
+                    <td>{{ table_info.id }}</td>
+                    <td>{{ table_info.capacity }}</td>
+                    <td>{{ selected_date }}</td>
+                    <td>{{ selected_time }}</td>
+                    <td><a href="{% url 'reserve_table' table_id=table_info.id selected_date=selected_date selected_time=selected_time %}" class="button-66" role="button">Reservar mesa</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay mesas disponibles en esta fecha y hora.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Mesas reservadas: {{ selected_date }} {{ selected_time }} </h3>
+        <table class="styled-table2">
+            <thead>
+                <tr class="red-background">
+                    <th>Mesa ID</th>
+                    <th>Capacidad</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for table_info in reserved_tables %}
+                <tr>
+                    <td>{{ table_info.id }}</td>
+                    <td>{{ table_info.capacity }}</td>
+                    <td>{{ selected_date }}</td>
+                    <td>{{ selected_time }}</td>
+                    <td><a href="{% url 'consultar_reserva' table_id=table_info.id selected_date=selected_date selected_time=selected_time %}" class="button-55" role="button">Consultar reserva</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay mesas reservadas en esta fecha y hora.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</body>
+</html>
