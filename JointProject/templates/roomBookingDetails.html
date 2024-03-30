@@ -30,6 +30,8 @@
             <br>
             Check-out:{{ roomBooking.checkOut }}
             <br>
+            
+            <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit">Confirm check-in</button></a>
         </ul>
     </body>
 </html>
