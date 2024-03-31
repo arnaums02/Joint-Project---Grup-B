@@ -6,29 +6,41 @@
     <body>
         <h1>Detalles de la reserva de la habitacion</h1>
         <ul>
-            Habitacion:{{ roomBooking.roomBooked.roomNumber }}
+            Habitacion reservada: {{ roomBooking.roomBooked.roomNumber }}
             <br>
-            Fecha de inicio:{{ roomBooking.startDate }}
             <br>
-            Fecha de finalizacion:{{ roomBooking.endDate }}
+            Tipo de habitacion: {{ roomBooking.roomBooked.roomType }}
             <br>
-            Usuario que ha reservado:{{ roomBooking.userWhoBooked }}
             <br>
-            Huesped:{{ roomBooking.guestName }}
+            Fecha de inicio: {{ roomBooking.startDate }}
             <br>
-            Correo electronico del huesped:{{ roomBooking.guestEmail }}
             <br>
-            Número de telefono del huesped:{{ roomBooking.guestPhoneNumber }}
+            Fecha de finalizacion: {{ roomBooking.endDate }}
             <br>
-            DNI del huesped:{{ roomBooking.guestDNI }}
             <br>
-            Numero de huespedes en la habitación:{{ roomBooking.numberGuest }}
+            Usuario que ha reservado: {{ roomBooking.userWhoBooked }}
             <br>
-            Habitacion reservada:{{ roomBooking.roomBooked.roomNumber }}
             <br>
-            Check-in:{{ roomBooking.checkIn }}
+            Huesped: {{ roomBooking.guestName }}
             <br>
-            Check-out:{{ roomBooking.checkOut }}
+            <br>
+            Correo electronico del huesped: {{ roomBooking.guestEmail }}
+            <br>
+            <br>
+            Número de telefono del huesped: {{ roomBooking.guestPhoneNumber }}
+            <br>
+            <br>
+            DNI del huesped: {{ roomBooking.guestDNI }}
+            <br>
+            <br>
+            Numero de huespedes en la habitación: {{ roomBooking.numberGuest }}
+            <br>
+            <br>
+            Check-in: {{ roomBooking.checkIn }}
+            <br>
+            <br>
+            Check-out: {{ roomBooking.checkOut }}
+            <br>
             <br>
             
             <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit">Confirm check-in</button></a>
