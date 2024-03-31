@@ -6,11 +6,11 @@ from .models import RoomBookings, ReservedTable, Room
 class RoomBookingForm(forms.ModelForm):
     class Meta:
         model = RoomBookings
-        fields = ['guestName', 'guestEmail', 'guestPhoneNumber', 'guestDNI', 'numberGuest', 'roomBooked', 'startDate', 'endDate']
-        widgets = {
+        fields = ['guestName', 'guestEmail', 'guestPhoneNumber', 'guestDNI', 'numberGuest']
+        """widgets = {
             'startDate': forms.DateInput(attrs={'type': 'date'}),
             'endDate': forms.DateInput(attrs={'type': 'date'}),
-        }
+        }"""
 
 class AvailableRoomsForm(forms.Form):
     ROOM_TYPES = [

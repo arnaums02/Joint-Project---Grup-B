@@ -7,9 +7,11 @@
         <h1>Habitaciones disponibles</h1>
         <ul>
             {% for room in rooms %}
-            <li>Habitacion:{{ room.roomNumber }} Tipo de habitación:{{ room.roomType }}
-            <br>
-            </li>
+            <li>Habitación:{{ room.roomNumber }} Tipo de habitación:{{ room.roomType }}
+                <a href='{% url 'createRoomBookings' room.id startDate endDate %}'><button type="submit">Reservar</button></a>
+                <br>
+                <br>
+                </li>
             {% endfor %}
         </ul>
     </body>

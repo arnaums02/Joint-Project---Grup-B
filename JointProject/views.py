@@ -18,20 +18,27 @@ def obtainRoomBookings(request):
     }
     return render(request, 'obtainRoomBookings.html', context)
 
-def createRoomBookings(request):
+def createRoomBookings(request, roomId, startDate, endDate):
     form = RoomBookingForm(request.POST)
     context = {
         'form' : form
     }
     if form.is_valid():
         roomBooking = form.save(commit=False)
+        """
         if roomBooking.roomBooked.booked == False:
             roomBooking.userWhoBooked = request.user
             roomBooking.roomBooked.booked = True
             roomBooking.save()
             return redirect('obtainRoomBookings')
         else:
-            return HttpResponse("Room already booked")
+            return HttpResponse("Room already booked")"""
+        roomBooking.userWhoBooked = request.user
+        roomBooking.roomBooked = Room.objects.get(id=roomId)
+        roomBooking.startDate = startDate
+        roomBooking.endDate = endDate
+        roomBooking.save()
+        return redirect('obtainRoomBookings')
     return render(request, 'createRoomBooking.html', context)
 
 def deleteRoomBookings(request, roomBookingId):
@@ -66,7 +73,9 @@ def getAvailableRooms(request):
             availableRooms = checkAvailableRooms(startTime,endTime,roomType)
 
             context = {
-                'rooms' : availableRooms
+                'rooms' : availableRooms,
+                'startDate' : startTime,
+                'endDate' : endTime
             }
             return render(request, 'availableRoomBookings.html', context)
     else:
