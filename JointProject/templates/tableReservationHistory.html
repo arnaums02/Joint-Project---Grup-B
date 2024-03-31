@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Reservas de mesas</title>
+    </head>
+    <body>
+        <h1>Reservas de mesas</h1>
+        <ul>
+            {% for tablesReservation in tablesReservations %}
+            <li>Mesa: {{ tablesReservation.tableReserved }} Fecha: {{ tablesReservation.reservationDate }} Turno: {{ tablesReservation.shift }}
+                <br>
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

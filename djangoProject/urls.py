@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings, roomBookingDetails, checkIn, checkOut, show_tables, reserve_table, consultar_reserva, getAvailableRooms
+from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings, roomBookingDetails, checkIn, checkOut, show_tables, reserve_table, consultar_reserva, getAvailableRooms, getTablesReservationHistory
 from accounts.views import signIn
 
 urlpatterns = [
@@ -34,4 +34,6 @@ urlpatterns = [
     path('reserve_table/<uuid:table_id>/<str:selected_date>/<str:selected_time>/', reserve_table, name='reserve_table'),
     path('consultar_reserva/<uuid:table_id>/<str:selected_date>/<str:selected_time>/', consultar_reserva,name='consultar_reserva'),
     path('getAvailableRooms/', getAvailableRooms, name='getAvailableRooms'),
+    path('tableReservationHistory/', getTablesReservationHistory, name='getTablesReservationHistory'),
+
 ]
