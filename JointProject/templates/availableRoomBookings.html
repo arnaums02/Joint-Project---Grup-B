@@ -10,6 +10,21 @@
 </head>
 <body>
     <h1>Habitaciones disponibles</h1>
+    <div class="buscador-dies">
+        <form method="post" action="{% url 'getAvailableRooms' %}">
+            {% csrf_token %}
+            <label for="startDate">Fecha de inicio:</label>
+            <input type="date" id="startDate" name="startDate">
+            <label for="endDate">Fecha de finalización:</label>
+            <input type="date" id="endDate" name="endDate">
+            <select id="roomType" name="roomType">
+                <option value="standard">Estandar</option>
+                <option value="deluxe">De lujo</option>
+                <option value="low-cost">Economica</option>
+            </select>
+            <button type="submit">Ver disponibilidad</button>
+        </form>
+    </div>
     <table class="styled-table available-table">
             <thead>
                 <tr>
