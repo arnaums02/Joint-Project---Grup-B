@@ -1,14 +1,38 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Seleccione fecha y tipo de habitación</title>
-    </head>
-    <body>
-        <h1>Seleccione fecha y tipo de habitación</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="Submit">Ver disponibilidad</button>
-        </form>    
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccione fecha y tipo de habitación</title>
+    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+    <!-- Asegúrate de incluir la ruta correcta al archivo CSS -->
+</head>
+<body>
+    <h1>Seleccione fecha y tipo de habitación</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_startDate">Fecha de inicio:</label>
+            <input type="date" name="startDate" id="id_startDate">
+        </div>
+
+        <div class="form-group">
+            <label for="id_endDate">Fecha de fin:</label>
+            <input type="date" name="endDate" id="id_endDate">
+        </div>
+
+        <div class="form-group">
+            <label for="id_roomType">Tipo de habitación:</label>
+            <select name="roomType" id="id_roomType">
+                <option value="standard">Estandar</option>
+                <option value="deluxe">De lujo</option>
+                <option value="lowCost">Economica</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Ver disponibilidad</button>
+    </form>
+</body>
 </html>

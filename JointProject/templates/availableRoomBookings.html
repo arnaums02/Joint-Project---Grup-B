@@ -1,18 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Habitaciones disponibles</title>
-    </head>
-    <body>
-        <h1>Habitaciones disponibles</h1>
-        <ul>
-            {% for room in rooms %}
-            <li>Habitación:{{ room.roomNumber }} Tipo de habitación:{{ room.roomType }}
-                <a href='{% url 'createRoomBookings' room.id startDate endDate %}'><button type="submit">Reservar</button></a>
-                <br>
-                <br>
-                </li>
-            {% endfor %}
-        </ul>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitaciones disponibles</title>
+    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+
+</head>
+<body>
+    <h1>Habitaciones disponibles</h1>
+    <table class="styled-table available-table">
+            <thead>
+                <tr>
+                    <th>Habitación</th>
+                    <th>Tipo de habitación</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{ room.roomNumber }}</td>
+                    <td>{{ room.roomType }}</td>
+                    <td><a href="{% url 'createRoomBookings' room.id startDate endDate %}" role="button"><button class="button-66" type="submit">Reservar</button></a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
 </html>

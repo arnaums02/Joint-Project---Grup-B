@@ -1,14 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Reservas de habitaciones</title>
-    </head>
-    <body>
-        <h1>Crear o eliminar reservas de habitaciones</h1>
-        <form method="post">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas de habitaciones</title>
+    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+    
+</head>
+<body>
+    <h1>Crear o eliminar reservas de habitaciones</h1>
+    <form method="post" class="form-container">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="Submit">Confirmar reserva</button>
+        <button class="btn" type="submit">Confirmar reserva</button>
     </form>
-    </body>
+</body>
 </html>
