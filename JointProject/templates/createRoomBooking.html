@@ -10,9 +10,10 @@
 </head>
 <body>
     <h1>Crear reservas de habitaciones</h1>
-    <form method="post" class="form-container">
+    <form method="post" class="form_vertical">
         {% csrf_token %}
         {{ form.as_p }}
+        <br>
         <button class="btn" type="submit">Confirmar reserva</button>
     </form>
 </body>

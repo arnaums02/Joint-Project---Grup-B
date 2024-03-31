@@ -186,6 +186,15 @@ form {
     margin-bottom: 20px;
 }
 
+.form_vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 /* Estilos para los elementos del formulario */
 label {
     margin-right: 10px;
