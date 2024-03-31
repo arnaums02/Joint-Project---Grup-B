@@ -14,7 +14,7 @@ class Room(models.Model):
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    booked = models.BooleanField(default=False)
+    #booked = models.BooleanField(default=False)
     bookings = models.ManyToManyField('RoomBookings', related_name='bookings', blank=True)
     roomNumber = models.IntegerField(unique=True)
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Seleccione fecha y tipo de habitación</title>
+    </head>
+    <body>
+        <h1>Seleccione fecha y tipo de habitación</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="Submit">Ver disponibilidad</button>
+        </form>    
+    </body>
+</html>

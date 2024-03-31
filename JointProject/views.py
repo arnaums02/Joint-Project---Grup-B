@@ -1,9 +1,10 @@
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable
-from .forms import RoomBookingForm, MyForm, ReservationForm
+from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm
 from django.contrib import messages
 from datetime import datetime
+from django.db.models import Q
 # Create your views here.
 
 
@@ -41,12 +42,50 @@ def deleteRoomBookings(request, roomBookingId):
     else:
         return HttpResponse("Bad Request: Only POST requests are allowed for this view.")
 
-def availableRooms(request):
+"""def showAvailableRooms(request):
     rooms = Room.objects.filter(booked=False)
     context = {
         'rooms' : rooms
     }
-    return render(request, 'availableRoomBookings.html', context)
+    return render(request, 'availableRoomBookings.html', context)"""
+
+"""def getAvailableRooms(request):
+    if request.method == 'POST':    
+        form = AvailableRoomsForm(request.POST)
+        if form.is_valid():
+            room = """
+
+def getAvailableRooms(request):
+    if request.method == 'POST':
+        form = AvailableRoomsForm(request.POST)
+        if form.is_valid():
+            startTime = form.cleaned_data['startDate']
+            endTime = form.cleaned_data['endDate']
+            roomType = form.cleaned_data['roomType']
+
+            availableRooms = checkAvailableRooms(startTime,endTime,roomType)
+
+            context = {
+                'rooms' : availableRooms
+            }
+            return render(request, 'availableRoomBookings.html', context)
+    else:
+        form = AvailableRoomsForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'getAvailableRooms.html', context)
+
+def checkAvailableRooms(startTime, endTime, roomType):
+    colidingRoomBookings = RoomBookings.objects.filter( Q(startDate__lte=endTime, endDate__gte=startTime) |
+                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
+                                                        Q(endDate__gte=startTime, endDate__lte=endTime))
+
+    filteredTypeRooms = Room.objects.filter(roomType=roomType)
+    colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
+    availableRooms = filteredTypeRooms.exclude(pk__in=colidingRoomBookings.values_list('roomBooked__pk', flat=True))
+
+    return availableRooms
 
 def roomBookingDetails(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
