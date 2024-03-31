@@ -249,5 +249,12 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     }
     return render(request, 'info_reserve.html', context)
 
+def getTablesReservationHistory(request):
+    tablesReservations = ReservedTable.objects.all()
+    context = {
+        'tablesReservations': tablesReservations
+    }
+    return render(request, 'tableReservationHistory.html', context)
+
 
 
