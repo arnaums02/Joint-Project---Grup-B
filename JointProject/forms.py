@@ -1,7 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import RoomBookings, ReservedTable, Room
+from accounts.models import CustomUser
+from .models import RoomBookings, ReservedTable, Room, Bill, ItemToPay
+
 
 class RoomBookingForm(forms.ModelForm):
     class Meta:
@@ -47,3 +49,15 @@ class ReservationForm(forms.ModelForm):
     class Meta:
         model = ReservedTable
         fields = ['clientName', 'clientPhoneNumber', 'numberOfClients']
+
+class BillForm(forms.ModelForm):
+    class Meta:
+        model = Bill
+        fields = ['customer']
+
+class ItemToPayForm(forms.ModelForm):
+
+    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all())
+    class Meta:
+        model = ItemToPay
+        fields = ['name', 'details', 'price']
