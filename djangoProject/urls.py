@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings, roomBookingDetails, checkIn, checkOut, show_tables, reserve_table, consultar_reserva, getAvailableRooms, getTablesReservationHistory
+from JointProject.views import roomStaffHomePage, obtainRoomBookings, createRoomBookings, deleteRoomBookings, roomBookingDetails, checkIn, checkOut, show_tables, reserve_table, consultar_reserva, getAvailableRooms, getTablesReservationHistory, logOut
 from accounts.views import signIn
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', signIn, name='signIn'),
+    #path('', signIn, name='signIn'),
+    path('accounts/login/', signIn, name='signIn'),
     path('roomStaffHomePage/', roomStaffHomePage, name='roomStaffHomePage'),
     path('obtainRoomBookings/', obtainRoomBookings, name='obtainRoomBookings'),
     path('createRoomBooking/<uuid:roomId>/<str:startDate>/<str:endDate>/', createRoomBookings, name='createRoomBookings'),
@@ -35,5 +36,6 @@ urlpatterns = [
     path('consultar_reserva/<uuid:table_id>/<str:selected_date>/<str:selected_time>/', consultar_reserva,name='consultar_reserva'),
     path('getAvailableRooms/', getAvailableRooms, name='getAvailableRooms'),
     path('tableReservationHistory/', getTablesReservationHistory, name='getTablesReservationHistory'),
+    path('logOut/', logOut, name='logOut'),
 
 ]

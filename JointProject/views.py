@@ -1,3 +1,5 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable
@@ -8,9 +10,11 @@ from django.db.models import Q
 # Create your views here.
 
 
+@login_required(login_url='')
 def roomStaffHomePage(request):
     return render(request, 'roomStaffHomePage.html')
 
+@login_required(login_url='')
 def obtainRoomBookings(request):
     roomBookings = RoomBookings.objects.all()
     context = {
@@ -18,6 +22,7 @@ def obtainRoomBookings(request):
     }
     return render(request, 'obtainRoomBookings.html', context)
 
+@login_required(login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
     form = RoomBookingForm(request.POST)
     context = {
@@ -41,6 +46,7 @@ def createRoomBookings(request, roomId, startDate, endDate):
         return redirect('obtainRoomBookings')
     return render(request, 'createRoomBooking.html', context)
 
+@login_required(login_url='')
 def deleteRoomBookings(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
     if request.method == 'POST':
@@ -62,6 +68,7 @@ def deleteRoomBookings(request, roomBookingId):
         if form.is_valid():
             room = """
 
+@login_required(login_url='')
 def getAvailableRooms(request):
     if request.method == 'POST':
         form = AvailableRoomsForm(request.POST)
@@ -85,6 +92,7 @@ def getAvailableRooms(request):
     }
     return render(request, 'getAvailableRooms.html', context)
 
+@login_required(login_url='')
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter( Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                         Q(startDate__gte=startTime, startDate__lte=endTime) |
@@ -96,6 +104,7 @@ def checkAvailableRooms(startTime, endTime, roomType):
 
     return availableRooms
 
+@login_required(login_url='')
 def roomBookingDetails(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
     context = {
@@ -103,6 +112,7 @@ def roomBookingDetails(request, roomBookingId):
     }
     return render(request, 'roomBookingDetails.html', context)
 
+@login_required(login_url='')
 def checkIn(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
     context={
@@ -113,6 +123,7 @@ def checkIn(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
+@login_required(login_url='')
 def checkOut(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
     context={
@@ -123,6 +134,7 @@ def checkOut(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
+@login_required(login_url='')
 def show_tables(request):
     available_tables = None
     reserved_tables = None
@@ -160,6 +172,7 @@ def show_tables(request):
     return render(request, 'show_tables.html', context)
 
 
+@login_required(login_url='')
 def get_shift_with_time(time): #The format of the param(time) is HH-HH
     try:
         return Shift.objects.get(shift=time)
@@ -167,6 +180,7 @@ def get_shift_with_time(time): #The format of the param(time) is HH-HH
         raise Http404("El turno seleccionado no existe.")
 
 
+@login_required(login_url='')
 def get_available_and_reserved_tables(shift, selected_date):
     """
         Retrieves available and reserved tables for a specific shift and date.
@@ -200,6 +214,7 @@ def get_available_and_reserved_tables(shift, selected_date):
 
 
 
+@login_required(login_url='')
 def reserve_table(request, table_id, selected_date, selected_time):
     try:
         table = Table.objects.get(pk=table_id)
@@ -239,6 +254,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
     return render(request, 'reserve_table.html', context)
 
 
+@login_required(login_url='')
 def consultar_reserva(request, table_id, selected_date, selected_time):
     fecha_seleccionada = datetime.strptime(selected_date, "%d-%m-%Y").date()
 
@@ -258,12 +274,18 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     }
     return render(request, 'info_reserve.html', context)
 
+@login_required(login_url='')
 def getTablesReservationHistory(request):
     tablesReservations = ReservedTable.objects.all()
     context = {
         'tablesReservations': tablesReservations
     }
     return render(request, 'tableReservationHistory.html', context)
+
+
+def logOut(request):
+    logout(request)
+    return redirect('signIn')
 
 
 
