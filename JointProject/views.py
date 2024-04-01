@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable
-from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm
+from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm
 from django.contrib import messages
 from datetime import datetime
 from django.db.models import Q
@@ -286,6 +286,4 @@ def getTablesReservationHistory(request):
 def logOut(request):
     logout(request)
     return redirect('signIn')
-
-
 

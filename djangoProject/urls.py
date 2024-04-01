@@ -38,4 +38,5 @@ urlpatterns = [
     path('tableReservationHistory/', getTablesReservationHistory, name='getTablesReservationHistory'),
     path('logOut/', logOut, name='logOut'),
 
+
 ]
