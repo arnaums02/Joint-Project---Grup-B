@@ -21,7 +21,7 @@ from accounts.views import signIn
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', signIn, name='signIn'),
+    path('', signIn, name='signIn'),
     path('accounts/login/', signIn, name='signIn'),
     path('roomStaffHomePage/', roomStaffHomePage, name='roomStaffHomePage'),
     path('obtainRoomBookings/', obtainRoomBookings, name='obtainRoomBookings'),
