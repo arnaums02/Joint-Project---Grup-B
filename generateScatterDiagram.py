@@ -22,7 +22,9 @@ authors_of_commits = []
 author_colors = {
     "arnaums02": "blue",
     "quimsb03": "green",
-    "GiovanniMaerean": "red"
+    "GiovanniMaerean": "red",
+    "albertm15": "purple",
+    "PauBarahona22": "orange"
 }
 
 
