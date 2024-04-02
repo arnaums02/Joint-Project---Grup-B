@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 token = os.getenv('GITHUB_TOKEN')
-repo_name = "username/repository"
+repo_name = "arnaums02/Joint-Project---Grup-B"
 
 g = Github(token)
 repo = g.get_repo(repo_name)
@@ -20,8 +20,9 @@ authors_of_commits = []
 
 # Modify author names and colors for your repository
 author_colors = {
-    "author1": "blue",
-    "author2": "red"
+    "arnaums02": "blue",
+    "quimsb03": "green",
+    "GiovanniMaerean": "red"
 }
 
 
