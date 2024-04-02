@@ -1,24 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Pagos pendientes de los clientes</title>
-    </head>
-    <body>
-        <h1>Pagos pendientes de los clientes</h1>
-        Email del cliente: {{ bill.customer.email }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del pago del cliente</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del pago del cliente</h1>
+        <p><strong>Email del cliente:</strong> {{ bill.customer.email }}</p>
+        <p><strong>Precio total:</strong> {{ totalPrice }}</p>
+        <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a>
         <br>
-        Precio total: {{ totalPrice }}
-        <a href="{% url 'payBills' bill.id%}"><button type="submit">Pagar</button></a>
-        <br>
-        Items:
+        <p><strong>Items:</strong></p>
         <ul>
             {% for item in bill.items.all %}
                 <li>
-                    Nombre: {{ item.name }} <br>
-                    Detalles: {{ item.details }} <br>
-                    Precio: {{ item.price }} <br>
+                    <p><strong>Nombre:</strong> {{ item.name }}</p>
+                    <p><strong>Detalles:</strong> {{ item.details }}</p>
+                    <p><strong>Precio:</strong> {{ item.price }}</p>
                 </li>
             {% endfor %}
         </ul>
-    </body>
+    </div>
+</body>
 </html>
+
