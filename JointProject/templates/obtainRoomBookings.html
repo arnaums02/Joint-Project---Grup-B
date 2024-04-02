@@ -1,18 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Reservas de habitaciones</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+        <style>
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
     </head>
     <body>
         <h1>Reservas de habitaciones</h1>
         <ul>
             {% for roomBooking in roomBookings %}
-            <li>Habitacion:{{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}
-            <a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" >Ver detalles</button></a>    
-            <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
-                {% csrf_token %}
-                <button type="submit">Eliminar</button>
-            </form>
+            <li><strong>Habitacion:</strong> {{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}
+            <div class="button-container">
+                <a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>    
+                <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button-55">Eliminar</button>
+                </form>
+            </div>
             <br>
             </li>
             {% endfor %}
