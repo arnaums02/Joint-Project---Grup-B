@@ -1,15 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Pagos pendientes de los clientes</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos pendientes de los clientes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+</head>
+<body>
+    <div class="form_vertical">
         <h1>Pagos pendientes de los clientes</h1>
         {% for bill in bills %}
             <ul>
-                Email del cliente: {{ bill.customer.email }} 
-                <a href="{% url 'billDetails' bill.id %}"><button type="submit">Ver pagos pendientes</button></a>
+                <li>Email del cliente: {{ bill.customer.email }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></li>
             </ul>
         {% endfor %}
-    </body>
+    </div>
+</body>
 </html>
