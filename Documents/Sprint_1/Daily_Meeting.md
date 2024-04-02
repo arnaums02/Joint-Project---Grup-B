@@ -79,3 +79,56 @@ I: Information
 T: Task
 D: Decision
 I: Information
+
+# Daily Meeting: 25-03-2024
+
+| Assistant             | Role  |  
+|-----------------------|---|
+| Giovani, Quim, Albert | Developer  |   
+| Pau, Arnau            |  Front-End Expert |  
+| Arnau                 |  Scrum Master |  
+
+## Problems/Difficulties
+| Problem                               | Task | Owner | Description |
+|---------------------------------------|------|-------|-------------|
+| Problemes en la divisió de les issues | Divisió de les issues en subissues  | Arnau, Albert, Giovani, Pau, Quim   | Dificultat a l'hora de dividir les issues en subissues         |
+
+
+
+## Actions
+| Type | Description                        | Owner                             | Deadline   |
+|------|------------------------------------|-----------------------------------|------------|
+| T    | Divisió de les issues en subissues | Arnau, Albert, Giovani, Pau, Quim | 25-03-2024 |
+| T    | Desenvolupament de les issues      | Arnau, Albert, Giovani, Pau, Quim | 25-03-2024 |
+
+
+
+T: Task
+D: Decision
+I: Information
+
+# Daily Meeting: 02-04-2024
+
+| Assistant             | Role  |  
+|-----------------------|---|
+| Giovani, Quim, Albert | Developer  |   
+| Pau, Arnau            |  Front-End Expert |  
+| Arnau                 |  Scrum Master |  
+
+## Problems/Difficulties
+| Problem | Task | Owner | Description |
+|---------|------|-------|-------------|
+| xxx     | xxx  | xxx   | xxx         |
+
+
+
+## Actions
+| Type | Description                                    | Owner                             | Deadline   |
+|------|------------------------------------------------|-----------------------------------|------------|
+| T    | Finalització del desenvolupament de les issues | Arnau, Albert, Giovani, Pau, Quim | 02-04-2024 |
+
+
+
+T: Task
+D: Decision
+I: Information
