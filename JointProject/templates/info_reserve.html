@@ -1,20 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Información de Reserva</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Información de la Reserva</h1>
-    <h2>Mesa Reservada</h2>
-    <p>ID de la Mesa: {{ reserva.tableReserved.id }}</p>
-    <p>Capacidad de la Mesa: {{ reserva.tableReserved.capacity }}</p>
-    <h2>Detalles de la Reserva</h2>
-    <p>Nombre del Cliente: {{ reserva.clientName }}</p>
-    <p>Teléfono del Cliente: {{ reserva.clientPhoneNumber }}</p>
-    <p>Número de Clientes: {{ reserva.numberOfClients }}</p>
-    <p>Fecha de Reserva: {{ selected_date }}</p>
-    <p>Hora de Reserva: {{ selected_time }}</p>
-
+    <div class="container">
+        <h1>Información de la Reserva</h1>
+        <h2>Mesa Reservada</h2>
+        <p><strong>ID de la Mesa:</strong> {{ reserva.tableReserved.id }}</p>
+        <p><strong>Capacidad de la Mesa:</strong> {{ reserva.tableReserved.capacity }}</p>
+        <h2>Detalles de la Reserva</h2>
+        <p><strong>Nombre del Cliente:</strong> {{ reserva.clientName }}</p>
+        <p><strong>Teléfono del Cliente:</strong> {{ reserva.clientPhoneNumber }}</p>
+        <p><strong>Número de Clientes:</strong> {{ reserva.numberOfClients }}</p>
+        <p><strong>Fecha de Reserva:</strong> {{ selected_date }}</p>
+        <p><strong>Hora de Reserva:</strong> {{ selected_time }}</p>
+    </div>
 </body>
 </html>
