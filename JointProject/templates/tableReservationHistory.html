@@ -1,16 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Reservas de mesas</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+        <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .container li {
+            padding: 10px;
+        }
+    </style>
     </head>
     <body>
-        <h1>Reservas de mesas</h1>
-        <ul>
-            {% for tablesReservation in tablesReservations %}
-            <li>Mesa: {{ tablesReservation.tableReserved }} Fecha: {{ tablesReservation.reservationDate }} Turno: {{ tablesReservation.shift }}
-                <br>
-            </li>
-            {% endfor %}
-        </ul>
+        <div class="container">
+            <h1>Reservas de mesas</h1>
+            <ul>
+                {% for tablesReservation in tablesReservations %}
+                    <li><strong>Mesa: </strong>{{ tablesReservation.tableReserved }} <strong>Fecha:</strong> {{ tablesReservation.reservationDate }} <strong>Turno:</strong> {{ tablesReservation.shift }}
+                        <br>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </body>
 </html>
