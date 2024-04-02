@@ -28,7 +28,7 @@ jobs:
 
     - name: Ejecutar script Python
       run: |
-        python generate_checklist.py
+        python generate_weekly_checklist.py
         
     - name: Subir imagen generada
       uses: actions/upload-artifact@v2
