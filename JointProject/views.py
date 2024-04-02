@@ -300,7 +300,7 @@ def addItemToBill(request):
                 bill = Bill.objects.create(customer=customer)
             itemToPay.bill = bill
             itemToPay.save()
-            return redirect('roomStaffHomePage')
+            return redirect('getCustomersBills')
     else:
         form = ItemToPayForm()
     context = {
