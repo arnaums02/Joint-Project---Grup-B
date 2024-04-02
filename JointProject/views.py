@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import RoomBookings, Room, Table, Shift, ReservedTable
+from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm
 from django.contrib import messages
 from datetime import datetime
@@ -286,4 +286,53 @@ def getTablesReservationHistory(request):
 def logOut(request):
     logout(request)
     return redirect('signIn')
+
+@login_required(login_url='')
+def addItemToBill(request):
+    if request.method == 'POST':
+        form = ItemToPayForm(request.POST)
+        itemToPay = form.save(commit=False)
+        if form.is_valid():
+            customer = form.cleaned_data['customer']
+            try:
+                bill = Bill.objects.get(customer=customer)
+            except Bill.DoesNotExist:
+                bill = Bill.objects.create(customer=customer)
+            itemToPay.bill = bill
+            itemToPay.save()
+            return redirect('roomStaffHomePage')
+    else:
+        form = ItemToPayForm()
+    context = {
+        'form':form
+    }
+    return render(request, 'addItemToBill.html', context)
+
+
+@login_required(login_url='')
+def getCustomersBills(request):
+    bills = Bill.objects.all()
+    context = {
+        'bills': bills
+    }
+    return render(request, 'getCustomersBills.html', context)
+
+
+@login_required(login_url='')
+def billsDetails(request, billId):
+    bill = get_object_or_404(Bill, id=billId)
+    totalPrice = bill.calculateTotalPrice()
+    context = {
+        'bill': bill,
+        'totalPrice': totalPrice
+    }
+    return render(request, 'billDetails.html', context)
+
+
+@login_required(login_url='')
+def payBills(request, billId):
+    bill = get_object_or_404(Bill, id=billId)
+    bill.items.all().delete()
+    return redirect('getCustomersBills')
+
 
