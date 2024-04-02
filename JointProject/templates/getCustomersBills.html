@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pagos pendientes de los clientes</title>
+    </head>
+    <body>
+        <h1>Pagos pendientes de los clientes</h1>
+        {% for bill in bills %}
+            <ul>
+                Email del cliente: {{ bill.customer.email }} 
+                <a href="{% url 'billDetails' bill.id %}"><button type="submit">Ver pagos pendientes</button></a>
+            </ul>
+        {% endfor %}
+    </body>
+</html>

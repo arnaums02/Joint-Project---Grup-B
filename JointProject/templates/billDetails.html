@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pagos pendientes de los clientes</title>
+    </head>
+    <body>
+        <h1>Pagos pendientes de los clientes</h1>
+        Email del cliente: {{ bill.customer.email }}
+        <br>
+        Precio total: {{ totalPrice }}
+        <a href="{% url 'payBills' bill.id%}"><button type="submit">Pagar</button></a>
+        <br>
+        Items:
+        <ul>
+            {% for item in bill.items.all %}
+                <li>
+                    Nombre: {{ item.name }} <br>
+                    Detalles: {{ item.details }} <br>
+                    Precio: {{ item.price }} <br>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
