@@ -18,11 +18,8 @@ def signIn(request):
         print(user)
         if user is not None:
             login(request, user)
-            if user.user_type == 'roomStaff':
-                return redirect('roomStaffHomePage')
-            else:
-                messages.error(request, 'Usuario no permitido.')
-                return render(request, 'signIn.html')
+            return redirect('roomStaffHomePage')
+
         else:
             messages.error(request,'Correo electrónico o contraseña incorrectos.')
             return render(request, 'signIn.html')
