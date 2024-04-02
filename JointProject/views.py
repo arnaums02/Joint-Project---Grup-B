@@ -92,7 +92,7 @@ def getAvailableRooms(request):
     }
     return render(request, 'getAvailableRooms.html', context)
 
-@login_required(login_url='')
+
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter( Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                         Q(startDate__gte=startTime, startDate__lte=endTime) |
@@ -172,7 +172,7 @@ def show_tables(request):
     return render(request, 'show_tables.html', context)
 
 
-@login_required(login_url='')
+#@login_required(login_url='')
 def get_shift_with_time(time): #The format of the param(time) is HH-HH
     try:
         return Shift.objects.get(shift=time)
@@ -180,7 +180,7 @@ def get_shift_with_time(time): #The format of the param(time) is HH-HH
         raise Http404("El turno seleccionado no existe.")
 
 
-@login_required(login_url='')
+#@login_required(login_url='')
 def get_available_and_reserved_tables(shift, selected_date):
     """
         Retrieves available and reserved tables for a specific shift and date.
