@@ -26,7 +26,7 @@
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/GEI-Software/Music-Engine
+   git clone https://github.com/arnaums02/Joint-Project---Grup-B.git
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
