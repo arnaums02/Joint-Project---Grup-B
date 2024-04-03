@@ -48,9 +48,9 @@ Albert Martin Lopez - aml32@alumnes.udl.cat
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-[forks-shield]: https://img.shields.io/github/forks/GEI-Software/Music-Engine.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [forks-url]: https://github.com/arnaums02/Joint-Project---Grup-B/network/members
-[stars-shield]: https://img.shields.io/github/stars/GEI-Software/Music-Engine.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [stars-url]: https://github.com/arnaums02/Joint-Project---Grup-B/stargazers
-[issues-shield]: https://img.shields.io/github/issues/GEI-Software/Music-Engine.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [issues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues
