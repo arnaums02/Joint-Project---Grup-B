@@ -47,7 +47,7 @@ body {
     border-radius: 5px;
     height: 2em;
     font-size: 1em;
-    background-color: #52e5c7;
+    background-color: #d0faef;
     cursor: pointer;
 }
 
@@ -63,7 +63,6 @@ body {
     background-size: cover;
     background-position: center;
     object-fit: cover;
-    filter: brightness(10%) opacity(0.1); /* Aplicar filtros a la imagen de fondo */
 }
 
 .user-image img {

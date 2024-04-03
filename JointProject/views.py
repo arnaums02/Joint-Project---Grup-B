@@ -149,12 +149,15 @@ def show_tables(request):
 
             if selected_date and selected_time:  # Verificar si ambos campos están completos
                 shift_wanted = get_shift_with_time(selected_time)
+                if shift_wanted is None:
+                    messages.error(request, "No hay turnos disponibles actualmente.")
 
-                # Obtener mesas disponibles y reservadas usando la función get_available_and reserved_tables.
-                available_tables, reserved_tables = get_available_and_reserved_tables(shift_wanted, selected_date)
+                else:
+                    # Obtener mesas disponibles y reservadas usando la función get_available_and reserved_tables.
+                    available_tables, reserved_tables = get_available_and_reserved_tables(shift_wanted, selected_date)
 
-                start_hour = selected_time.split("-")[0] + ":00"
-                date_format = selected_date.strftime("%d-%m-%Y")
+                    start_hour = selected_time.split("-")[0] + ":00"
+                    date_format = selected_date.strftime("%d-%m-%Y")
         else:
             messages.error(request, "Por favor assegurate de rellenar tanto fecha como hora para buscar.")
             return redirect('show_tables')
@@ -177,7 +180,7 @@ def get_shift_with_time(time): #The format of the param(time) is HH-HH
     try:
         return Shift.objects.get(shift=time)
     except Shift.DoesNotExist:
-        raise Http404("El turno seleccionado no existe.")
+        return None
 
 
 #@login_required(login_url='')

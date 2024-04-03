@@ -31,5 +31,18 @@
 
         <button type="submit" class="btn">Ver disponibilidad</button>
     </form>
+    {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="error-message">
+                        {{ message }}
+                    </div>
+                {% elif message.tags == 'success' %}
+                    <div class="success-message">
+                        <strong>¡Éxito! </strong>{{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 </body>
 {% endblock %}
