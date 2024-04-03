@@ -7,11 +7,18 @@ Algo per provar
 {% block content %}
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/roomStaffHomePage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 
-<body>
-    <div class="someText">
-        <h1>Algo per provar</h1>
+<div class="someText" style="text-align: left; margin-left: 20px;">
+        <div class="user-image" style="margin-left: 20px; margin-top: 50px;">
+            <img src="{% static 'img/user.png' %}" alt="user-image" style="max-width: 200px;">
+        </div>
+        <div style="font-size: 1.5em;">
+            <p><strong>Nombre:</strong> <span>{{ request.user.first_name }}</span></p>
+            <p><strong>Apellido:</strong> <span>{{ request.user.last_name }}</span></p>
+            <p><strong>Cargo usuario:</strong> <span>{{ request.user.user_type }}</span></p>
+            <p><strong>Email:</strong> <span>{{ request.user.email }}</span></p>
+        </div>
     </div>
-
 </body>
 {% endblock %}

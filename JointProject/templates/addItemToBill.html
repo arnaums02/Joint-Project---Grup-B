@@ -1,6 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
     <head>
         <title>Añadir pago al cliente</title>
         <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
@@ -13,4 +15,5 @@
             <button type="submit" class="button-66">Confirmar</button>
         </form>
     </body>
+{% endblock %}
 </html>

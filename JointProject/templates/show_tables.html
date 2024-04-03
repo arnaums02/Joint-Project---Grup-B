@@ -1,12 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seleccionador de Fecha y Hora</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
 </head>
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 <body>
 
     <h1>Mesas restaurante hotel las palmeras.</h1>
@@ -102,4 +107,6 @@
     </div>
     {% endif %}
 </body>
+
+{% endblock %}
 </html>

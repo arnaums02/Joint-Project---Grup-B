@@ -95,13 +95,13 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
-.button:hover {
+button:hover {
     background-color: #0056b3;
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #333333;
+    color: #ffffff;
     padding: 10px 0;
     width: 100%;
 }
@@ -111,28 +111,9 @@ footer {
     width: 100%;
 }
 
-.logoFooter {
-    display: table-cell;
-    vertical-align: middle;
-    width: 20%;
-}
-
-.logoFooter img {
-    max-width: 100px;
-    height: auto;
-}
-
 .footerCopy {
     display: table-cell;
     vertical-align: middle; /* Alinea verticalmente el contenido */
     text-align: center;
-    width: 60%; /* Ocupa el 80% restante del ancho del footer */
-}
-
-.footerTextToCenter {
-    display: table-cell;
-    vertical-align: middle; /* Alinea verticalmente el contenido */
-    text-align: center;
-    width: 20%; /* Ocupa el 80% restante del ancho del footer */
-    color: transparent;
+    width: 100%; /* Ocupa el 80% restante del ancho del footer */
 }
