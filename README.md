@@ -3,6 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+[![Closed Issues][closedIssues-shield]][closedIssues-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -56,3 +57,6 @@ Albert Martin Lopez - aml32@alumnes.udl.cat
 [stars-url]: https://github.com/arnaums02/Joint-Project---Grup-B/stargazers
 [issues-shield]: https://img.shields.io/github/issues/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [issues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues
+[closedIssues-shield]: https://img.shields.io/badge/Closed%20Issues-41-green?style=for-the-badge
+[closedIssues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues?q=is%3Aissue+is%3Aclosed
+
