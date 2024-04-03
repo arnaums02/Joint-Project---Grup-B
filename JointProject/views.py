@@ -203,6 +203,7 @@ def get_available_and_reserved_tables(shift, selected_date):
     for table in all_tables:
         table_info = {
             'id': table.id,
+            'num': table.tableNumber,
             'capacity': table.capacity,
         }
         if table.id in reserved_table_ids:
@@ -247,6 +248,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
     context = {
         'form': form,
         'table_id': table_id,
+        'num': table.tableNumber,
         'capacity': table.capacity,
         'selected_date': selected_date,
         'selected_time': selected_time

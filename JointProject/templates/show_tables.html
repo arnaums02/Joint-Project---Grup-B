@@ -48,7 +48,7 @@
         <table class="styled-table available-table">
             <thead>
                 <tr>
-                    <th>Mesa ID</th>
+                    <th>Numero de mesa</th>
                     <th>Capacidad</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -58,7 +58,7 @@
             <tbody>
                 {% for table_info in available_tables %}
                 <tr>
-                    <td>{{ table_info.id }}</td>
+                    <td>{{ table_info.num }}</td>
                     <td>{{ table_info.capacity }}</td>
                     <td>{{ selected_date }}</td>
                     <td>{{ selected_time }}</td>
@@ -76,7 +76,7 @@
         <table class="styled-table2">
             <thead>
                 <tr class="red-background">
-                    <th>Mesa ID</th>
+                    <th>Numero de mesa</th>
                     <th>Capacidad</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -86,7 +86,7 @@
             <tbody>
                 {% for table_info in reserved_tables %}
                 <tr>
-                    <td>{{ table_info.id }}</td>
+                    <td>{{ table_info.num }}</td>
                     <td>{{ table_info.capacity }}</td>
                     <td>{{ selected_date }}</td>
                     <td>{{ selected_time }}</td>

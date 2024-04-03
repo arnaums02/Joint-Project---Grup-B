@@ -35,9 +35,13 @@ urlpatterns = [
     path('reserve_table/<uuid:table_id>/<str:selected_date>/<str:selected_time>/', reserve_table, name='reserve_table'),
     path('consultar_reserva/<uuid:table_id>/<str:selected_date>/<str:selected_time>/', consultar_reserva,name='consultar_reserva'),
     path('getAvailableRooms/', getAvailableRooms, name='getAvailableRooms'),
+
     path('tableReservationHistory/', getTablesReservationHistory, name='getTablesReservationHistory'),
+
     path('logOut/', logOut, name='logOut'),
+
     path('addItemToBill/', addItemToBill, name='addItemToBill'),
+
     path('getCustomersBills/', getCustomersBills, name='getCustomersBills'),
     path('billDetails/<uuid:billId>', billsDetails, name='billDetails'),
     path('payBills/<uuid:billId>', payBills, name='payBills'),

@@ -12,25 +12,27 @@
         <div class="headerGeneral">
             <nav class="mainMenu">
                 <ul>
-                    <li><a href="#">Inici</a></li>
+                    <li>
+                        <div class="logo">
+                            <a href="{% url 'roomStaffHomePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+                        </div>
+                    </li>
                     {% if user.user_type == 'roomStaff' %}
-                    <li><a href="{% url 'getAvailableRooms' %}">Habitacions</a></li>
-                    <li><a href= "{% url 'show_tables' %}">Restaurant</a></li>
+                        <li><a href="{% url 'getAvailableRooms' %}">Habitaciones</a></li>
+                        <li><a href= "{% url 'show_tables' %}">Restaurante</a></li>
+                        <li><a href= "{% url 'obtainRoomBookings' %}">Reservas de habitaciones</a></li>
+                        <li><a href= "{% url 'getTablesReservationHistory' %}">Reservas de mesas</a></li>
+                        <li><a href= "{% url 'getCustomersBills' %}">Pagos pendientes</a></li>
+                        <li><a href= "{% url 'addItemToBill' %}">Añadir pago</a></li>
                     {% else %}
                     <li><a href="#">Acerca de</a></li>
                     <li><a href="#">Servicios</a></li>
                     {% endif %}
-                    <li><a href="#">Contacto</a></li>
+                    <!--<li><a href="#">Contacto</a></li>-->
                 </ul>
             </nav>
-            <div class="logo">
-                <img src="/static/img/logo.png" alt="Logo">
-            </div>
-            <!-- Si crem una vista que ens indiqui si l'usuari esta login, podem mostrar:
-             - Iniciar sessió si no ha iniciat la sessió
-             - Tancar sessió si la sessió ja esta iniciada -->
             <div class="extra-button">
-                <a href="{% url 'logOut' %}" class="button"> Tancar Sessió </a>
+                <a href="{% url 'logOut' %}" class="button">Cerrar sesión</a>
             </div>
         </div>
 
@@ -44,7 +46,7 @@
     <footer>
         <div class="footerGeneral">
             <div class="logoFooter">
-                <img src="/static/img/logo.png" alt="Logo">
+                <img src="{% static 'img/logo.png' %}" alt="Logo">
             </div>
             <div class="footerCopy">
                 <p> © 2024 Hotel Las Palmeras. All rights reserved </p>

@@ -38,6 +38,10 @@ class RoomBookings(models.Model):
 class Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     capacity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    tableNumber = models.IntegerField(unique=True, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.tableNumber)
 
 
 class Shift(models.Model):
@@ -51,6 +55,8 @@ class Shift(models.Model):
     )
 
     shift = models.CharField(max_length=5, choices=SHIFT_CHOICES, unique=True)
+    def __str__(self):
+        return self.shift
 
 
 class ReservedTable(models.Model):

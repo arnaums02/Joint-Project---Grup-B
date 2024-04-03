@@ -21,12 +21,12 @@
     <div class="container">
         <h1>Información de la Reserva</h1>
         <h2>Mesa Reservada</h2>
-        <p><strong>ID de la Mesa:</strong> {{ reserva.tableReserved.id }}</p>
+        <p><strong>Numero de la Mesa:</strong> {{ reserva.tableReserved.tableNumber }}</p>
         <p><strong>Capacidad de la Mesa:</strong> {{ reserva.tableReserved.capacity }}</p>
         <h2>Detalles de la Reserva</h2>
         <p><strong>Nombre del Cliente:</strong> {{ reserva.clientName }}</p>
         <p><strong>Teléfono del Cliente:</strong> {{ reserva.clientPhoneNumber }}</p>
-        <p><strong>Número de Clientes:</strong> {{ reserva.numberOfClients }}</p>
+        <p><strong>Número de Comensales:</strong> {{ reserva.numberOfClients }}</p>
         <p><strong>Fecha de Reserva:</strong> {{ selected_date }}</p>
         <p><strong>Hora de Reserva:</strong> {{ selected_time }}</p>
     </div>
