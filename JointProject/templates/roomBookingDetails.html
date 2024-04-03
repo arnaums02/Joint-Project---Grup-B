@@ -1,6 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
     <head>
         <title>Detalles de la reserva de la habitacion</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
@@ -38,4 +40,5 @@
             </ul>
         </div>
     </body>
+{% endblock %}
 </html>
