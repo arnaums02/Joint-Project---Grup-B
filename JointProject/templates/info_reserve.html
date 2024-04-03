@@ -1,8 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
+
+{% block content %}
     <title>Información de Reserva</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
     <style>
@@ -16,7 +16,6 @@
             margin-bottom: 20px;
         }
     </style>
-</head>
 <body>
     <div class="container">
         <h1>Información de la Reserva</h1>
@@ -31,4 +30,4 @@
         <p><strong>Hora de Reserva:</strong> {{ selected_time }}</p>
     </div>
 </body>
-</html>
+{% endblock %}

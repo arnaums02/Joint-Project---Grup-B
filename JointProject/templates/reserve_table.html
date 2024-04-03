@@ -1,11 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
+
+{% block content %}
     <title>Reservar mesa</title>
     <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
-</head>
+
 <body>
     <h1>Reserva de Mesa</h1>
     <p>Numero de mesa: {{ num }}</p>
@@ -23,4 +23,4 @@
         <button class="btn" type="submit">Confirmar reserva</button>
     </form>
 </body>
-</html>
+{% endblock %}
