@@ -35,6 +35,6 @@ For the conclusions we need to reflect improvement points reflected by our custo
 
 | Client Improvement  | Description |  
 |---|---|
-| Client Improvement Action 1 | Task Description  |  
-| Client Improvement Action 2  |  Task Description | 
-| Client Improvement Action 3  |  Task Description | 
+| Les reserves no eliminarles | El boto de eliminar reserva que no impliqui eliminar de la base de dades, sino que es canceli i quedi constancia en la web  |  
+| No poder relitzar check-out sense el check-in |  Ocultar el botó de check-out mentre no s'hagi realitzat el check-in | 
+| Millorar l'apariència de la web  |  Millorar la apariencia de la web, sobretot els formularis de reserva. | 
