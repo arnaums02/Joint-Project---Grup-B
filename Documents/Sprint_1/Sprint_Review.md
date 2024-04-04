@@ -15,9 +15,8 @@
 
 ## Burn-down Graph
 
-*Here we need an image reflecting the advances in the Burn-down graph. Complementing the image, we need a small paragraph describing the Scrum Master opinion about the advances.*
+![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/bbd432af-c84a-4df4-a7ad-6942baf8d5ca)
 
-[IMAGE GOES HERE]
 
 [DESCRIPTION GOES HERE]
 
