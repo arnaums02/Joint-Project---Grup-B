@@ -4,14 +4,14 @@
 
 | Action  | Brief Description  | Completed  
 |---|---|---|
-| Realitzar check-in  | Deixar constància del check-in del client. |   [Yes/No] |
-| Realitzar check-out |  Deixar constància del check-out del client. |  [Yes/No] |
-| Realitzar reserva d'habitació |  Realitzar les reserves de les habitacions que desitja el client. |  [Yes/No] |
-| Obtenir habitacions |  Obtenir les habitacions disponibles. |  [Yes/No] |
-| Obtenir taules |  Obtenir les taules reservades del restaurant. |  [Yes/No] |
-| Reservar taules |  Reservar taules del restaurant. |  [Yes/No] |
-| Realitzar cobraments | Realitzar els cobraments dels clients. | [Yes/No] |
-| Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes/No] |
+| Realitzar check-in  | Deixar constància del check-in del client. |   [Yes] |
+| Realitzar check-out |  Deixar constància del check-out del client. |  [Yes] |
+| Realitzar reserva d'habitació |  Realitzar les reserves de les habitacions que desitja el client. |  [Yes] |
+| Obtenir habitacions |  Obtenir les habitacions disponibles. |  [Yes] |
+| Obtenir taules |  Obtenir les taules reservades del restaurant. |  [Yes] |
+| Reservar taules |  Reservar taules del restaurant. |  [Yes] |
+| Realitzar cobraments | Realitzar els cobraments dels clients. | [Yes] |
+| Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes] |
 
 ## Burn-down Graph
 
