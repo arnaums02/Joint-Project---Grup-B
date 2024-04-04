@@ -19,14 +19,13 @@
 
 
 
-[DESCRIPTION GOES HERE]
-
+Com a Scrum Master opino que hem tardat a comensar a treballar, com es pot veure reflectit en els grafics. El motiu es que no teniem prous coneixements sobre les tecnològies que s'havien d'utilitzar i els primers dies els vam invertir en documentar-nos per fer una web òptima desde un principi.
 
 ## Burn-up (Velocity) Graph
 
 ![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/88183e8a-24cb-46bc-b9fc-2003ce977b90)
 
-[DESCRIPTION GOES HERE]
+Com a Scrum Master, com ja he comentat anteriorment, l'inici del projecte ha sigut una mica tardíu per les raons que ja hem comentat anteriorment, però considero que un cop ja hem obtingut els coneixements bàsics, ens hem cordinat molt bé com a equip i hem pogut avançar la feina de manera ràpida i òptima.
 
 ## Client Improvements 
 
