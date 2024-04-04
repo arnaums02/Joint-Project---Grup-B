@@ -15,16 +15,16 @@
 
 ## Burn-down Graph
 
-![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/bbd432af-c84a-4df4-a7ad-6942baf8d5ca)
+![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/e9c497b7-60be-40af-9c51-5b81911ea00a)
+
 
 
 [DESCRIPTION GOES HERE]
 
 
-## Brun-up (Velocity) Graph
-*Here we need an image reflecting the advances in the Burn-up graph. Complementing the image, we need a small paragraph describing the Scrum Master opinion about the advances.*
+## Burn-up (Velocity) Graph
 
-[IMAGE GOES HERE]
+![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/88183e8a-24cb-46bc-b9fc-2003ce977b90)
 
 [DESCRIPTION GOES HERE]
 
