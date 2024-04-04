@@ -1,4 +1,4 @@
-# Sprint Planing Title (19-03-2024)
+# Sprint Planing Hotel Las Palmeras (19-03-2024)
 
 | Assistant             | Role  |  
 |-----------------------|---|
