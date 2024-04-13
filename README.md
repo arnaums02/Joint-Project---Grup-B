@@ -49,7 +49,7 @@ Albert Martin Lopez - aml32@alumnes.udl.cat
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/GEI-Software/Music-Engine.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [contributors-url]: https://github.com/arnaums02/Joint-Project---Grup-B/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [forks-url]: https://github.com/arnaums02/Joint-Project---Grup-B/network/members
