@@ -34,7 +34,6 @@ jobs:
     - name: Configurar base de datos de prueba
       run: |
         python manage.py migrate
-        python manage.py loaddata initial_data.json
         
     - name: Ejecutar Tests Django
       run: |
