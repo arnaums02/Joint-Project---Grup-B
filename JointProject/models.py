@@ -104,3 +104,29 @@ class ItemPayed(models.Model):
     details = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
+
+class RestaurantProduct(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class RestaurantOrder(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    products = models.ManyToManyField(RestaurantProduct, through="RestaurantOrderedProduct")
+
+    def calculateTotalOrder(self):
+        totalPrice = 0
+        for orderedProduct in self.products.all():
+            totalPrice += orderedProduct.quantity * orderedProduct.product.price
+        return totalPrice
+
+class RestaurantOrderedProduct(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    product = models.ForeignKey(RestaurantProduct, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    order = models.ForeignKey(RestaurantOrder, on_delete=models.CASCADE)
+
+
+

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from accounts.models import CustomUser
-from JointProject.models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, ItemToPay, ItemPayed, CompletedPayment
+from JointProject.models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, ItemToPay, ItemPayed, CompletedPayment, RestaurantOrderedProduct, RestaurantProduct, RestaurantOrder
 
 
 # Register your models here.
@@ -31,6 +31,10 @@ admin.site.register(Bill)
 admin.site.register(ItemToPay)
 admin.site.register(CompletedPayment)
 admin.site.register(ItemPayed)
+admin.site.register(RestaurantProduct)
+admin.site.register(RestaurantOrder)
+admin.site.register(RestaurantOrderedProduct)
+
 
 
 @admin.register(Table)
