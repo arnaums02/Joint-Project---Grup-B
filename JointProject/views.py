@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill
+from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm
 from django.contrib import messages
 from datetime import datetime
@@ -337,7 +337,23 @@ def billsDetails(request, billId):
 @login_required(login_url='')
 def payBills(request, billId):
     bill = get_object_or_404(Bill, id=billId)
-    bill.items.all().delete()
+    items = bill.items.all()
+    customer = bill.customer
+
+    try:
+        completedPayment = CompletedPayment.objects.get(customer=customer)
+    except CompletedPayment.DoesNotExist:
+        completedPayment = CompletedPayment.objects.create(customer=customer)
+
+    for item in items:
+        ItemPayed.objects.create(
+            name=item.name,
+            price=item.price,
+            details=item.details,
+            completedPayment=completedPayment
+        )
+
+    items.delete()
     return redirect('getCustomersBills')
 
 

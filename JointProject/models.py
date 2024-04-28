@@ -86,3 +86,21 @@ class ItemToPay(models.Model):
     bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='items')
     details = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class CompletedPayment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customerWhoPayed')
+
+    def calculateTotalPayed(self):
+        totalPrice = sum(item.price for item in self.items.all())
+        return totalPrice
+
+
+class ItemPayed(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=50)
+    completedPayment = models.ForeignKey(CompletedPayment, on_delete=models.CASCADE, related_name='items')
+    details = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
