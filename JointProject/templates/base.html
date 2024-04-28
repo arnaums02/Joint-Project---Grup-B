@@ -1,55 +1,122 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Staff Home Page</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-    <header>
-        <div class="headerGeneral">
-            <nav class="mainMenu">
-                <ul>
-                    <li>
-                        <div class="logo">
-                            <a href="{% url 'roomStaffHomePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
-                        </div>
-                    </li>
-                    {% if user.user_type == 'roomStaff' %}
-                        <li><a href="{% url 'getAvailableRooms' %}">Habitaciones</a></li>
-                        <li><a href= "{% url 'show_tables' %}">Restaurante</a></li>
-                        <li><a href= "{% url 'obtainRoomBookings' %}">Reservas de habitaciones</a></li>
-                        <li><a href= "{% url 'getTablesReservationHistory' %}">Reservas de mesas</a></li>
-                        <li><a href= "{% url 'getCustomersBills' %}">Pagos pendientes</a></li>
-                        <li><a href= "{% url 'addItemToBill' %}">Añadir pago</a></li>
-                    {% else %}
-                    <li><a href="#">Acerca de</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    {% endif %}
-                    <!--<li><a href="#">Contacto</a></li>-->
-                </ul>
-            </nav>
-            <div class="extra-button">
-                <a href="{% url 'logOut' %}" class="button">Cerrar sesión</a>
-            </div>
-        </div>
+<!-- Barra de navegació -->
+<nav>
+  <div class="wrapper">
+      <div class="logo"><a href="{% url 'roomStaffHomePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" style="max-height: 100px;"></a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      {% if user.user_type == 'roomStaff' %}
+      <ul class="nav-links">
+          <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+          <li>
+              <a href="#" class="desktop-item">Habitaciones</a>
+              <input type="checkbox" id="showDrop">
+              <label for="showDrop" class="mobile-item">Habitaciones</label>
+              <ul class="drop-menu">
+                  <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Disponibles</a></li>
+                  <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Reservadas</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#" class="desktop-item">Restaurante</a>
+              <input type="checkbox" id="showDrop">
+              <label for="showDrop" class="mobile-item">Restaurante</label>
+              <ul class="drop-menu">
+                  <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
+                  <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#" class="desktop-item">Pagos</a>
+              <input type="checkbox" id="showDrop">
+              <label for="showDrop" class="mobile-item">Pagos</label>
+              <ul class="drop-menu">
+                  <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
+                  <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#" class="desktop-item">Usuario</a>
+              <input type="checkbox" id="showDrop">
+              <label for="showDrop" class="mobile-item">Usuario</label>
+              <ul class="drop-menu">
+                  <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+              </ul>
+          </li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
 
-    </header>
+      {% else %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                  <li><a href="#">Acerca de</a></li>
+                  <li><a href="#">Servicios</a></li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop">
+                  <label for="showDrop" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                  </ul>
+              </li>
+          </ul>
+      {% endif %}
+  </div>
+</nav>
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
+<div class="main-content">
+<!-- Contingut principal -->
+<div class="body-text">
+    {% block content %}
+    {% endblock %}
+</div>
+</div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
     </div>
-    
-    <footer>
-        <div class="footerGeneral">
-            <div class="footerCopy">
-                <p> © 2024 Hotel Las Palmeras. All rights reserved </p>
-                <p> Contact: info@mycompany.com | Phone: 123-456-7890 </p>
-            </div>
-        </div>
-    </footer>
+    <ul class="social-icon">
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.facebook.com/universitatdelleida/?locale=ca_ES">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://twitter.com/UdL_info?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.linkedin.com/school/universitat-de-lleida/">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.instagram.com/epsudl/">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a></li>
+    </ul>
+    <ul class="menu">
+      <li class="menu__item"><a class="menu__link" href="{% url 'roomStaffHomePage' %}">Home</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Acerca de</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Servicios</a></li>
+
+    </ul>
+    <p> © 2024 Hotel Las Palmeras. All rights reserved </p>
+    <p> Contact: info@mycompany.com | Phone: 123-456-7890 </p>
+</footer>
+
+<!-- Scripts -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
 </html>
