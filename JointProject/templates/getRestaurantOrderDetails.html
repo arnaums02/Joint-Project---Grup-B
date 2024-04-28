@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <title>Detalles del pedido del restaurante</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin-top: 250px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <h1>Detalles del pedido del restaurante</h1>
+        <p><strong>Precio total:</strong> {{ totalPrice }}</p>
+        <br>
+        <p><strong>Productos:</strong></p>
+    <ul>
+        {% for ordered_product in order.restaurantorderedproduct_set.all %}
+            <li>
+                <p><strong>Nombre:</strong> {{ ordered_product.product.name }}</p>
+                <p><strong>Cantidad:</strong> {{ ordered_product.quantity }}</p>
+                <p><strong>Precio:</strong> {{ ordered_product.product.price }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+</body>
+{% endblock %}
+

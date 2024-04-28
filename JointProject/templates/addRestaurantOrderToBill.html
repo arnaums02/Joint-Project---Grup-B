@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+        <title>Añadir pedido del restaurante a pagos pendientes del cliente</title>
+        <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+
+    <body>
+        <h1>Añadir pedido del restaurante a pagos pendientes del cliente</h1>
+        <form method="post" class="form_vertical">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button-66">Confirmar</button>
+        </form>
+    </body>
+{% endblock %}

@@ -2,8 +2,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed
-from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm
+from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
+    RestaurantProduct, RestaurantOrder, ItemToPay
+from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm, RestaurantOrderForm
 from django.contrib import messages
 from datetime import datetime
 from django.db.models import Q
@@ -374,5 +375,63 @@ def completedPaymentsDetails(request, completedPaymentsId):
         'totalPayed': totalPayed
     }
     return render(request, 'completedPaymentsDetails.html', context)
+
+@login_required(login_url='')
+def addRestaurantOrder(request):
+    return render(request, 'addRestaurantOrder.html')
+
+@login_required(login_url='')
+def getRestaurantOrdersHistory(request):
+    context = {
+        'restaurantOrders': RestaurantOrder.objects.all()
+    }
+    return render(request, 'getRestaurantOrdersHistory.html', context)
+
+@login_required(login_url='')
+def addRestaurantOrderToBill(request):
+    if request.method == 'POST':
+        form = RestaurantOrderForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            customer = form.cleaned_data['customer']
+            try:
+                bill = Bill.objects.get(customer=customer)
+            except Bill.DoesNotExist:
+                bill = Bill.objects.create(customer=customer)
+            ItemToPay.objects.create(name="Restaurante", bill=bill, details = "Fecha:"+form.cleaned_data['date'].strftime(""), price = order.calculateTotalOrder())
+            return redirect('getRestaurantOrdersHistory')
+    else:
+        form = RestaurantOrderForm()
+        context = {
+            'form': form
+        }
+    return render(request, 'addRestaurantOrderToBill.html', context)
+
+
+@login_required(login_url='')
+def addRestaurantPayedOrder(request):
+    if request.method == 'POST':
+        form = RestaurantOrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('getRestaurantOrdersHistory')
+    else:
+        form = RestaurantOrderForm()
+        form.fields.pop('customer')
+        context = {
+            'form': form
+        }
+    return render(request, 'addRestaurantPayedOrder.html', context)
+
+@login_required(login_url='')
+def getRestaurantOrderDetails(request, orderId):
+    order = get_object_or_404(RestaurantOrder, id=orderId)
+    totalPrice = order.calculateTotalOrder()
+    context = {
+        'order': order,
+        'totalPrice':totalPrice
+    }
+    return render(request, 'getRestaurantOrderDetails.html', context)
+
 
 

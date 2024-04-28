@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from accounts.models import CustomUser
-from .models import RoomBookings, ReservedTable, Room, Bill, ItemToPay
+from .models import RoomBookings, ReservedTable, Room, Bill, ItemToPay, RestaurantOrderedProduct, RestaurantOrder, RestaurantProduct, Table, Shift
 
 
 class RoomBookingForm(forms.ModelForm):
@@ -61,3 +61,32 @@ class ItemToPayForm(forms.ModelForm):
     class Meta:
         model = ItemToPay
         fields = ['name', 'details', 'price']
+
+class RestaurantOrderForm(forms.ModelForm):
+    class Meta:
+        model = RestaurantOrder
+        fields = ['customer', 'table', 'date', 'shift']
+
+    def __init__(self, *args, **kwargs):
+        super(RestaurantOrderForm, self).__init__(*args, **kwargs)
+        self.fields['customer'].queryset = CustomUser.objects.all()  # Obtener todos los clientes disponibles
+        self.fields['table'].queryset = Table.objects.all()  # Obtener todas las mesas disponibles
+        self.fields['date'].widget = forms.DateInput(attrs={'type': 'date'})  # Agregar un widget de fecha
+        self.fields['shift'].queryset = Shift.objects.all()  # Obtener todos los turnos disponibles
+
+        products = RestaurantProduct.objects.all()
+        for product in products:
+            self.fields[f'quantity_{product.id}'] = forms.IntegerField(label=product.name, min_value=0, required=False)
+
+    def save(self, commit=True):
+        instance = super(RestaurantOrderForm, self).save(commit=False)
+        if commit:
+            instance.save()
+
+        for field_name, field_value in self.cleaned_data.items():
+            if field_name.startswith('quantity_') and field_value:
+                product_id = field_name.replace('quantity_', '')
+                quantity = field_value
+                ordered_product = RestaurantOrderedProduct.objects.create(product_id=product_id, quantity=quantity, order=instance)
+
+        return instance
