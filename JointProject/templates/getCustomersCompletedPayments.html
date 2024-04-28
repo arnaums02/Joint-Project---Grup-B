@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <title>Pagos realizados de los clientes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+<body>
+    <div class="form_vertical">
+        <h1>Pagos realizados de los clientes</h1>
+        {% for completedPayment in completedPayments %}
+            <ul>
+                <li>Email del cliente: {{ completedPayment.customer.email }} 
+                <!--    <<a href="{% url 'billDetails' completedPayment.id %}" class="button-66" role="button">Ver pagos completados</a>
+                --></li>
+            </ul>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

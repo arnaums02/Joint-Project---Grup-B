@@ -356,4 +356,12 @@ def payBills(request, billId):
     items.delete()
     return redirect('getCustomersBills')
 
+@login_required(login_url='')
+def getCustomersCompletedPayments(request):
+    completedPayments = CompletedPayment.objects.all()
+    context = {
+        'completedPayments': completedPayments
+    }
+    return render(request, 'getCustomersCompletedPayments.html', context)
+
 
