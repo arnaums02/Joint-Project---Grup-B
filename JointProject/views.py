@@ -365,3 +365,14 @@ def getCustomersCompletedPayments(request):
     return render(request, 'getCustomersCompletedPayments.html', context)
 
 
+@login_required(login_url='')
+def completedPaymentsDetails(request, completedPaymentsId):
+    completedPayment = get_object_or_404(CompletedPayment, id=completedPaymentsId)
+    totalPayed = completedPayment.calculateTotalPayed()
+    context = {
+        'completedPayment': completedPayment,
+        'totalPayed': totalPayed
+    }
+    return render(request, 'completedPaymentsDetails.html', context)
+
+
