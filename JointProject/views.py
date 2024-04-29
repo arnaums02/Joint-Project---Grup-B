@@ -466,7 +466,11 @@ def roomsForCleaning(request):
 
 @login_required(login_url='')
 def cleanedRooms(request):
-    return render(request, 'cleanedRooms.html')
+    roomBookings = RoomBookings.objects.all()
+    context = {
+        'roomBookings': roomBookings
+    }
+    return render(request, 'cleanedRooms.html', context)
 
 
 def roomIsClean(request, roomBookingId):
@@ -475,5 +479,15 @@ def roomIsClean(request, roomBookingId):
     if roomBooking.checkIn:
         roomBooking.toClean = False
         roomBooking.cleaned = True
+        roomBooking.save()
+    return render(request, 'roomsForCleaning.html')
+
+
+def roomToBeCleaned(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    if roomBooking.checkIn:
+        roomBooking.toClean = True
+        roomBooking.cleaned = False
         roomBooking.save()
     return render(request, 'roomsForCleaning.html')
