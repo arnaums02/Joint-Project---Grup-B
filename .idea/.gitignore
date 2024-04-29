@@ -7,3 +7,4 @@
 /dataSources/
 /dataSources.local.xml
 __pycache__/
+db.sqlite3
