@@ -34,6 +34,9 @@ class RoomBookings(models.Model):
     checkIn = models.BooleanField(default=False)
     checkOut = models.BooleanField(default=False)
 
+    toClean = models.BooleanField(default=False)
+    cleaned = models.BooleanField(default=False)
+
 
 class Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)

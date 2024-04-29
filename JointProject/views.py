@@ -4,10 +4,13 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
     RestaurantProduct, RestaurantOrder, ItemToPay
-from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm, RestaurantOrderForm
+from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm, \
+    RestaurantOrderForm
 from django.contrib import messages
 from datetime import datetime
 from django.db.models import Q
+
+
 # Create your views here.
 
 
@@ -15,19 +18,21 @@ from django.db.models import Q
 def roomStaffHomePage(request):
     return render(request, 'roomStaffHomePage.html')
 
+
 @login_required(login_url='')
 def obtainRoomBookings(request):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings' : roomBookings
+        'roomBookings': roomBookings
     }
     return render(request, 'obtainRoomBookings.html', context)
+
 
 @login_required(login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
     form = RoomBookingForm(request.POST)
     context = {
-        'form' : form
+        'form': form
     }
     if form.is_valid():
         roomBooking = form.save(commit=False)
@@ -47,14 +52,16 @@ def createRoomBookings(request, roomId, startDate, endDate):
         return redirect('obtainRoomBookings')
     return render(request, 'createRoomBooking.html', context)
 
+
 @login_required(login_url='')
 def deleteRoomBookings(request, roomBookingId):
-    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     if request.method == 'POST':
         roomBooking.delete()
         return redirect('obtainRoomBookings')
     else:
         return HttpResponse("Bad Request: Only POST requests are allowed for this view.")
+
 
 """def showAvailableRooms(request):
     rooms = Room.objects.filter(booked=False)
@@ -69,6 +76,7 @@ def deleteRoomBookings(request, roomBookingId):
         if form.is_valid():
             room = """
 
+
 @login_required(login_url='')
 def getAvailableRooms(request):
     if request.method == 'POST':
@@ -78,12 +86,12 @@ def getAvailableRooms(request):
             endTime = form.cleaned_data['endDate']
             roomType = form.cleaned_data['roomType']
 
-            availableRooms = checkAvailableRooms(startTime,endTime,roomType)
+            availableRooms = checkAvailableRooms(startTime, endTime, roomType)
 
             context = {
-                'rooms' : availableRooms,
-                'startDate' : startTime,
-                'endDate' : endTime
+                'rooms': availableRooms,
+                'startDate': startTime,
+                'endDate': endTime
             }
             return render(request, 'availableRoomBookings.html', context)
     else:
@@ -95,9 +103,9 @@ def getAvailableRooms(request):
 
 
 def checkAvailableRooms(startTime, endTime, roomType):
-    colidingRoomBookings = RoomBookings.objects.filter( Q(startDate__lte=endTime, endDate__gte=startTime) |
-                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
-                                                        Q(endDate__gte=startTime, endDate__lte=endTime))
+    colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
+                                                       Q(startDate__gte=startTime, startDate__lte=endTime) |
+                                                       Q(endDate__gte=startTime, endDate__lte=endTime))
 
     filteredTypeRooms = Room.objects.filter(roomType=roomType)
     colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
@@ -105,19 +113,21 @@ def checkAvailableRooms(startTime, endTime, roomType):
 
     return availableRooms
 
+
 @login_required(login_url='')
 def roomBookingDetails(request, roomBookingId):
-    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     context = {
-        'roomBooking' : roomBooking
+        'roomBooking': roomBooking
     }
     return render(request, 'roomBookingDetails.html', context)
 
+
 @login_required(login_url='')
 def checkIn(request, roomBookingId):
-    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
-    context={
-        'roomBooking' : roomBooking
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    context = {
+        'roomBooking': roomBooking
     }
     roomBooking.checkIn = True
     roomBooking.save()
@@ -126,12 +136,14 @@ def checkIn(request, roomBookingId):
 
 @login_required(login_url='')
 def checkOut(request, roomBookingId):
-    roomBooking = get_object_or_404(RoomBookings,id=roomBookingId)
-    context={
-        'roomBooking' : roomBooking
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    context = {
+        'roomBooking': roomBooking
     }
-    roomBooking.checkOut = True
-    roomBooking.save()
+    if roomBooking.checkIn:
+        roomBooking.checkOut = True
+        roomBooking.toClean = True
+        roomBooking.save()
     return render(request, 'roomBookingDetails.html', context)
 
 
@@ -176,15 +188,15 @@ def show_tables(request):
     return render(request, 'show_tables.html', context)
 
 
-#@login_required(login_url='')
-def get_shift_with_time(time): #The format of the param(time) is HH-HH
+# @login_required(login_url='')
+def get_shift_with_time(time):  # The format of the param(time) is HH-HH
     try:
         return Shift.objects.get(shift=time)
     except Shift.DoesNotExist:
         return None
 
 
-#@login_required(login_url='')
+# @login_required(login_url='')
 def get_available_and_reserved_tables(shift, selected_date):
     """
         Retrieves available and reserved tables for a specific shift and date.
@@ -218,7 +230,6 @@ def get_available_and_reserved_tables(shift, selected_date):
     return available_tables, reserved_tables
 
 
-
 @login_required(login_url='')
 def reserve_table(request, table_id, selected_date, selected_time):
     try:
@@ -233,7 +244,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
         form = ReservationForm(request.POST)
         if form.is_valid():
             try:
-                #creamos la reserva
+                # creamos la reserva
                 reservation = ReservedTable.objects.create(
                     shift=shift_wanted,
                     userWhoReserved=table,
@@ -265,11 +276,12 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     fecha_seleccionada = datetime.strptime(selected_date, "%d-%m-%Y").date()
 
     hour = selected_time.split(":")[0]
-    start_hour = f"{hour}-{int(hour) + 1:02d}"  #Hora con formato "HH-HH"
+    start_hour = f"{hour}-{int(hour) + 1:02d}"  # Hora con formato "HH-HH"
     shift_wanted = get_shift_with_time(start_hour)
 
     try:
-        reserva = ReservedTable.objects.get(tableReserved_id=table_id, reservationDate=fecha_seleccionada, shift=shift_wanted)
+        reserva = ReservedTable.objects.get(tableReserved_id=table_id, reservationDate=fecha_seleccionada,
+                                            shift=shift_wanted)
     except ReservedTable.DoesNotExist:
         return HttpResponse("No se encontró ninguna reserva para esta mesa en esa hora.")
 
@@ -279,6 +291,7 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
         'selected_time': selected_time,
     }
     return render(request, 'info_reserve.html', context)
+
 
 @login_required(login_url='')
 def getTablesReservationHistory(request):
@@ -292,6 +305,7 @@ def getTablesReservationHistory(request):
 def logOut(request):
     logout(request)
     return redirect('signIn')
+
 
 @login_required(login_url='')
 def addItemToBill(request):
@@ -310,7 +324,7 @@ def addItemToBill(request):
     else:
         form = ItemToPayForm()
     context = {
-        'form':form
+        'form': form
     }
     return render(request, 'addItemToBill.html', context)
 
@@ -357,6 +371,7 @@ def payBills(request, billId):
     items.delete()
     return redirect('getCustomersBills')
 
+
 @login_required(login_url='')
 def getCustomersCompletedPayments(request):
     completedPayments = CompletedPayment.objects.all()
@@ -376,9 +391,11 @@ def completedPaymentsDetails(request, completedPaymentsId):
     }
     return render(request, 'completedPaymentsDetails.html', context)
 
+
 @login_required(login_url='')
 def addRestaurantOrder(request):
     return render(request, 'addRestaurantOrder.html')
+
 
 @login_required(login_url='')
 def getRestaurantOrdersHistory(request):
@@ -386,6 +403,7 @@ def getRestaurantOrdersHistory(request):
         'restaurantOrders': RestaurantOrder.objects.all()
     }
     return render(request, 'getRestaurantOrdersHistory.html', context)
+
 
 @login_required(login_url='')
 def addRestaurantOrderToBill(request):
@@ -398,7 +416,9 @@ def addRestaurantOrderToBill(request):
                 bill = Bill.objects.get(customer=customer)
             except Bill.DoesNotExist:
                 bill = Bill.objects.create(customer=customer)
-            ItemToPay.objects.create(name="Restaurante", bill=bill, details = "Fecha:"+form.cleaned_data['date'].strftime(""), price = order.calculateTotalOrder())
+            ItemToPay.objects.create(name="Restaurante", bill=bill,
+                                     details="Fecha:" + form.cleaned_data['date'].strftime(""),
+                                     price=order.calculateTotalOrder())
             return redirect('getRestaurantOrdersHistory')
     else:
         form = RestaurantOrderForm()
@@ -423,25 +443,51 @@ def addRestaurantPayedOrder(request):
         }
     return render(request, 'addRestaurantPayedOrder.html', context)
 
+
 @login_required(login_url='')
 def getRestaurantOrderDetails(request, orderId):
     order = get_object_or_404(RestaurantOrder, id=orderId)
     totalPrice = order.calculateTotalOrder()
     context = {
         'order': order,
-        'totalPrice':totalPrice
+        'totalPrice': totalPrice
     }
     return render(request, 'getRestaurantOrderDetails.html', context)
 
 
 @login_required(login_url='')
 def roomsForCleaning(request):
-    return render(request, 'roomsForCleaning.html')
+    roomBookings = RoomBookings.objects.all()
+    context = {
+        'roomBookings': roomBookings
+    }
+    return render(request, 'roomsForCleaning.html', context)
 
 
 @login_required(login_url='')
 def cleanedRooms(request):
-    return render(request, 'cleanedRooms.html')
+    roomBookings = RoomBookings.objects.all()
+    context = {
+        'roomBookings': roomBookings
+    }
+    return render(request, 'cleanedRooms.html', context)
 
 
+def roomIsClean(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
+    if roomBooking.checkIn:
+        roomBooking.toClean = False
+        roomBooking.cleaned = True
+        roomBooking.save()
+    return render(request, 'roomsForCleaning.html')
+
+
+def roomToBeCleaned(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    if roomBooking.checkIn:
+        roomBooking.toClean = True
+        roomBooking.cleaned = False
+        roomBooking.save()
+    return render(request, 'roomsForCleaning.html')

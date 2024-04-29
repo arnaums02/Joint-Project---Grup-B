@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Limpieza finalizada
-{% endblock %}
+{% load static %}
 
 {% block content %}
-{% load static %}
-    
+
+    <title>Limpiezas finalizadas</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
+    <body>
+        <h1>Limpiezas Finalizadas</h1>
+
+        <ul>
+            {% for roomBooking in roomBookings %}
+                {% if roomBooking.cleaned %}
+                    <li><strong>Habitacion {{ roomBooking.roomBooked.roomNumber }} :</strong> Fecha de inicio: {{ roomBooking.startDate }} Fecha de finalizacion: {{ roomBooking.endDate }}
+
+                    <div class="button-container">
+                        <a href="{% url 'roomToBeCleaned' roomBooking.id %}"><button type="submit" class="button-55">Marcar como pendiente</button></a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </body>
 
 {% endblock %}

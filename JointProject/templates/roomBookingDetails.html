@@ -33,6 +33,7 @@
                 <p><strong>Numero de huespedes en la habitación:</strong> {{ roomBooking.numberGuest }}</p>
                 <p><strong>Check-in:</strong> {{ roomBooking.checkIn }}</p>
                 <p><strong>Check-out:</strong> {{ roomBooking.checkOut }}</p>
+                <p><strong>Para limpiar:</strong> {{ roomBooking.toClean }}</p>
 
                 <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-in</button></a>
                 <a href="{% url 'checkOut' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-out</button></a>
