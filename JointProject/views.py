@@ -434,4 +434,9 @@ def getRestaurantOrderDetails(request, orderId):
     return render(request, 'getRestaurantOrderDetails.html', context)
 
 
+@login_required(login_url='')
+def roomsForCleaning(request):
+    return render(request, 'roomsForCleaning.html')
+
+
 
