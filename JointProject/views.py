@@ -439,4 +439,9 @@ def roomsForCleaning(request):
     return render(request, 'roomsForCleaning.html')
 
 
+@login_required(login_url='')
+def cleanedRooms(request):
+    return render(request, 'cleanedRooms.html')
+
+
 
