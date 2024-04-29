@@ -457,9 +457,23 @@ def getRestaurantOrderDetails(request, orderId):
 
 @login_required(login_url='')
 def roomsForCleaning(request):
-    return render(request, 'roomsForCleaning.html')
+    roomBookings = RoomBookings.objects.all()
+    context = {
+        'roomBookings': roomBookings
+    }
+    return render(request, 'roomsForCleaning.html', context)
 
 
 @login_required(login_url='')
 def cleanedRooms(request):
     return render(request, 'cleanedRooms.html')
+
+
+def roomIsClean(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    if roomBooking.checkIn:
+        roomBooking.toClean = False
+        roomBooking.cleaned = True
+        roomBooking.save()
+    return render(request, 'roomsForCleaning.html')

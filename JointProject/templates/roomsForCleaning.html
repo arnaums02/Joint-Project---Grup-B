@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Limpieza pendiente
-{% endblock %}
+{% load static %}
 
 {% block content %}
-{% load static %}
     
+    <title>Limpieza pendiente</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <style>
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
+    <body>
+        <h1>Limpiezas Pendiente</h1>
+    
+        <ul>
+            {% for roomBooking in roomBookings %}
+                {% if roomBooking.toClean %}
+                    <li><strong>Habitacion {{ roomBooking.roomBooked.roomNumber }} :</strong> Fecha de inicio: {{ roomBooking.startDate }} Fecha de finalizacion: {{ roomBooking.endDate }}
+                    
+                    <div class="button-container">
+                        <a href="{% url 'roomIsClean' roomBooking.id %}"><button type="submit" class="button-66">Confirmar limpieza</button></a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </body>
 
 {% endblock %}
