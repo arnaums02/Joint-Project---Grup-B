@@ -54,6 +54,6 @@ urlpatterns = [
     path('addRestaurantOrderToBill/', addRestaurantOrderToBill, name='addRestaurantOrderToBill'),
     path('addRestaurantPayedOrder/', addRestaurantPayedOrder, name='addRestaurantPayedOrder'),
     path('getRestaurantOrderDetails/<uuid:orderId>', getRestaurantOrderDetails, name='getRestaurantOrderDetails'),
-    path('roomsForCleaning/', roomsForCleaning, name='roomsForCleaning')
-
+    path('roomsForCleaning/', roomsForCleaning, name='roomsForCleaning'),
+    path('cleanedRooms/', cleanedRooms, name='cleanedRooms')
 ]
