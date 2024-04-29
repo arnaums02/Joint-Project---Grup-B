@@ -9,7 +9,8 @@
 
 ## Sprint Planning Overview
 
-![Estat Inicial Kanban](https://github.com/arnaums02/Joint-Project---Grup-B/assets/73690427/fb4d8b7f-98cb-4c82-bce5-e31c521b2f2e)
+[Estat Inicial Kanban]![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/7dee8d3d-24dd-4390-9165-a73415bdd40b)
+
 
 
 
