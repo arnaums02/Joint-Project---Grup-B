@@ -247,3 +247,37 @@ button:active {
     margin-top: 10px; /* Margen superior */
     font-size: 14px; /* Tamaño de fuente */
 }
+
+/* Estilos para el formulario */
+.form_vertical {
+    width: 350px; /* Ancho del formulario */
+    margin: 20px auto; /* Margen arriba y abajo, centrar horizontalmente */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde sólido */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 10px; /* Bordes redondos */
+}
+
+/* Estilos para el título del formulario */
+.form_title {
+    text-align: center; /* Centrar el texto */
+    font-size: 1.5em; /* Tamaño de fuente */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilos para cada elemento del formulario */
+.form_vertical label,
+.form_vertical input[type="text"],
+.form_vertical input[type="email"],
+.form_vertical input[type="password"],
+.form_vertical button {
+    display: block; /* Mostrar los elementos en bloques separados */
+    width: 100%; /* Ocupar todo el ancho disponible */
+    margin-bottom: 10px; /* Espacio entre elementos */
+}
+
+/* Estilos para el botón */
+.form_vertical button {
+    width: auto; /* Ancho automático para el botón */
+    padding: 10px 20px; /* Padding del botón */
+}
