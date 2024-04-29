@@ -473,6 +473,7 @@ def cleanedRooms(request):
     return render(request, 'cleanedRooms.html', context)
 
 
+@login_required(login_url='')
 def roomIsClean(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
@@ -480,9 +481,10 @@ def roomIsClean(request, roomBookingId):
         roomBooking.toClean = False
         roomBooking.cleaned = True
         roomBooking.save()
-    return render(request, 'roomsForCleaning.html')
+    return redirect('roomsForCleaning')
 
 
+@login_required(login_url='')
 def roomToBeCleaned(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
@@ -490,4 +492,4 @@ def roomToBeCleaned(request, roomBookingId):
         roomBooking.toClean = True
         roomBooking.cleaned = False
         roomBooking.save()
-    return render(request, 'roomsForCleaning.html')
+    return redirect('cleanedRooms')
