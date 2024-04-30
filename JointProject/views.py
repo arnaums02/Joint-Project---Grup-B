@@ -502,3 +502,7 @@ def roomToBeCleaned(request, roomBookingId):
         roomBooking.cleaned = False
         roomBooking.save()
     return redirect('cleanedRooms')
+
+
+def about_us(request):
+    return render(request, 'about_us.html')

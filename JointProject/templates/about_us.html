@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre Nosotros - Hotel Las Palmeras{% endblock %}
+
+{% block content %}
+    <style>
+        .contenedor-sobre-nosotros {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+            align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+            padding: 40px; /* Añade relleno al contenedor */
+        }
+
+        .texto-sobre-nosotros {
+            flex: 1;
+            padding-right: 20px; /* Ajusta el espacio entre el texto y la imagen */
+        }
+
+        .image-hotel {
+            max-width: 50%; /* Limita el ancho de la imagen */
+        }
+
+        .image-hotel img {
+            width: 100%; /* Hace que la imagen ocupe todo el ancho de su contenedor */
+            height: auto;
+            margin-top: 80px;
+        }
+
+        /* Añade más margen entre el h1 y el h2 */
+        .texto-sobre-nosotros h1 {
+            margin-bottom: 20px;
+            margin-top: 80px;
+        }
+
+        /* Añade más espacio entre el h2 y el primer p */
+        .texto-sobre-nosotros h2 + p {
+            margin-top: 15px;
+        }
+    </style>
+
+    <div class="contenedor-sobre-nosotros">
+        <div class="texto-sobre-nosotros">
+            <h1>Sobre Nosotros - Hotel Las Palmeras</h1>
+            <h2>Nuestra Historia</h2>
+            <p>Bienvenido al Hotel Las Palmeras, ubicado en la hermosa Costa Brava. En nuestro hotel, nos esforzamos por brindar a nuestros huéspedes una experiencia inolvidable llena de relajación, comodidad y disfrute. Ya sea que esté aquí para una escapada romántica, unas vacaciones familiares o un viaje de negocios, nuestro equipo dedicado está comprometido a garantizar que su estancia sea excepcional.</p>
+            <p>Desde nuestras lujosas habitaciones hasta nuestras excelentes comodidades y servicio personalizado, nos esforzamos por superar sus expectativas. Explore la rica cultura y la atmósfera vibrante de la región de la Costa Brava, disfrute de la deliciosa cocina en nuestro restaurante en el hotel o simplemente relájese junto a nuestra piscina rodeada de exuberantes jardines.</p>
+            <p>Venga a experimentar la magia del Hotel Las Palmeras y cree recuerdos que durarán toda la vida. ¡Esperamos darle la bienvenida!</p>
+        </div>
+        <div class="image-hotel">
+            <img src="{% static 'img/costa brava.jpeg' %}" alt="image-costa-brava">
+        </div>
+    </div>
+{% endblock %}
