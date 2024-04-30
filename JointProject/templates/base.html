@@ -22,8 +22,8 @@
               <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
               <li>
                   <a href="#" class="desktop-item">Habitaciones</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Habitaciones</label>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Habitaciones</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Disponibles</a></li>
                       <li><a href="{% url 'obtainRoomBookings' %}">Habitaciones Reservadas</a></li>
@@ -31,8 +31,8 @@
               </li>
               <li>
                   <a href="#" class="desktop-item">Restaurante</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Restaurante</label>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Restaurante</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
                       <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
@@ -40,8 +40,8 @@
               </li>
               <li>
                   <a href="#" class="desktop-item">Pagos</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Pagos</label>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Pagos</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
                       <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
@@ -49,8 +49,8 @@
               </li>
               <li>
                   <a href="#" class="desktop-item">Usuario</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Usuario</label>
+                  <input type="checkbox" id="showDrop4">
+                  <label for="showDrop4" class="mobile-item">Usuario</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
                   </ul>
@@ -64,8 +64,8 @@
               
               <li>
                   <a href="#" class="desktop-item">Limpieza</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Limpieza</label>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Limpieza</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'roomsForCleaning' %}">Limpieza pendiente</a></li>
                       <li><a href="{% url 'cleanedRooms' %}">Limpieza finalizada</a></li>
@@ -74,8 +74,8 @@
 
               <li>
                   <a href="#" class="desktop-item">Usuario</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Usuario</label>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Usuario</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
                   </ul>
@@ -86,17 +86,26 @@
       {% else %}
           <ul class="nav-links">
               <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-                  <li><a href="#">Acerca de</a></li>
-                  <li><a href="#">Servicios</a></li>
+              <li>
+                  <a href="#" class="desktop-item">Acerca de</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Acerca de</label>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Servicios</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop1" class="mobile-item">Servicios</label>
+              </li>
               <li>
                   <a href="#" class="desktop-item">Usuario</a>
-                  <input type="checkbox" id="showDrop">
-                  <label for="showDrop" class="mobile-item">Usuario</label>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
                   </ul>
               </li>
           </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
       {% endif %}
   </div>
 </nav>

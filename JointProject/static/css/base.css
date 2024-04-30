@@ -21,7 +21,7 @@ nav{
   z-index: 99;
   width: 100%;
   height: 120px;
-  background: #242526;
+  background: #00060e;
 }
 nav .wrapper{
   position: relative;
@@ -203,7 +203,19 @@ nav .wrapper{
     box-shadow: none;
     transition: all 0.3s ease;
   }
-  #showDrop:checked ~ .drop-menu,
+  #showDrop1:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
+  #showDrop2:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
+  #showDrop3:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
+  #showDrop4:checked ~ .drop-menu,
   #showMega:checked ~ .mega-box{
     max-height: 100%;
   }
