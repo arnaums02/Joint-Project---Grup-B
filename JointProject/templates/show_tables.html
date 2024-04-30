@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 <body>
 
-    <h1>Mesas restaurante hotel las palmeras.</h1>
-    <h2>Obtener mesas disponibles.</h2>
+    <h1>Mesas restaurante hotel las palmeras</h1>
+    <h2>Obtener mesas disponibles:</h2>
     <div class="buscador-dies">
         <form method="post" action="/show_tables/">
             {% csrf_token %}
@@ -25,7 +25,7 @@
                 <option value="20-21">20:00 - 21:00</option>
                 <option value="21-22">21:00 - 22:00</option>
             </select>
-            <button type="submit">Seleccionar dia y hora.</button>
+            <button type="submit">Seleccionar dia y hora</button>
         </form>
     </div>
     {% if messages %}
@@ -67,34 +67,6 @@
                 {% empty %}
                 <tr>
                     <td colspan="5">No hay mesas disponibles en esta fecha y hora.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <h3>Mesas reservadas: {{ selected_date }} {{ selected_time }} </h3>
-        <table class="styled-table2">
-            <thead>
-                <tr class="red-background">
-                    <th>Numero de mesa</th>
-                    <th>Capacidad</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for table_info in reserved_tables %}
-                <tr>
-                    <td>{{ table_info.num }}</td>
-                    <td>{{ table_info.capacity }}</td>
-                    <td>{{ selected_date }}</td>
-                    <td>{{ selected_time }}</td>
-                    <td><a href="{% url 'consultar_reserva' table_id=table_info.id selected_date=selected_date selected_time=selected_time %}" class="button-55" role="button">Consultar reserva</a></td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No hay mesas reservadas en esta fecha y hora.</td>
                 </tr>
                 {% endfor %}
             </tbody>

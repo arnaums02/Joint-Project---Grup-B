@@ -6,31 +6,46 @@
         <title>Reservas de habitaciones</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
         <style>
-        .button-container {
-            display: flex;
-            align-items: center;
-        }
+            .button-container {
+                display: flex;
+                align-items: center;
+            }
 
-        .button-container button {
-            margin-right: 10px;
-        }
-    </style>
+            .button-container button {
+                margin-right: 10px;
+            }
+        </style>
 
     <body>
         <h1>Reservas de habitaciones</h1>
-        <ul>
-            {% for roomBooking in roomBookings %}
-            <li><strong>Habitacion:</strong> {{ roomBooking.roomBooked.roomNumber }} Fecha de inicio:{{ roomBooking.startDate }} Fecha de finalizacion:{{ roomBooking.endDate }}
-            <div class="button-container">
-                <a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>    
-                <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="button-55">Eliminar</button>
-                </form>
-            </div>
-            <br>
-            </li>
-            {% endfor %}
-        </ul>
+        <table class="styled-table available-table">
+            <thead>
+                <tr>
+                    <th>Habitación</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de finalización</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for roomBooking in roomBookings %}
+                <tr>
+                    <td>{{ roomBooking.roomBooked.roomNumber }}</td>
+                    <td>{{ roomBooking.startDate }}</td>
+                    <td>{{ roomBooking.endDate }}</td>
+                    <td><a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>
+                        <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="button-55">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </body>
 {% endblock %}

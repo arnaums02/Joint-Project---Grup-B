@@ -23,26 +23,26 @@
         </form>
     </div>
     <table class="styled-table available-table">
-            <thead>
-                <tr>
-                    <th>Habitación</th>
-                    <th>Tipo de habitación</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for room in rooms %}
-                <tr>
-                    <td>{{ room.roomNumber }}</td>
-                    <td>{{ room.roomType }}</td>
-                    <td><a href="{% url 'createRoomBookings' room.id startDate endDate %}" role="button"><button class="button-66" type="submit">Reservar</button></a></td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <thead>
+            <tr>
+                <th>Habitación</th>
+                <th>Tipo de habitación</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.roomNumber }}</td>
+                <td>{{ room.roomType }}</td>
+                <td><a href="{% url 'createRoomBookings' room.id startDate endDate %}" role="button"><button class="button-66" type="submit">Reservar</button></a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 {% endblock %}
