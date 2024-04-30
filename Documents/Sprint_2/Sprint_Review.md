@@ -4,13 +4,12 @@
 
 | Action  | Brief Description  | Completed  
 |---|---|---|
-| Realitzar check-in  | Deixar constància del check-in del client. |   [Yes] |
-| Realitzar check-out |  Deixar constància del check-out del client. |  [Yes] |
-| Realitzar reserva d'habitació |  Realitzar les reserves de les habitacions que desitja el client. |  [Yes] |
-| Obtenir habitacions |  Obtenir les habitacions disponibles. |  [Yes] |
-| Obtenir taules |  Obtenir les taules reservades del restaurant. |  [Yes] |
-| Reservar taules |  Reservar taules del restaurant. |  [Yes] |
-| Realitzar cobraments | Realitzar els cobraments dels clients. | [Yes] |
+| Obtenir agenda diaria neteja  | Els netejadors/es obtenen la agenda diaria de les habitacions que han de netejar. |   [Yes] |
+| Obtenir habitacions sense netejar |  Els netejadors/es obtenen les habitacions que no estan netes. |  [Yes] |
+| Introduir habitacions netejades |  Els netejadors/es introdueixen les habitacions que han netejat. |  [Yes] |
+| Obtenir taules reservades |  Obtenir les taules reservades del restaurant. |  [Yes] |
+| Reservar taules |  Els responsables de restauració han de poder reservar taules del restaurant. |  [Yes] |
+| Realitzar cobraments àpats | Realitzar els cobraments dels àpats clients. | [Yes] |
 | Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes] |
 
 ## Burn-down Graph
