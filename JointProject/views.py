@@ -293,6 +293,15 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     return render(request, 'info_reserve.html', context)
 
 
+
+@login_required(login_url='')
+def tableReservationDetails(request, table_id):
+    reserva = get_object_or_404(ReservedTable, id=table_id)
+    context = {
+        'reserva': reserva
+    }
+    return render(request, 'tableReservationDetails.html', context)
+
 @login_required(login_url='')
 def getTablesReservationHistory(request):
     tablesReservations = ReservedTable.objects.all()

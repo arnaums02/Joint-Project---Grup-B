@@ -72,6 +72,32 @@
             </tbody>
         </table>
     </div>
+    <table class="styled-table2">
+        <thead>
+            <tr class="red-background">
+                <th>Numero de mesa</th>
+                <th>Capacidad</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for table_info in reserved_tables %}
+            <tr>
+                <td>{{ table_info.num }}</td>
+                <td>{{ table_info.capacity }}</td>
+                <td>{{ selected_date }}</td>
+                <td>{{ selected_time }}</td>
+                <td><a href="{% url 'consultar_reserva' table_id=table_info.id selected_date=selected_date selected_time=selected_time %}" class="button-55" role="button">Consultar reserva</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay mesas reservadas en esta fecha y hora.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
 </body>
 
