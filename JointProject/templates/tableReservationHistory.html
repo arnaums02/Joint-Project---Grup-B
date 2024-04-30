@@ -3,33 +3,45 @@
 
 {% block content %}
     
-        <title>Reservas de mesas</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-        <style>
-       .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin-top: 250px;
-            margin-bottom: 20px;
-        }
-        .container li {
-            padding: 10px;
-        }
-    </style>
+<title>Reservas de mesas</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 
-    <body>
-        <div class="container">
-            <h1>Reservas de mesas</h1>
-            <ul>
-                {% for tablesReservation in tablesReservations %}
-                    <li><strong>Mesa: </strong>{{ tablesReservation.tableReserved }} <strong>Fecha:</strong> {{ tablesReservation.reservationDate }} <strong>Turno:</strong> {{ tablesReservation.shift }}
-                        <br>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </body>
+<body>
+    <h1>Reservas de mesas</h1>
+    <table class="styled-table2">
+        <thead>
+            <tr class="red-background">
+                <th>Numero de mesa</th>
+                <th>Fecha</th>
+                <th>Turno</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tablesReservation in tablesReservations %}
+            <tr>
+                <td>{{ tablesReservation.tableReserved }}</td>
+                <td>{{ tablesReservation.reservationDate }}</td>
+                <td>{{ tablesReservation.shift }}</td>
+                <td><a href="#" class="button-55" role="button">Consultar reserva</a></td>
+            <!-- Volia enllaçar-lo amb consultar_reserva, pero no ho he aconseguit-->
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay mesas reservadas en esta fecha y hora.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
 {% endblock %}
+<div class="container">
+        <h1>Reservas de mesas</h1>
+        <ul>
+            {% for tablesReservation in tablesReservations %}
+                <li><strong>Mesa: </strong>{{ tablesReservation.tableReserved }} <strong>Fecha:</strong> {{ tablesReservation.reservationDate }} <strong>Turno:</strong> {{ tablesReservation.shift }}
+                    <br>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
