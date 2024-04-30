@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
-    <title>Información de Reserva</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin-top: 250px;
-            margin-bottom: 20px;
-        }
-    </style>
+
+<title>Información de Reserva</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
 <body>
-    <div class="container">
+    <div class="styled-table">
         <h1>Información de la Reserva</h1>
         <h2>Mesa Reservada</h2>
         <p><strong>Numero de la Mesa:</strong> {{ reserva.tableReserved.tableNumber }}</p>
