@@ -87,12 +87,13 @@ I: Information
 ## Problems/Difficulties
 | Problem | Task | Owner | Description |
 |---------|------|-------|-------------|
-| xxx     | xxx  | xxx   | xxx         |
+| Problemes visuals en la barra de navegacio.     | Arreglar barra navegacio  | Arnau   | En reduir el tamany de la finestra la barra de navegacio no esta acabada de implementar         |
 
 ## Actions
 | Type | Description                                    | Owner                             | Deadline   |
 |------|------------------------------------------------|-----------------------------------|------------|
 | T    | Finalització del desenvolupament de les issues | Arnau, Albert, Giovani, Pau, Quim | 30-04-2024 |
+| T    | Arreglar barra navegacio | Arnau | 30-04-2024 |
 
 
 T: Task
