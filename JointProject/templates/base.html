@@ -47,6 +47,7 @@
                   <ul class="drop-menu">
                       <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
                       <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+                      <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
                   </ul>
               </li>
               <li>
@@ -93,8 +94,10 @@
                   <input type="checkbox" id="showDrop2">
                   <label for="showDrop2" class="mobile-item">Restaurante</label>
                   <ul class="drop-menu">
-                      <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
-                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+                      <li><a href="{% url 'show_tables' %}">Mesas disponibles</a></li>
+                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas reservadas</a></li>
+                      <li><a href="{% url 'getRestaurantOrdersHistory' %}">Pedidos realizados</a></li>
+                      <li><a href="{% url 'addRestaurantOrder' %}">Añadir pedido</a></li>
                   </ul>
               </li>
               <li>
@@ -135,6 +138,8 @@
                   <ul class="drop-menu">
                       <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
                       <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+                      <li><a href="{% url 'getRestaurantOrdersHistory' %}">Pedidos realizados</a></li>
+                      <li><a href="{% url 'addRestaurantOrder' %}">Añadir pedido</a></li>
                   </ul>
               </li>
               <li>
@@ -144,6 +149,7 @@
                   <ul class="drop-menu">
                       <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
                       <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+                      <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
                   </ul>
               </li>
               <li>
