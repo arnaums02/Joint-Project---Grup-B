@@ -56,9 +56,10 @@ urlpatterns = [
     path('getRestaurantOrderDetails/<uuid:orderId>', getRestaurantOrderDetails, name='getRestaurantOrderDetails'),
     path('roomsForCleaning/P<int:floor>', roomsForCleaning, name='roomsForCleaning'),
     path('roomsForCleaning/', roomsForCleaning, {'floor':1}, name='roomsForCleaning'),
-    path('cleanedRooms/', cleanedRooms, name='cleanedRooms'),
-    path('roomIsClean/<uuid:roomBookingId>', roomIsClean, name='roomIsClean'),
-    path('roomToBeCleaned/<uuid:roomBookingId>', roomToBeCleaned, name='roomToBeCleaned'),
+    path('cleanedRooms/P<int:floor>', cleanedRooms, name='cleanedRooms'),
+    path('cleanedRooms/', cleanedRooms, {'floor':1}, name='cleanedRooms'),
+    path('roomIsClean/<uuid:roomBookingId>/<int:floor>', roomIsClean, name='roomIsClean'),
+    path('roomToBeCleaned/<uuid:roomBookingId>/<int:floor>', roomToBeCleaned, name='roomToBeCleaned'),
     path('tableReservationDetails/<uuid:table_id>', tableReservationDetails, name='tableReservationDetails'),
 
     path('about_us/', about_us, name='about_us'),

@@ -465,7 +465,7 @@ def getRestaurantOrderDetails(request, orderId):
 
 
 @login_required(login_url='')
-def roomsForCleaning(request, floor=1):
+def roomsForCleaning(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
         'roomBookings': roomBookings,
@@ -475,34 +475,35 @@ def roomsForCleaning(request, floor=1):
 
 
 @login_required(login_url='')
-def cleanedRooms(request):
+def cleanedRooms(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'floor': floor
     }
     return render(request, 'cleanedRooms.html', context)
 
 
 @login_required(login_url='')
-def roomIsClean(request, roomBookingId):
+def roomIsClean(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
     if roomBooking.checkIn:
         roomBooking.toClean = False
         roomBooking.cleaned = True
         roomBooking.save()
-    return redirect('roomsForCleaning')
+    return redirect('roomsForCleaning', floor)
 
 
 @login_required(login_url='')
-def roomToBeCleaned(request, roomBookingId):
+def roomToBeCleaned(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
     if roomBooking.checkIn:
         roomBooking.toClean = True
         roomBooking.cleaned = False
         roomBooking.save()
-    return redirect('cleanedRooms')
+    return redirect('cleanedRooms', floor)
 
 
 def about_us(request):
