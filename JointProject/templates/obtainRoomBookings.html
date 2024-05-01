@@ -58,10 +58,11 @@
                                 <td>{{ roomBooking.startDate }}</td>
                                 <td>{{ roomBooking.endDate }}</td>
                                 <td><a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>
-                                    <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button-55">Cancelar</button>
-                                    </form>
+                                    {% if bookingState == 'active' %}
+                                        <a href="{% url 'cancelRoomBooking' roomBooking.id %}"><button type="submit" class="button-55">Cancelar</button></a>
+                                    {% elif bookingState == 'cancelled' %}
+                                        <a href="{% url 'activateRoomBooking' roomBooking.id %}"><button type="submit" class="button-66">Activar</button></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endif %}

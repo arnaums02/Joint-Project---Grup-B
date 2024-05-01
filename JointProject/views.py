@@ -45,6 +45,22 @@ def obtainRoomBookings(request, bookingState):
     }
     return render(request, 'obtainRoomBookings.html', context)
 
+@user_passes_test(roomStaff_required, login_url='')
+def cancelRoomBooking(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    roomBooking.bookingState = 'cancelled'
+    roomBooking.save()
+    return redirect('obtainRoomBookings', 'active')
+
+@user_passes_test(roomStaff_required, login_url='')
+def activateRoomBooking(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    roomBooking.bookingState = 'active'
+    roomBooking.save()
+    return redirect('obtainRoomBookings', 'cancelled')
+
 
 @user_passes_test(roomStaff_required, login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
