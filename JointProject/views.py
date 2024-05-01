@@ -37,10 +37,11 @@ def roomStaffHomePage(request):
 
 
 @user_passes_test(roomStaff_required, login_url='')
-def obtainRoomBookings(request):
+def obtainRoomBookings(request, bookingState):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'bookingState': 'active'
     }
     return render(request, 'obtainRoomBookings.html', context)
 
