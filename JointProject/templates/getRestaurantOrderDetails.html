@@ -11,18 +11,25 @@
 
 <body>
     <h1>Detalles del pedido del restaurante</h1>
-    <p><strong>Precio total:</strong> {{ totalPrice }}</p>
-    <br>
-    <p><strong>Productos:</strong></p>
-    <ul>
-        {% for ordered_product in order.restaurantorderedproduct_set.all %}
-            <li>
-                <p><strong>Nombre:</strong> {{ ordered_product.product.name }}</p>
-                <p><strong>Cantidad:</strong> {{ ordered_product.quantity }}</p>
-                <p><strong>Precio:</strong> {{ ordered_product.product.price }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Precio total</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ordered_product in order.restaurantorderedproduct_set.all %}
+            <tr>
+                <td>{{ totalPrice }}</td>
+                <td>{{ ordered_product.product.name }}</td>
+                <td>{{ ordered_product.quantity }}</td>
+                <td>{{ ordered_product.product.price }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 {% endblock %}
 

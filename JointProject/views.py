@@ -136,7 +136,6 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
-@user_passes_test(roomStaff_required, login_url='')
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |

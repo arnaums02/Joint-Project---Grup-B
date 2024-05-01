@@ -8,22 +8,35 @@
     
     <title>Detalles del pago del cliente</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin-top: 250px;
-            margin-bottom: 20px;
-        }
-    </style>
-
+    
 <body>
-    <div class="container">
-        <h1>Detalles del pago del cliente</h1>
-        <p><strong>Email del cliente:</strong> {{ bill.customer.email }}</p>
+    <h1>Detalles del pago del cliente</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Email del cliente</th>
+                <th>Precio total</th>
+                <th>Nombre</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in bill.items.all %}
+            <tr>
+                <td>{{ bill.customer.email }}</td>
+                <td>{{ totalPrice }} <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.details }}</td>
+                <td>{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
+
+<p><strong>Email del cliente:</strong> {{ bill.customer.email }}</p>
         <p><strong>Precio total:</strong> {{ totalPrice }}</p>
         <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a>
         <br>
@@ -37,7 +50,3 @@
                 </li>
             {% endfor %}
         </ul>
-    </div>
-</body>
-{% endblock %}
-

@@ -9,13 +9,24 @@
     <title>Pagos pendientes de los clientes</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 <body>
-    <div class="form_vertical">
-        <h1>Pagos pendientes de los clientes</h1>
-        {% for bill in bills %}
-            <ul>
-                <li>Email del cliente: {{ bill.customer.email }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></li>
-            </ul>
-        {% endfor %}
-    </div>
+    <h1>Pagos pendientes de los clientes</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Email del cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill.customer.email }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pagos pendientes</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 {% endblock %}
