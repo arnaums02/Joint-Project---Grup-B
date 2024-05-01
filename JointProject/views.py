@@ -1,5 +1,7 @@
+from functools import wraps
+
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
@@ -11,15 +13,30 @@ from datetime import datetime
 from django.db.models import Q
 
 
+def roomStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin')
+
+
+def cleaningStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'cleaningStaff' or user.user_type == 'admin')
+
+
+def restaurantStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'restaurantStaff' or user.user_type == 'admin')
+
+
+def restaurantOrRoomStaff_required(user):
+    return user.is_authenticated and (
+                user.user_type == 'restaurantStaff' or user.user_type == 'roomStaff' or user.user_type == 'admin')
+
+
 # Create your views here.
-
-
 @login_required(login_url='')
 def roomStaffHomePage(request):
     return render(request, 'roomStaffHomePage.html')
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def obtainRoomBookings(request):
     roomBookings = RoomBookings.objects.all()
     context = {
@@ -28,7 +45,7 @@ def obtainRoomBookings(request):
     return render(request, 'obtainRoomBookings.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
     form = RoomBookingForm(request.POST)
     context = {
@@ -53,7 +70,7 @@ def createRoomBookings(request, roomId, startDate, endDate):
     return render(request, 'createRoomBooking.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def deleteRoomBookings(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     if request.method == 'POST':
@@ -77,7 +94,7 @@ def deleteRoomBookings(request, roomBookingId):
             room = """
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def getAvailableRooms(request):
     if request.method == 'POST':
         form = AvailableRoomsForm(request.POST)
@@ -102,6 +119,7 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
+@user_passes_test(roomStaff_required, login_url='')
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
@@ -114,7 +132,7 @@ def checkAvailableRooms(startTime, endTime, roomType):
     return availableRooms
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def roomBookingDetails(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     context = {
@@ -123,7 +141,7 @@ def roomBookingDetails(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def checkIn(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     context = {
@@ -134,7 +152,7 @@ def checkIn(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def checkOut(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     context = {
@@ -147,7 +165,7 @@ def checkOut(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def show_tables(request):
     available_tables = None
     reserved_tables = None
@@ -230,7 +248,7 @@ def get_available_and_reserved_tables(shift, selected_date):
     return available_tables, reserved_tables
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def reserve_table(request, table_id, selected_date, selected_time):
     try:
         table = Table.objects.get(pk=table_id)
@@ -271,7 +289,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
     return render(request, 'reserve_table.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def consultar_reserva(request, table_id, selected_date, selected_time):
     fecha_seleccionada = datetime.strptime(selected_date, "%d-%m-%Y").date()
 
@@ -293,7 +311,7 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     return render(request, 'info_reserve.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def tableReservationDetails(request, table_id):
     reserva = get_object_or_404(ReservedTable, id=table_id)
     context = {
@@ -302,7 +320,7 @@ def tableReservationDetails(request, table_id):
     return render(request, 'tableReservationDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def getTablesReservationHistory(request):
     tablesReservations = ReservedTable.objects.all()
     context = {
@@ -316,7 +334,7 @@ def logOut(request):
     return redirect('signIn')
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def addItemToBill(request):
     if request.method == 'POST':
         form = ItemToPayForm(request.POST)
@@ -338,7 +356,7 @@ def addItemToBill(request):
     return render(request, 'addItemToBill.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def getCustomersBills(request):
     bills = Bill.objects.all()
     context = {
@@ -347,7 +365,7 @@ def getCustomersBills(request):
     return render(request, 'getCustomersBills.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def billsDetails(request, billId):
     bill = get_object_or_404(Bill, id=billId)
     totalPrice = bill.calculateTotalPrice()
@@ -358,7 +376,7 @@ def billsDetails(request, billId):
     return render(request, 'billDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def payBills(request, billId):
     bill = get_object_or_404(Bill, id=billId)
     items = bill.items.all()
@@ -381,7 +399,7 @@ def payBills(request, billId):
     return redirect('getCustomersBills')
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def getCustomersCompletedPayments(request):
     completedPayments = CompletedPayment.objects.all()
     context = {
@@ -390,7 +408,7 @@ def getCustomersCompletedPayments(request):
     return render(request, 'getCustomersCompletedPayments.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def completedPaymentsDetails(request, completedPaymentsId):
     completedPayment = get_object_or_404(CompletedPayment, id=completedPaymentsId)
     totalPayed = completedPayment.calculateTotalPayed()
@@ -401,12 +419,12 @@ def completedPaymentsDetails(request, completedPaymentsId):
     return render(request, 'completedPaymentsDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantStaff_required, login_url='')
 def addRestaurantOrder(request):
     return render(request, 'addRestaurantOrder.html')
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantStaff_required, login_url='')
 def getRestaurantOrdersHistory(request):
     context = {
         'restaurantOrders': RestaurantOrder.objects.all()
@@ -414,7 +432,7 @@ def getRestaurantOrdersHistory(request):
     return render(request, 'getRestaurantOrdersHistory.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantStaff_required, login_url='')
 def addRestaurantOrderToBill(request):
     if request.method == 'POST':
         form = RestaurantOrderForm(request.POST)
@@ -437,7 +455,7 @@ def addRestaurantOrderToBill(request):
     return render(request, 'addRestaurantOrderToBill.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantStaff_required, login_url='')
 def addRestaurantPayedOrder(request):
     if request.method == 'POST':
         form = RestaurantOrderForm(request.POST)
@@ -453,7 +471,7 @@ def addRestaurantPayedOrder(request):
     return render(request, 'addRestaurantPayedOrder.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(restaurantStaff_required, login_url='')
 def getRestaurantOrderDetails(request, orderId):
     order = get_object_or_404(RestaurantOrder, id=orderId)
     totalPrice = order.calculateTotalOrder()
@@ -464,7 +482,7 @@ def getRestaurantOrderDetails(request, orderId):
     return render(request, 'getRestaurantOrderDetails.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(cleaningStaff_required, login_url='')
 def roomsForCleaning(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
@@ -474,7 +492,7 @@ def roomsForCleaning(request, floor):
     return render(request, 'roomsForCleaning.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(cleaningStaff_required, login_url='')
 def cleanedRooms(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
@@ -484,7 +502,7 @@ def cleanedRooms(request, floor):
     return render(request, 'cleanedRooms.html', context)
 
 
-@login_required(login_url='')
+@user_passes_test(cleaningStaff_required, login_url='')
 def roomIsClean(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
@@ -495,7 +513,7 @@ def roomIsClean(request, roomBookingId, floor):
     return redirect('roomsForCleaning', floor)
 
 
-@login_required(login_url='')
+@user_passes_test(cleaningStaff_required, login_url='')
 def roomToBeCleaned(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
