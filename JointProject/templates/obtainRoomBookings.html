@@ -39,7 +39,7 @@
                     <td><a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>
                         <form method="post" action="{% url 'deleteRoomBookings' roomBookingId=roomBooking.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="button-55">Eliminar</button>
+                            <button type="submit" class="button-55">Cancelar</button>
                         </form>
                     </td>
                 </tr>
