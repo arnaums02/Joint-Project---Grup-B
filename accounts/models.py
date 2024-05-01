@@ -34,6 +34,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('client', 'Cliente'),
         ('roomStaff', 'Personal de habitaciones'),
         ('cleaningStaff', 'Personal de limpieza'),
+        ('restaurantStaff', 'Personal de restaurante'),
         ('admin', 'Administrador')
     ]
     user_type = models.CharField(max_length=30, choices=USER_TYPES, default='client')
