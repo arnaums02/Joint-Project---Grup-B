@@ -1,5 +1,7 @@
+from functools import wraps
+
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
@@ -11,9 +13,16 @@ from datetime import datetime
 from django.db.models import Q
 
 
+def roomStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin')
+
+def cleaningStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'cleaningStaff' or user.user_type == 'admin')
+
+def restaurantStaff_required(user):
+    return user.is_authenticated and (user.user_type == 'restaurantStaff' or user.user_type == 'admin')
+
 # Create your views here.
-
-
 @login_required(login_url='')
 def roomStaffHomePage(request):
     return render(request, 'roomStaffHomePage.html')
@@ -77,7 +86,8 @@ def deleteRoomBookings(request, roomBookingId):
             room = """
 
 
-@login_required(login_url='')
+#@login_required(login_url='')
+@user_passes_test(roomStaff_required, login_url='')
 def getAvailableRooms(request):
     if request.method == 'POST':
         form = AvailableRoomsForm(request.POST)
