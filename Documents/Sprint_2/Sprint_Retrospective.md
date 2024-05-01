@@ -10,16 +10,16 @@
 
 | Team Member  | Issue Found  |  
 |---|---|
-| Giovani  | Problema a l'hora de desenvolupar el inici de sessió i l'usuari personalitzat  |   
-| Albert, Arnau, Pau |  Problema a l'hora de desenvolupar l'arxiu css per a implementar-lo a tota la web |  
-| Quim |  Problemes a l'hora de desenvolupar els modes |
+| xx  | xx  |   
+| xx |  xx |  
+| xx |  xx |
 
 ## Restrospective Actions
 
 | Action  | Description |  
 |---|---|
-| Tutorial  | S'ha investigat per internet i en diversos tutorials la forma de desenvolupar-ho correctament  |   
-| Documentació i comunicació  | Millorar la comunicació entre els membres del grup i millorar la documentació del projecte |
+| xx  | xx  |   
+| xx  | xx |
 
 ## Next Sprint Team Organization
 
