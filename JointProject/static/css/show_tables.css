@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin-top: 100px;
+    margin-top: 110px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -280,4 +280,14 @@ button:active {
 .form_vertical button {
     width: auto; /* Ancho automático para el botón */
     padding: 10px 20px; /* Padding del botón */
+}
+
+/* Estilos para separar el botón de confirmar del desplegable de customer */
+.form_vertical .button-66 {
+    margin-top: 10px; /* Ajusta el margen superior del botón */
+}
+
+/* Opcionalmente, puedes ajustar el espacio entre el desplegable de customer y el botón */
+.form_vertical .customer-select {
+    margin-bottom: 10px; /* Ajusta el margen inferior del desplegable */
 }

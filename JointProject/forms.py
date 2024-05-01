@@ -57,10 +57,13 @@ class BillForm(forms.ModelForm):
 
 class ItemToPayForm(forms.ModelForm):
 
-    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all())
+    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.Select(attrs={'class': 'customer-select'}))
     class Meta:
         model = ItemToPay
         fields = ['name', 'details', 'price']
+        widgets = {
+            'details': forms.Textarea(attrs={'rows': 4, 'cols': 30}),  # Ajusta el tamaño de la caja de texto
+        }
 
 class RestaurantOrderForm(forms.ModelForm):
     class Meta:

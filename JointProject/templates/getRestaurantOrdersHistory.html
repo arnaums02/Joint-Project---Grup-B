@@ -10,16 +10,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 
 <body>
-    <div class="container">
-        <h1>Hisorial de pedidos del restaurante</h1>
-        <ul>
+    <h1>Hisorial de pedidos del restaurante</h1>
+    <table class="styled-table2">
+        <thead>
+            <tr>
+                <th>Mesa</th>
+                <th>Fecha</th>
+                <th>Turno</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for restaurantOrder in restaurantOrders %}
-                <li><strong>Mesa: </strong>{{ restaurantOrder.table }} <strong>Fecha:</strong> {{ restaurantOrder.date }} <strong>Turno:</strong> {{ restaurantOrder.shift }}
-                    <a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a>
-                    <br>
-                </li>
+            <tr>
+                <td>{{ restaurantOrder.table }}</td>
+                <td>{{ restaurantOrder.date }}</td>
+                <td>{{ restaurantOrder.shift }}</td>
+                <td><a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pedidos del restaurante</td>
+            </tr>
             {% endfor %}
-        </ul>
-    </div>
+        </tbody>
+    </table>
 </body>
 {% endblock %}

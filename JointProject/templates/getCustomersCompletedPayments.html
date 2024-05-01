@@ -9,13 +9,24 @@
     <title>Pagos realizados de los clientes</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 <body>
-    <div class="form_vertical">
-        <h1>Pagos realizados de los clientes</h1>
-        {% for completedPayment in completedPayments %}
-            <ul>
-                <li>Email del cliente: {{ completedPayment.customer.email }} <a href="{% url 'completedPaymentsDetails' completedPayment.id %}" class="button-66" role="button"> Ver pagos completados</a></li>
-            </ul>
-        {% endfor %}
-    </div>
+    <h1>Pagos realizados de los clientes</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Email del cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for completedPayment in completedPayments %}
+            <tr>
+                <td>{{ completedPayment.customer.email }} <a href="{% url 'completedPaymentsDetails' completedPayment.id %}" class="button-66" role="button"> Ver pagos completados</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pagos realizados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 {% endblock %}
