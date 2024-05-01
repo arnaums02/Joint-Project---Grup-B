@@ -37,12 +37,29 @@ def roomStaffHomePage(request):
 
 
 @user_passes_test(roomStaff_required, login_url='')
-def obtainRoomBookings(request):
+def obtainRoomBookings(request, bookingState):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'bookingState': bookingState
     }
     return render(request, 'obtainRoomBookings.html', context)
+
+@user_passes_test(roomStaff_required, login_url='')
+def cancelRoomBooking(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    roomBooking.bookingState = 'cancelled'
+    roomBooking.save()
+    return redirect('obtainRoomBookings', 'active')
+
+@user_passes_test(roomStaff_required, login_url='')
+def activateRoomBooking(request, roomBookingId):
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+
+    roomBooking.bookingState = 'active'
+    roomBooking.save()
+    return redirect('obtainRoomBookings', 'cancelled')
 
 
 @user_passes_test(roomStaff_required, login_url='')
