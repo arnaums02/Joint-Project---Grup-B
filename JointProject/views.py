@@ -41,7 +41,7 @@ def obtainRoomBookings(request, bookingState):
     roomBookings = RoomBookings.objects.all()
     context = {
         'roomBookings': roomBookings,
-        'bookingState': 'active'
+        'bookingState': bookingState
     }
     return render(request, 'obtainRoomBookings.html', context)
 
