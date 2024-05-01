@@ -293,7 +293,6 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     return render(request, 'info_reserve.html', context)
 
 
-
 @login_required(login_url='')
 def tableReservationDetails(request, table_id):
     reserva = get_object_or_404(ReservedTable, id=table_id)
@@ -301,6 +300,7 @@ def tableReservationDetails(request, table_id):
         'reserva': reserva
     }
     return render(request, 'tableReservationDetails.html', context)
+
 
 @login_required(login_url='')
 def getTablesReservationHistory(request):
@@ -465,43 +465,45 @@ def getRestaurantOrderDetails(request, orderId):
 
 
 @login_required(login_url='')
-def roomsForCleaning(request):
+def roomsForCleaning(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'floor': floor
     }
     return render(request, 'roomsForCleaning.html', context)
 
 
 @login_required(login_url='')
-def cleanedRooms(request):
+def cleanedRooms(request, floor):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'floor': floor
     }
     return render(request, 'cleanedRooms.html', context)
 
 
 @login_required(login_url='')
-def roomIsClean(request, roomBookingId):
+def roomIsClean(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
     if roomBooking.checkIn:
         roomBooking.toClean = False
         roomBooking.cleaned = True
         roomBooking.save()
-    return redirect('roomsForCleaning')
+    return redirect('roomsForCleaning', floor)
 
 
 @login_required(login_url='')
-def roomToBeCleaned(request, roomBookingId):
+def roomToBeCleaned(request, roomBookingId, floor):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
     if roomBooking.checkIn:
         roomBooking.toClean = True
         roomBooking.cleaned = False
         roomBooking.save()
-    return redirect('cleanedRooms')
+    return redirect('cleanedRooms', floor)
 
 
 def about_us(request):

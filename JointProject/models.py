@@ -17,7 +17,11 @@ class Room(models.Model):
     #booked = models.BooleanField(default=False)
     bookings = models.ManyToManyField('RoomBookings', related_name='bookings', blank=True)
     roomNumber = models.IntegerField(unique=True)
+    roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=[MinValueValidator(1)])
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')
+
+    def __str__(self):
+        return f'Habitación nº{self.roomNumber}, piso {self.roomFloor} ({self.roomType})'
 
 
 class RoomBookings(models.Model):
@@ -36,6 +40,9 @@ class RoomBookings(models.Model):
 
     toClean = models.BooleanField(default=False)
     cleaned = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Reserva de {self.guestName} ({self.startDate} - {self.endDate})'
 
 
 class Table(models.Model):
