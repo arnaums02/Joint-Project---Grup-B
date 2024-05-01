@@ -13,17 +13,17 @@
     <body>
         <h1>Limpiezas Pendientes</h1>
         <div class="button-container">
-            <a href="#"><button type="submit" class="button-66">P1</button></a>
-            <a href="#"><button type="submit" class="button-66">P2</button></a>
-            <a href="#"><button type="submit" class="button-66">P3</button></a>
+            <a href="{% url 'roomsForCleaning' 1 %}"><button type="submit" class="button-66">P1</button></a>
+            <a href="{% url 'roomsForCleaning' 2 %}"><button type="submit" class="button-66">P2</button></a>
+            <a href="{% url 'roomsForCleaning' 3 %}"><button type="submit" class="button-66">P3</button></a>
         </div>
-        
         <br>
 
         <ul>
             {% for roomBooking in roomBookings %}
-                {% if roomBooking.toClean %}
-                    <li><strong>Habitacion {{ roomBooking.roomBooked.roomNumber }} :</strong> Fecha de inicio: {{ roomBooking.startDate }} Fecha de finalizacion: {{ roomBooking.endDate }}
+                {% if roomBooking.toClean and roomBooking.roomBooked.roomFloor == floor %}
+
+                    <li><strong>{{ roomBooking.roomBooked }}:</strong> Fecha de inicio: {{ roomBooking.startDate }} Fecha de finalizacion: {{ roomBooking.endDate }}
 
                     <div class="button-container">
                         <a href="{% url 'roomIsClean' roomBooking.id %}"><button type="submit" class="button-66">Confirmar limpieza</button></a>

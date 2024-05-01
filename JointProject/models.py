@@ -17,7 +17,7 @@ class Room(models.Model):
     #booked = models.BooleanField(default=False)
     bookings = models.ManyToManyField('RoomBookings', related_name='bookings', blank=True)
     roomNumber = models.IntegerField(unique=True)
-    roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=MinValueValidator(1))
+    roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=[MinValueValidator(1)])
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')
 
     def __str__(self):

@@ -293,7 +293,6 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     return render(request, 'info_reserve.html', context)
 
 
-
 @login_required(login_url='')
 def tableReservationDetails(request, table_id):
     reserva = get_object_or_404(ReservedTable, id=table_id)
@@ -301,6 +300,7 @@ def tableReservationDetails(request, table_id):
         'reserva': reserva
     }
     return render(request, 'tableReservationDetails.html', context)
+
 
 @login_required(login_url='')
 def getTablesReservationHistory(request):
@@ -465,10 +465,11 @@ def getRestaurantOrderDetails(request, orderId):
 
 
 @login_required(login_url='')
-def roomsForCleaning(request):
+def roomsForCleaning(request, floor=1):
     roomBookings = RoomBookings.objects.all()
     context = {
-        'roomBookings': roomBookings
+        'roomBookings': roomBookings,
+        'floor': floor
     }
     return render(request, 'roomsForCleaning.html', context)
 
