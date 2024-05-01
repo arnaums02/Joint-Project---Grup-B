@@ -31,6 +31,20 @@
    git clone https://github.com/arnaums02/Joint-Project---Grup-B.git
    ```
 
+2. Be sure the migrations are generated correctly
+   ```python
+   python manage.py makemigrations
+   ```
+
+3. Apply the migrations
+   ```python
+   python manage.py migrate
+   ```
+4. Run the application
+   ```python
+   python manage.py runserver
+   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
