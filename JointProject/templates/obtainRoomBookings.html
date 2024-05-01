@@ -52,7 +52,7 @@
 
                 {% else %}
                     {% for roomBooking in roomBookings %}
-                        {% if roomBooking.bookingState == bookingState %}
+                        {% if roomBooking.bookingState == bookingState and not roomBooking.checkOut %}
                             <tr>
                                 <td>{{ roomBooking.roomBooked.roomNumber }}</td>
                                 <td>{{ roomBooking.startDate }}</td>
