@@ -35,18 +35,3 @@
     </table>
 </body>
 {% endblock %}
-
-<p><strong>Email del cliente:</strong> {{ bill.customer.email }}</p>
-        <p><strong>Precio total:</strong> {{ totalPrice }}</p>
-        <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a>
-        <br>
-        <p><strong>Items:</strong></p>
-        <ul>
-            {% for item in bill.items.all %}
-                <li>
-                    <p><strong>Nombre:</strong> {{ item.name }}</p>
-                    <p><strong>Detalles:</strong> {{ item.details }}</p>
-                    <p><strong>Precio:</strong> {{ item.price }}</p>
-                </li>
-            {% endfor %}
-        </ul>
