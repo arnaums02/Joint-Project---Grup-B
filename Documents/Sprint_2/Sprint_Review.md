@@ -13,6 +13,8 @@
 | Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes] |
 
 ## Burn-down Graph
+<img width="672" alt="Burn_down" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/deb9b1e1-8f1a-44db-8ed1-b8dc52ff0aa6">
+
 
 
 
@@ -20,6 +22,8 @@
 
 
 ## Burn-up (Velocity) Graph
+<img width="672" alt="Burn_up" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/ef6b59d9-bfa6-4fc5-9b53-98debf74d120">
+
 
 
 
