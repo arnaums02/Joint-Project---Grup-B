@@ -15,7 +15,7 @@
 ## Burn-down Graph
 <img width="672" alt="Burn_down" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/deb9b1e1-8f1a-44db-8ed1-b8dc52ff0aa6">
 
-
+Com a Scrum Master opino que hem tardat a començar a treballar, com es pot veure reflectit en els grafics. El motiu es que no teniem ben definida la idea sobre els nous aspectes a implementar. Tampoc vam poder realitzar les entrevistes corresponents als implicats per obtenir la informació per a poder dissenyar el projecte fins tard.
 
 
 
