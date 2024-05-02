@@ -11,6 +11,7 @@
 | Team Member  | Issue Found  |  
 |---|---|
 | Giovani  | Problemas al intentar organizar las habitaciones por pisos  |   
+| Albert  | Problemas al definir un formulario para relacionar un cliente con pagos pendientes a la horaa de asignarle un pedido del restaurante  |   
 
 
 ## Restrospective Actions
