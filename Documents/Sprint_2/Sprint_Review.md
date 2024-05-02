@@ -4,11 +4,13 @@
 
 | Action  | Brief Description  | Completed  
 |---|---|---|
-| xx  | xx |   [Yes/No] |
-| xx  | xx |   [Yes/No] |
-| xx  | xx |   [Yes/No] |
-| xx  | xx |   [Yes/No] |
-| xx  | xx |   [Yes/No] |
+| Obtenir agenda diaria neteja  | Els netejadors/es obtenen la agenda diaria de les habitacions que han de netejar. |   [Yes] |
+| Obtenir habitacions sense netejar |  Els netejadors/es obtenen les habitacions que no estan netes. |  [Yes] |
+| Introduir habitacions netejades |  Els netejadors/es introdueixen les habitacions que han netejat. |  [Yes] |
+| Obtenir taules reservades |  Obtenir les taules reservades del restaurant. |  [Yes] |
+| Reservar taules |  Els responsables de restauració han de poder reservar taules del restaurant. |  [Yes] |
+| Realitzar cobraments àpats | Realitzar els cobraments dels àpats clients. | [Yes] |
+| Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes] |
 
 ## Burn-down Graph
 
