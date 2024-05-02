@@ -71,6 +71,6 @@ Albert Martin Lopez - aml32@alumnes.udl.cat
 [stars-url]: https://github.com/arnaums02/Joint-Project---Grup-B/stargazers
 [issues-shield]: https://img.shields.io/github/issues/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [issues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues
-[closedIssues-shield]: https://img.shields.io/badge/Closed%20Issues-41-green?style=for-the-badge
+[closedIssues-shield]: https://img.shields.io/badge/Closed%20Issues-85-green?style=for-the-badge
 [closedIssues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues?q=is%3Aissue+is%3Aclosed
 
