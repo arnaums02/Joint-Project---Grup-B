@@ -10,16 +10,15 @@
 
 | Team Member  | Issue Found  |  
 |---|---|
-| xx  | xx  |   
-| xx |  xx |  
-| xx |  xx |
+| Giovani  | Problemas al intentar organizar las habitaciones por pisos  |   
+
 
 ## Restrospective Actions
 
 | Action  | Description |  
 |---|---|
-| xx  | xx  |   
-| xx  | xx |
+| Investigación y documentación  | Se ha investigado la mejor forma de implementar las funcionalidades que presentaban dificultades  |   
+
 
 ## Next Sprint Team Organization
 
