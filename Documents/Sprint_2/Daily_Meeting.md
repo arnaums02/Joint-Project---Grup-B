@@ -88,11 +88,13 @@ I: Information
 | Problem | Task | Owner | Description |
 |---------|------|-------|-------------|
 | Problemes visuals en la barra de navegacio.     | Arreglar barra navegacio  | Arnau   | En reduir el tamany de la finestra la barra de navegacio no esta acabada de implementar         |
+| Problemas a la hora de limitar los usuarios por vista     | Logueo del usuario  | Giovani   | No se limitaba correctamente el tipo de usuario que podia acceder a las vistas         |
 
 ## Actions
 | Type | Description                                    | Owner                             | Deadline   |
 |------|------------------------------------------------|-----------------------------------|------------|
 | T    | Finalització del desenvolupament de les issues | Arnau, Albert, Giovani, Pau, Quim | 30-04-2024 |
+| T    | Implementación de la limitación de acceso a las vistas | Giovani | 30-04-2024 |
 | T    | Arreglar barra navegacio | Arnau | 30-04-2024 |
 
 
