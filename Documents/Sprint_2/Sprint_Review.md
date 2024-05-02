@@ -24,7 +24,7 @@ Com a Scrum Master opino que hem tardat a començar a treballar, com es pot veur
 ## Burn-up (Velocity) Graph
 <img width="672" alt="Burn_up" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/ef6b59d9-bfa6-4fc5-9b53-98debf74d120">
 
-
+Com a Scrum Master, l'inici del projecte ha sigut una mica tardíu per les raons que ja hem comentat anteriorment, però considero que un cop ja hem obtingut els coneixements bàsics, ens hem cordinat molt bé com a equip i hem pogut avançar la feina de manera ràpida i òptima.
 
 
 
