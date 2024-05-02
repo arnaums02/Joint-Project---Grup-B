@@ -1,0 +1,139 @@
+body {
+    margin-top: 110px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff6f6;
+}
+
+/* Estilos generales del formulario */
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form_vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los elementos del formulario */
+label {
+    margin-right: 10px;
+}
+
+input[type="date"],
+select {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 20px;
+    background-color: #009879;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para el formulario */
+.form_vertical {
+    width: 350px; /* Ancho del formulario */
+    margin: 20px auto; /* Margen arriba y abajo, centrar horizontalmente */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde sólido */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 10px; /* Bordes redondos */
+}
+
+/* Estilos para el título del formulario */
+.form_title {
+    text-align: center; /* Centrar el texto */
+    font-size: 1.5em; /* Tamaño de fuente */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilos para cada elemento del formulario */
+.form_vertical label,
+.form_vertical input[type="text"],
+.form_vertical input[type="email"],
+.form_vertical input[type="password"],
+.form_vertical button {
+    display: block; /* Mostrar los elementos en bloques separados */
+    width: 100%; /* Ocupar todo el ancho disponible */
+    margin-bottom: 10px; /* Espacio entre elementos */
+}
+
+/* Estilos para el botón */
+.form_vertical button {
+    width: auto; /* Ancho automático para el botón */
+    padding: 10px 20px; /* Padding del botón */
+}
+
+/* Estilos para separar el botón de confirmar del desplegable de customer */
+.form_vertical .button-66 {
+    margin-top: 10px; /* Ajusta el margen superior del botón */
+}
+
+/* Opcionalmente, puedes ajustar el espacio entre el desplegable de customer y el botón */
+.form_vertical .customer-select {
+    margin-bottom: 10px; /* Ajusta el margen inferior del desplegable */
+}
+
+.button-66 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #009879;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 14px; /* Tamaño de fuente reducido */
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 20px; /* Altura mínima reducida */
+  min-width: 0;
+  outline: none;
+  padding: 5px 10px; /* Padding reducido */
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto; /* Ancho automático para ajustarse al contenido */
+  will-change: transform;
+}
+
+.button-66:disabled {
+  pointer-events: none;
+}
+
+.button-66:hover {
+  color: #fff;
+  background-color: #009879;
+  box-shadow: rgba(188, 255, 179, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-66:active {
+  box-shadow: none;
+  transform: translateY(0);
+}

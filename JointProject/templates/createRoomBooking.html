@@ -7,7 +7,7 @@
         <title>Reserva d'habitació</title>
     </head>
         <title>Reservas de habitaciones</title>
-        <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     
     <body>
         <h1>Crear reservas de habitaciones</h1>
@@ -22,8 +22,3 @@
     </body>
 
 {% endblock %}
-<form method="post" class="form_vertical">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn" type="submit">Confirmar reserva</button>
-        </form>
