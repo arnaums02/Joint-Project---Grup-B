@@ -11,7 +11,8 @@
 | Team Member  | Issue Found  |  
 |---|---|
 | Giovani  | Problemas al intentar organizar las habitaciones por pisos  |   
-| Albert  | Problemas al definir un formulario para relacionar un cliente con pagos pendientes a la horaa de asignarle un pedido del restaurante  |   
+| Albert  | Problemas al definir un formulario para relacionar un cliente con pagos pendientes a la horaa de asignarle un pedido del restaurante  |
+| Arnau | Problemes al configurar els elements de la "HomePage", ja que no correspon als continguts que haurien d'aparèixer a una "HomePage". |
 
 
 ## Restrospective Actions
