@@ -58,7 +58,7 @@ Giovani Maerean Rubiano - gmr12@alumnes.udl.cat
 
 Pau Barahona Setó - pbs6@alumnes.udl.cat
 
-Albert Martin Lopez - aml32@alumnes.udl.cat
+Albert Martín López - aml32@alumnes.udl.cat
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
