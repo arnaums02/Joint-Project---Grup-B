@@ -40,9 +40,4 @@ jobs:
         
     - name: Ejecutar Tests Django
       run: |
-       CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-        curl -O "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-        unzip chromedriver_linux64.zip
-        chmod +x chromedriver
-        sudo mv chromedriver /usr/local/bin/chromedriver
         python manage.py test
