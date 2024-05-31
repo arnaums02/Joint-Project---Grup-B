@@ -8,7 +8,7 @@
     </head>
     
     <title>Reservar mesa</title>
-    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 
 <body>
     <h1>Reserva de Mesa</h1>
@@ -22,8 +22,7 @@
         {{ form.as_p }} 
         <!-- Input oculto para almacenar el ID de la mesa reservada -->
         <input type="hidden" id="tableId" name="tableId" value="{{ table_id }}">
-        <br>
-        <button class="btn" type="submit">Confirmar reserva</button>
+        <button type="submit" class="button-66">Confirmar</button>
     </form>
 </body>
 {% endblock %}

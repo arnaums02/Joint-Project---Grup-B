@@ -8,35 +8,31 @@
     
     <title>Detalles del pago realizado del cliente</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin-top: 250px;
-            margin-bottom: 20px;
-        }
-    </style>
 
 <body>
-    <div class="container">
-        <h1>Detalles del pago realizado del cliente</h1>
-        <p><strong>Email del cliente:</strong> {{ completedPayment.customer.email }}</p>
-        <p><strong>Cantidad total pagada:</strong> {{ totalPayed }}</p>
-        <br>
-        <p><strong>Items:</strong></p>
-        <ul>
+    <h1>Detalles del pago realizado del cliente</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Email del cliente</th>
+                <th>Cantidad total pagada</th>
+                <th>Concepto</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for item in completedPayment.items.all %}
-                <li>
-                    <p><strong>Nombre:</strong> {{ item.name }}</p>
-                    <p><strong>Detalles:</strong> {{ item.details }}</p>
-                    <p><strong>Precio:</strong> {{ item.price }}</p>
-                </li>
+                <tr>
+                    <td>{{ completedPayment.customer.email }}</td>
+                    <td>{{ totalPayed }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.details }}</td>
+                    <td>{{ item.price }}</td>
+                </tr>
             {% endfor %}
-        </ul>
-    </div>
+        </tbody>
+    </table>
 </body>
 {% endblock %}
 

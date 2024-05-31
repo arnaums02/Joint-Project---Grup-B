@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin-top: 100px;
+    margin-top: 110px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -176,47 +176,6 @@ h3 {
   transform: translateY(-2px);
 }
 
-/* Estilos generales del formulario */
-form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.form_vertical {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-/* Estilos para los elementos del formulario */
-label {
-    margin-right: 10px;
-}
-
-input[type="date"],
-select {
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 8px 20px;
-    background-color: #009879;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 /* Estilos para cuando el botón es presionado */
 button:active {
     background-color: #0056b3;
@@ -246,38 +205,4 @@ button:active {
     color: #ff0015; /* Color del texto rojo oscuro */
     margin-top: 10px; /* Margen superior */
     font-size: 14px; /* Tamaño de fuente */
-}
-
-/* Estilos para el formulario */
-.form_vertical {
-    width: 350px; /* Ancho del formulario */
-    margin: 20px auto; /* Margen arriba y abajo, centrar horizontalmente */
-    padding: 20px; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde sólido */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    border-radius: 10px; /* Bordes redondos */
-}
-
-/* Estilos para el título del formulario */
-.form_title {
-    text-align: center; /* Centrar el texto */
-    font-size: 1.5em; /* Tamaño de fuente */
-    margin-bottom: 20px; /* Espaciado inferior */
-}
-
-/* Estilos para cada elemento del formulario */
-.form_vertical label,
-.form_vertical input[type="text"],
-.form_vertical input[type="email"],
-.form_vertical input[type="password"],
-.form_vertical button {
-    display: block; /* Mostrar los elementos en bloques separados */
-    width: 100%; /* Ocupar todo el ancho disponible */
-    margin-bottom: 10px; /* Espacio entre elementos */
-}
-
-/* Estilos para el botón */
-.form_vertical button {
-    width: auto; /* Ancho automático para el botón */
-    padding: 10px 20px; /* Padding del botón */
 }

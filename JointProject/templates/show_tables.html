@@ -10,6 +10,7 @@
     </head>
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 <body>
 
     <h1>Mesas restaurante hotel las palmeras</h1>
@@ -69,7 +70,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5">No hay mesas disponibles en esta fecha y hora.</td>
+                    <td colspan="5">No hay mesas disponibles en esta fecha y hora</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -96,7 +97,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5">No hay mesas reservadas en esta fecha y hora.</td>
+                <td colspan="5">No hay mesas reservadas en esta fecha y hora</td>
             </tr>
             {% endfor %}
         </tbody>

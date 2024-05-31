@@ -31,6 +31,20 @@
    git clone https://github.com/arnaums02/Joint-Project---Grup-B.git
    ```
 
+2. Be sure the migrations are generated correctly
+   ```python
+   python manage.py makemigrations
+   ```
+
+3. Apply the migrations
+   ```python
+   python manage.py migrate
+   ```
+4. Run the application
+   ```python
+   python manage.py runserver
+   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
@@ -44,7 +58,7 @@ Giovani Maerean Rubiano - gmr12@alumnes.udl.cat
 
 Pau Barahona Setó - pbs6@alumnes.udl.cat
 
-Albert Martin Lopez - aml32@alumnes.udl.cat
+Albert Martín López - aml32@alumnes.udl.cat
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -57,6 +71,6 @@ Albert Martin Lopez - aml32@alumnes.udl.cat
 [stars-url]: https://github.com/arnaums02/Joint-Project---Grup-B/stargazers
 [issues-shield]: https://img.shields.io/github/issues/arnaums02/Joint-Project---Grup-B.svg?style=for-the-badge
 [issues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues
-[closedIssues-shield]: https://img.shields.io/badge/Closed%20Issues-41-green?style=for-the-badge
+[closedIssues-shield]: https://img.shields.io/badge/Closed%20Issues-85-green?style=for-the-badge
 [closedIssues-url]: https://github.com/arnaums02/Joint-Project---Grup-B/issues?q=is%3Aissue+is%3Aclosed
 

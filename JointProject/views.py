@@ -136,7 +136,10 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6a0ca39f6a0f46bb02a0aa75ab856cd53d386109
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |

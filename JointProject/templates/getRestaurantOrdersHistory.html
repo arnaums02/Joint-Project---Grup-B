@@ -2,38 +2,38 @@
 {% load static %}
 
 {% block content %}
-    <head>
-        <title>Historial restaurant</title>
-    </head>
-    
-        <title>Hisorial de pedidos del restaurante</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-        <style>
-       .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin-top: 250px;
-            margin-bottom: 20px;
-        }
-        .container li {
-            padding: 10px;
-        }
-    </style>
+<head>
+    <title>Historial restaurant</title>
+</head>
 
-    <body>
-        <div class="container">
-            <h1>Hisorial de pedidos del restaurante</h1>
-            <ul>
-                {% for restaurantOrder in restaurantOrders %}
-                    <li><strong>Mesa: </strong>{{ restaurantOrder.table }} <strong>Fecha:</strong> {{ restaurantOrder.date }} <strong>Turno:</strong> {{ restaurantOrder.shift }}
-                        <a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a>
-                        <br>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </body>
+    <title>Hisorial de pedidos del restaurante</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
+<body>
+    <h1>Hisorial de pedidos del restaurante</h1>
+    <table class="styled-table2">
+        <thead>
+            <tr>
+                <th>Mesa</th>
+                <th>Fecha</th>
+                <th>Turno</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for restaurantOrder in restaurantOrders %}
+            <tr>
+                <td>{{ restaurantOrder.table }}</td>
+                <td>{{ restaurantOrder.date }}</td>
+                <td>{{ restaurantOrder.shift }}</td>
+                <td><a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pedidos del restaurante</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
 {% endblock %}

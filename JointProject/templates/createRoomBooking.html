@@ -6,20 +6,19 @@
     <head>
         <title>Reserva d'habitació</title>
     </head>
-
-    <title>Reservas de habitaciones</title>
-    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+        <title>Reservas de habitaciones</title>
+        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     
-<body>
-    <div class="container">
+    <body>
         <h1>Crear reservas de habitaciones</h1>
         <form method="post" class="form_vertical">
             {% csrf_token %}
-            {{ form.as_p }}
-            <br>
-            <button class="btn" type="submit">Confirmar reserva</button>
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+            <button type="submit" class="button-66">Confirmar reserva</button>
         </form>
-    </div>
-</body>
+    </body>
 
 {% endblock %}

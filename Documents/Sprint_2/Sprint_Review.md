@@ -1,4 +1,4 @@
-# Sprint Review Hotel Las Palmeras (04-04-2024)
+# Sprint Review Hotel Las Palmeras (02-05-2024)
 
 ## Work Scheduled/Performed
 
@@ -13,18 +13,20 @@
 | Obtenir serveis a pagar |  Obtenir els pagaments pendents del client. |  [Yes] |
 
 ## Burn-down Graph
+<img width="672" alt="Burn_down" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/deb9b1e1-8f1a-44db-8ed1-b8dc52ff0aa6">
 
-![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/e9c497b7-60be-40af-9c51-5b81911ea00a)
+Com a Scrum Master opino que hem tardat a començar a treballar, com es pot veure reflectit en els grafics. El motiu es que no teniem ben definida la idea sobre els nous aspectes a implementar. Tampoc vam poder realitzar les entrevistes corresponents als implicats per obtenir la informació per a poder dissenyar el projecte fins tard.
 
 
 
-Com a Scrum Master opino que hem tardat a començar a treballar, com es pot veure reflectit en els grafics. El motiu es que no teniem prous coneixements sobre les tecnològies que s'havien d'utilitzar i els primers dies els vam invertir en documentar-nos per fer una web òptima desde un principi.
+
 
 ## Burn-up (Velocity) Graph
-
-![image](https://github.com/arnaums02/Joint-Project---Grup-B/assets/114426285/88183e8a-24cb-46bc-b9fc-2003ce977b90)
+<img width="672" alt="Burn_up" src="https://github.com/arnaums02/Joint-Project---Grup-B/assets/155188920/ef6b59d9-bfa6-4fc5-9b53-98debf74d120">
 
 Com a Scrum Master, l'inici del projecte ha sigut una mica tardíu per les raons que ja hem comentat anteriorment, però considero que un cop ja hem obtingut els coneixements bàsics, ens hem cordinat molt bé com a equip i hem pogut avançar la feina de manera ràpida i òptima.
+
+
 
 ## Client Improvements 
 
@@ -32,6 +34,7 @@ For the conclusions we need to reflect improvement points reflected by our custo
 
 | Client Improvement  | Description |  
 |---|---|
-| Les reserves no eliminarles | El boto de eliminar reserva que no impliqui eliminar de la base de dades, sino que es canceli i quedi constancia en la web  |  
-| No poder relitzar check-out sense el check-in |  Ocultar el botó de check-out mentre no s'hagi realitzat el check-in | 
-| Millorar l'apariència de la web  |  Millorar la apariencia de la web, sobretot els formularis de reserva. | 
+| Ocultar boto check-out | Fins que no s'ha realitzat el check-in no mostrar el boto de check-out  |  
+| Pagina homepage  |  La pagina homepage actual sembla una pagina de perfil, modificar a una pagina de benvinguda | 
+| Pagina informació usuari  |  Crear pàgina perfil que sigui com la homepage del sprint 2  | 
+| Afegir filtre All habitació |  Al filtrar les habitacions netejades/a netejar per pisos afegir filtre per mostrar tots els pisos alhora |
