@@ -12,10 +12,9 @@
 </head>
 
 <body>
-<!-- Barra de navegació -->
 <nav>
   <div class="wrapper">
-      <div class="logo"><a href="{% url 'roomStaffHomePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" style="max-height: 100px;"></a></div>
+      <div class="logo"><a href="{% url 'homePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" style="max-height: 100px;"></a></div>
       <input type="radio" name="slider" id="menu-btn">
       <input type="radio" name="slider" id="close-btn">
 
@@ -231,7 +230,7 @@
         </a></li>
     </ul>
     <ul class="menu">
-      <li class="menu__item"><a class="menu__link" href="{% url 'roomStaffHomePage' %}">Home</a></li>
+      <li class="menu__item"><a class="menu__link" href="{% url 'homePage' %}">Home</a></li>
       <li class="menu__item"><a class="menu__link" href="{% url 'about_us' %}">Acerca de</a></li>
       <li class="menu__item"><a class="menu__link" href="#">Servicios</a></li>
 

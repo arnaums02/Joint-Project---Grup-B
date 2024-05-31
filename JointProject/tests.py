@@ -1,24 +1,37 @@
+import time
+
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
 from django.utils import timezone
-from .models import Room, RoomBookings, Table, Shift, ReservedTable, Bill, ItemToPay
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
 from accounts.models import CustomUser
+from .models import Room, RoomBookings, Table, Shift, ReservedTable, Bill, ItemToPay
+
 
 class ModelTests(TestCase):
 
     def setUp(self):
-        self.user1 = CustomUser.objects.create_user(email='user1@example.com', password='password1', first_name='John', last_name='Doe', user_type='client')
-        self.user2 = CustomUser.objects.create_superuser(email='admin@example.com', password='adminpassword', user_type='admin')
+        self.user1 = CustomUser.objects.create_user(email='user1@example.com', password='password1', first_name='John',
+                                                    last_name='Doe', user_type='client')
+        self.user2 = CustomUser.objects.create_superuser(email='admin@example.com', password='adminpassword',
+                                                         user_type='admin')
 
         self.room1 = Room.objects.create(roomNumber=101, roomType='standard')
         self.room2 = Room.objects.create(roomNumber=102, roomType='deluxe')
 
-        self.booking1 = RoomBookings.objects.create(userWhoBooked=self.user1, guestName='Guest 1', guestEmail='guest1@example.com',
+        self.booking1 = RoomBookings.objects.create(userWhoBooked=self.user1, guestName='Guest 1',
+                                                    guestEmail='guest1@example.com',
                                                     guestPhoneNumber='123456789', guestDNI='123456789A', numberGuest=2,
-                                                    roomBooked=self.room1, startDate=timezone.now(), endDate=timezone.now(),
+                                                    roomBooked=self.room1, startDate=timezone.now(),
+                                                    endDate=timezone.now(),
                                                     checkIn=True, checkOut=False)
-        self.booking2 = RoomBookings.objects.create(userWhoBooked=self.user2, guestName='Guest 2', guestEmail='guest2@example.com',
+        self.booking2 = RoomBookings.objects.create(userWhoBooked=self.user2, guestName='Guest 2',
+                                                    guestEmail='guest2@example.com',
                                                     guestPhoneNumber='987654321', guestDNI='987654321B', numberGuest=1,
-                                                    roomBooked=self.room2, startDate=timezone.now(), endDate=timezone.now(),
+                                                    roomBooked=self.room2, startDate=timezone.now(),
+                                                    endDate=timezone.now(),
                                                     checkIn=False, checkOut=False)
 
         self.table1 = Table.objects.create(tableNumber=1, capacity=4)
@@ -26,9 +39,9 @@ class ModelTests(TestCase):
         self.shift1 = Shift.objects.create(shift='12-13')
 
         self.reserved_table1 = ReservedTable.objects.create(userWhoReserved=self.table1, shift=self.shift1,
-                                                             clientName='Client 1', clientPhoneNumber='111222333',
-                                                             numberOfClients=3, reservationDate=timezone.now(),
-                                                             tableReserved=self.table1)
+                                                            clientName='Client 1', clientPhoneNumber='111222333',
+                                                            numberOfClients=3, reservationDate=timezone.now(),
+                                                            tableReserved=self.table1)
 
         self.bill1 = Bill.objects.create(customer=self.user1)
         self.item1 = ItemToPay.objects.create(name='Item 1', bill=self.bill1, details='Details for Item 1', price=10.50)
@@ -53,3 +66,38 @@ class ModelTests(TestCase):
         self.assertEqual(self.item1.name, 'Item 1')
         self.assertEqual(self.item1.details, 'Details for Item 1')
         self.assertEqual(self.item1.price, 10.50)
+
+
+class LoginTest(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.user = CustomUser.objects.create_user(
+            user_type='roomStaff',
+            email='test@example.com',
+            password='password',
+            first_name='Test',
+            last_name='User'
+        )
+
+        cls.selenium = webdriver.Chrome()
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def test_login(self):
+        self.selenium.get(self.live_server_url)
+
+        email_field = self.selenium.find_element(By.NAME, "email")
+        password_field = self.selenium.find_element(By.NAME, "password")
+        email_field.send_keys('test@example.com')
+        password_field.send_keys('password')
+
+        login_button = self.selenium.find_element(By.XPATH, "//button[@type='Submit']")
+        login_button.click()
+
+        self.assertEqual(self.selenium.current_url, self.live_server_url + '/homePage/')
+

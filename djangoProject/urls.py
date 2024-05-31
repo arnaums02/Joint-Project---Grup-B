@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', signIn, name='signIn'),
     path('accounts/login/', signIn, name='signIn'),
-    path('roomStaffHomePage/', roomStaffHomePage, name='roomStaffHomePage'),
+    path('homePage/', homePage, name='homePage'),
     path('obtainRoomBookings/<str:bookingState>', obtainRoomBookings, name='obtainRoomBookings'),
     path('obtainRoomBookings/', obtainRoomBookings, {'bookingState': 'active'}, name='obtainRoomBookings'),
     path('cancelRoomBooking/<uuid:roomBookingId>', cancelRoomBooking, name='cancelRoomBooking'),

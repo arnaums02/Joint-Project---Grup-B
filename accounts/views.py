@@ -3,22 +3,22 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
 from accounts.forms import SignInForm
+from accounts.models import CustomUser
 
 
 # Create your views here.
 
 def signIn(request):
     if request.method == 'POST':
+
         email = request.POST['email']
-        print(email)
 
         password = request.POST['password']
-        print(password)
+
         user = authenticate(request, email=email, password=password)
-        print(user)
         if user is not None:
             login(request, user)
-            return redirect('roomStaffHomePage')
+            return redirect('homePage')
 
         else:
             messages.error(request,'Correo electrónico o contraseña incorrectos.')
