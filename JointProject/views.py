@@ -1,16 +1,16 @@
-from functools import wraps
+from datetime import datetime
 
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
-    RestaurantProduct, RestaurantOrder, ItemToPay
-from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, BillForm, ItemToPayForm, \
+
+from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
     RestaurantOrderForm
-from django.contrib import messages
-from datetime import datetime
-from django.db.models import Q
+from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
+    RestaurantOrder, ItemToPay
 
 
 def roomStaff_required(user):
