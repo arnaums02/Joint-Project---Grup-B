@@ -101,3 +101,70 @@ class LoginTest(StaticLiveServerTestCase):
 
         self.assertEqual(self.selenium.current_url, self.live_server_url + '/homePage/')
 
+
+class CleanRoomsTest(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        room = Room.objects.create(roomNumber=101, roomType='standard', roomFloor=1)
+        cls.user = CustomUser.objects.create_user(
+            user_type='cleaningStaff',
+            email='test@example.com',
+            password='password',
+            first_name='Test',
+            last_name='User')
+
+        cls.reservation = RoomBookings.objects.create(
+            userWhoBooked=CustomUser.objects.first(),
+            guestName='Test client',
+            guestEmail='test@example.com',
+            guestPhoneNumber='123456789',
+            guestDNI='123456789A',
+            numberGuest=2,
+            roomBooked=room,
+            startDate=timezone.now(),
+            endDate=timezone.now(),
+            checkIn=True,
+            checkOut=True,
+            toClean=True,
+        )
+
+        cls.selenium = webdriver.Chrome()
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def test_clean_room(self):
+        roomBooking = RoomBookings.objects.get(guestName='Test client')
+
+        self.assertEqual(roomBooking.toClean, True)
+        self.assertEqual(roomBooking.cleaned, False)
+        self.selenium.get(self.live_server_url)
+
+        email_field = self.selenium.find_element(By.NAME, "email")
+        password_field = self.selenium.find_element(By.NAME, "password")
+        email_field.send_keys('test@example.com')
+        password_field.send_keys('password')
+
+        login_button = self.selenium.find_element(By.XPATH, "//button[@type='Submit']")
+        login_button.click()
+
+        self.selenium.get(self.live_server_url + "/roomsForCleaning/")
+
+        self.assertEqual(self.selenium.current_url, self.live_server_url + "/roomsForCleaning/")
+
+        confirm_button = self.selenium.find_element(By.XPATH, "//button[contains(text(), 'Confirmar limpieza')]")
+        confirm_button.click()
+
+        roomBooking = RoomBookings.objects.get(guestName='Test client')
+
+        self.assertEqual(roomBooking.toClean, False)
+
+        self.assertEqual(roomBooking.cleaned, True)
+
+
+
+
