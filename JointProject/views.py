@@ -32,8 +32,8 @@ def restaurantOrRoomStaff_required(user):
 
 # Create your views here.
 @login_required(login_url='')
-def roomStaffHomePage(request):
-    return render(request, 'roomStaffHomePage.html')
+def homePage(request):
+    return render(request, 'homePage.html')
 
 
 @user_passes_test(roomStaff_required, login_url='')
@@ -136,6 +136,10 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6a0ca39f6a0f46bb02a0aa75ab856cd53d386109
 def checkAvailableRooms(startTime, endTime, roomType):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
