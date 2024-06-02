@@ -41,7 +41,12 @@ jobs:
         sudo apt-get install -y libxss1
         sudo apt-get install -y libappindicator1
         sudo apt-get install -y fonts-liberation
-        if [ ! -e /usr/bin/chromedriver ]; then sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver; fi
+        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+        sudo ln -s /usr/bin/google-chrome /usr/bin/chrome
 
     - name: Run tests
       env:
