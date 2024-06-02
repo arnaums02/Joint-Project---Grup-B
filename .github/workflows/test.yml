@@ -57,7 +57,6 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const { github, context } = require("@actions/github");
           const issueTitle = `Test Failure in ${context.workflow}`;
           const issueBody = `
           There was a test failure in the workflow **${context.workflow}**.
