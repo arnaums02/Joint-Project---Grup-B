@@ -5,6 +5,8 @@ from django.test import TestCase
 from django.utils import timezone
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 from accounts.models import CustomUser
 from .models import Room, RoomBookings, Table, Shift, ReservedTable, Bill, ItemToPay
@@ -80,7 +82,11 @@ class LoginTest(StaticLiveServerTestCase):
             last_name='User'
         )
 
-        cls.selenium = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')
+        options.add_argument('--disable-dev-shm-usage')
+        cls.selenium = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -129,7 +135,11 @@ class CleanRoomsTest(StaticLiveServerTestCase):
             toClean=True,
         )
 
-        cls.selenium = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')
+        options.add_argument('--disable-dev-shm-usage')
+        cls.selenium = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
