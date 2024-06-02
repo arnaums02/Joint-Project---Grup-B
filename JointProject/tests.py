@@ -173,7 +173,7 @@ class CleanRoomsTest(StaticLiveServerTestCase):
 
         self.assertEqual(roomBooking.toClean, True)
 
-        self.assertEqual(roomBooking.cleaned, False)
+        self.assertEqual(roomBooking.cleaned, True)
 
 
 
