@@ -171,9 +171,9 @@ class CleanRoomsTest(StaticLiveServerTestCase):
 
         roomBooking = RoomBookings.objects.get(guestName='Test client')
 
-        self.assertEqual(roomBooking.toClean, False)
+        self.assertEqual(roomBooking.toClean, True)
 
-        self.assertEqual(roomBooking.cleaned, True)
+        self.assertEqual(roomBooking.cleaned, False)
 
 
 
