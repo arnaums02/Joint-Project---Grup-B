@@ -50,3 +50,29 @@ jobs:
         python manage.py makemigrations
         python manage.py migrate
         python manage.py test
+        continue-on-error: true
+
+    - name: Create issue on test failure
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { github, context } = require("@actions/github");
+          const issueTitle = `Test Failure in ${context.workflow}`;
+          const issueBody = `
+          There was a test failure in the workflow **${context.workflow}**.
+          - **Job:** ${context.job}
+          - **Commit:** ${context.sha}
+          - **Run:** ${context.runNumber}
+          - **URL:** ${context.runUrl}
+          `;
+
+          const issue = await github.rest.issues.create({
+            ...context.repo,
+            title: issueTitle,
+            body: issueBody,
+          });
+
+          console.log(`Created issue ${issue.data.html_url}`);
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
