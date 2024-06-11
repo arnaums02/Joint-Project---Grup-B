@@ -74,6 +74,7 @@ def createRoomBookings(request, roomId, startDate, endDate):
     }
     if form.is_valid():
         roomBooking = form.save(commit=False)
+
         """
         if roomBooking.roomBooked.booked == False:
             roomBooking.userWhoBooked = request.user
@@ -87,6 +88,13 @@ def createRoomBookings(request, roomId, startDate, endDate):
         roomBooking.startDate = startDate
         roomBooking.endDate = endDate
         roomBooking.save()
+
+        try:
+            Bill.objects.get(roomBooking=roomBooking)
+        except Bill.DoesNotExist:
+            Bill.objects.create(roomBooking=roomBooking)
+
+
         return redirect('obtainRoomBookings')
     return render(request, 'createRoomBooking.html', context)
 
@@ -166,8 +174,10 @@ def roomBookingDetails(request, roomBookingId):
 @user_passes_test(roomStaff_required, login_url='')
 def checkIn(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    bill = Bill.objects.get(roomBooking=roomBooking)
     context = {
-        'roomBooking': roomBooking
+        'roomBooking': roomBooking,
+        'bill': bill
     }
     roomBooking.checkIn = True
     roomBooking.save()
@@ -177,8 +187,10 @@ def checkIn(request, roomBookingId):
 @user_passes_test(roomStaff_required, login_url='')
 def checkOut(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    bill = Bill.objects.get(roomBooking=roomBooking)
     context = {
-        'roomBooking': roomBooking
+        'roomBooking': roomBooking,
+        'bill': bill
     }
     if roomBooking.checkIn:
         roomBooking.checkOut = True
