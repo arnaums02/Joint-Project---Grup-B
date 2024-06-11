@@ -51,9 +51,9 @@
                             <td>{{ roomBooking.startDate }}</td>
                             <td>{{ roomBooking.endDate }}</td>
                             <td><a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>
-                                {% if bookingState == 'active' %}
+                                {% if bookingState == 'active' and not roomBooking.checkIn %}
                                     <a href="{% url 'cancelRoomBooking' roomBooking.id %}"><button type="submit" class="button-55">Cancelar</button></a>
-                                {% elif bookingState == 'cancelled' %}
+                                {% elif bookingState == 'cancelled' and not roomBooking.checkIn %}
                                     <a href="{% url 'activateRoomBooking' roomBooking.id %}"><button type="submit" class="button-66">Activar</button></a>
                                 {% endif %}
                             </td>
