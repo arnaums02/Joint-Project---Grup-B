@@ -153,8 +153,10 @@ def checkAvailableRooms(startTime, endTime, roomType):
 @user_passes_test(roomStaff_required, login_url='')
 def roomBookingDetails(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    bill = Bill.objects.get(roomBooking=roomBooking)
     context = {
-        'roomBooking': roomBooking
+        'roomBooking': roomBooking,
+        'bill': bill
     }
     return render(request, 'roomBookingDetails.html', context)
 
@@ -359,14 +361,14 @@ def addItemToBill(request):
         form = ItemToPayForm(request.POST)
         itemToPay = form.save(commit=False)
         if form.is_valid():
-            customer = form.cleaned_data['customer']
+            roomBooking = form.cleaned_data['roomBooking']
             try:
-                bill = Bill.objects.get(customer=customer)
+                bill = Bill.objects.get(roomBooking=roomBooking)
             except Bill.DoesNotExist:
-                bill = Bill.objects.create(customer=customer)
+                bill = Bill.objects.create(roomBooking=roomBooking)
             itemToPay.bill = bill
             itemToPay.save()
-            return redirect('getCustomersBills')
+            return redirect('getCustomersBills') #CAMBIAR
     else:
         form = ItemToPayForm()
     context = {
@@ -381,7 +383,7 @@ def getCustomersBills(request):
     context = {
         'bills': bills
     }
-    return render(request, 'getCustomersBills.html', context)
+    return render(request, 'getCustomersBills.html', context) #CAMBIAR
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
@@ -399,12 +401,12 @@ def billsDetails(request, billId):
 def payBills(request, billId):
     bill = get_object_or_404(Bill, id=billId)
     items = bill.items.all()
-    customer = bill.customer
+    roomBooking = bill.roomBooking
 
     try:
-        completedPayment = CompletedPayment.objects.get(customer=customer)
+        completedPayment = CompletedPayment.objects.get(roomBooking=roomBooking)
     except CompletedPayment.DoesNotExist:
-        completedPayment = CompletedPayment.objects.create(customer=customer)
+        completedPayment = CompletedPayment.objects.create(roomBooking=roomBooking)
 
     for item in items:
         ItemPayed.objects.create(
@@ -415,7 +417,7 @@ def payBills(request, billId):
         )
 
     items.delete()
-    return redirect('getCustomersBills')
+    return redirect('getCustomersBills') #CAMBIAR
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
@@ -456,18 +458,16 @@ def addRestaurantOrderToBill(request):
     if request.method == 'POST':
         form = RestaurantOrderForm(request.POST)
         if form.is_valid():
-            #order =
-            form.save()
-            """
+            order = form.save()
             roomBooking = form.cleaned_data['roomBooking']
             try:
-                bill = Bill.objects.get(customer=customer)
+                bill = Bill.objects.get(roomBooking=roomBooking)
             except Bill.DoesNotExist:
-                bill = Bill.objects.create(customer=customer)
+                bill = Bill.objects.create(roomBooking=roomBooking)
             ItemToPay.objects.create(name="Restaurante", bill=bill,
                                      details="Fecha:" + form.cleaned_data['date'].strftime(""),
                                      price=order.calculateTotalOrder())
-             """
+
             return redirect('getRestaurantOrdersHistory')
     else:
         form = RestaurantOrderForm()

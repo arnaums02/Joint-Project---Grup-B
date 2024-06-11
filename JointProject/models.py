@@ -90,7 +90,8 @@ class ReservedTable(models.Model):
 
 class Bill(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer')
+    #customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer')
+    roomBooking  = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='booking')
 
     def calculateTotalPrice(self):
         totalPrice = sum(item.price for item in self.items.all())
@@ -106,7 +107,9 @@ class ItemToPay(models.Model):
 
 class CompletedPayment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customerWhoPayed')
+    #customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customerWhoPayed')
+    roomBooking  = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='roomBooking')
+
 
     def calculateTotalPayed(self):
         totalPrice = sum(item.price for item in self.items.all())

@@ -13,13 +13,13 @@
     <table class="styled-table available-table">
         <thead>
             <tr>
-                <th>Email del cliente</th>
+                <th>Reservas de habitaciones</th>
             </tr>
         </thead>
         <tbody>
             {% for completedPayment in completedPayments %}
             <tr>
-                <td>{{ completedPayment.customer.email }} <a href="{% url 'completedPaymentsDetails' completedPayment.id %}" class="button-66" role="button"> Ver pagos completados</a></td>
+                <td>{{ completedPayment.roomBooking }} <a href="{% url 'completedPaymentsDetails' completedPayment.id %}" class="button-66" role="button"> Ver pagos completados</a></td>
             </tr>
             {% empty %}
             <tr>
