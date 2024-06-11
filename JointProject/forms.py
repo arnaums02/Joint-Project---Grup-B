@@ -57,11 +57,11 @@ class ReservationForm(forms.ModelForm):
 class BillForm(forms.ModelForm):
     class Meta:
         model = Bill
-        fields = ['customer']
+        fields = ['roomBooking']
 
 
 class ItemToPayForm(forms.ModelForm):
-    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all(),
+    roomBooking = forms.ModelChoiceField(queryset=RoomBookings.objects.all(),
                                       widget=forms.Select(attrs={'class': 'customer-select'}))
 
     class Meta:

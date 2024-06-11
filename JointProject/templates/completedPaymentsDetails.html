@@ -14,7 +14,7 @@
     <table class="styled-table available-table">
         <thead>
             <tr>
-                <th>Email del cliente</th>
+                <th>Reservas de habitaciones</th>
                 <th>Cantidad total pagada</th>
                 <th>Concepto</th>
                 <th>Detalles</th>
@@ -24,7 +24,7 @@
         <tbody>
             {% for item in completedPayment.items.all %}
                 <tr>
-                    <td>{{ completedPayment.customer.email }}</td>
+                    <td>{{ completedPayment.roomBooking }}</td>
                     <td>{{ totalPayed }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.details }}</td>

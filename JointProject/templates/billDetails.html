@@ -14,7 +14,7 @@
     <table class="styled-table available-table">
         <thead>
             <tr>
-                <th>Email del cliente</th>
+                <th>Reservas de habitaciones</th>
                 <th>Precio total</th>
                 <th>Nombre</th>
                 <th>Detalles</th>
@@ -24,7 +24,7 @@
         <tbody>
             {% for item in bill.items.all %}
             <tr>
-                <td>{{ bill.customer.email }}</td>
+                <td>{{ bill.roomBooking }}</td>
                 <td>{{ totalPrice }} <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a></td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.details }}</td>

@@ -30,6 +30,7 @@
                 {% else %}
                     <a href="{% url 'checkOut' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-out</button></a>
                 {% endif %}
+                <a href="{% url 'billDetails' bill.id %}"><button type="submit" class="button-66">Ver pagos pendientes</button></a>
             {% endif %}
         </ul>
     </div>

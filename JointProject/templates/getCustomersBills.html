@@ -13,13 +13,13 @@
     <table class="styled-table available-table">
         <thead>
             <tr>
-                <th>Email del cliente</th>
+                <th>Reservas de habitaciones</th>
             </tr>
         </thead>
         <tbody>
             {% for bill in bills %}
             <tr>
-                <td>{{ bill.customer.email }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></td>
+                <td>{{ bill.roomBooking }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></td>
             </tr>
             {% empty %}
             <tr>
