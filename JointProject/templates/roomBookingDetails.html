@@ -23,12 +23,13 @@
             <p><strong>Número de telefono del huesped:</strong> {{ roomBooking.guestPhoneNumber }}</p>
             <p><strong>DNI del huesped:</strong> {{ roomBooking.guestDNI }}</p>
             <p><strong>Numero de huespedes en la habitación:</strong> {{ roomBooking.numberGuest }}</p>
-            <p><strong>Check-in:</strong> {{ roomBooking.checkIn }}</p>
-            <p><strong>Check-out:</strong> {{ roomBooking.checkOut }}</p>
-            <p><strong>Para limpiar:</strong> {{ roomBooking.toClean }}</p>
+
             {% if roomBooking.bookingState == 'active' %}
-                <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-in</button></a>
-                <a href="{% url 'checkOut' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-out</button></a>
+                {% if not roomBooking.checkIn %}
+                    <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-in</button></a>
+                {% else %}
+                    <a href="{% url 'checkOut' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-out</button></a>
+                {% endif %}
             {% endif %}
         </ul>
     </div>
