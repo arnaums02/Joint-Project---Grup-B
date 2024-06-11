@@ -31,10 +31,12 @@ def restaurantOrRoomStaff_required(user):
 
 
 # Create your views here.
-@login_required(login_url='')
 def homePage(request):
-    return render(request, 'homePage.html')
+    return render(request, 'mainHomePage.html')
 
+@login_required(login_url='')
+def profilePage(request):
+    return render(request, 'homePage.html')
 
 @user_passes_test(roomStaff_required, login_url='')
 def obtainRoomBookings(request, bookingState):
@@ -350,7 +352,7 @@ def getTablesReservationHistory(request):
 
 def logOut(request):
     logout(request)
-    return redirect('signIn')
+    return redirect('homePage')
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
