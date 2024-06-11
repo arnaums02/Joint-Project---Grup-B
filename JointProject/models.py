@@ -74,7 +74,7 @@ class Shift(models.Model):
 
 class ReservedTable(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    userWhoReserved = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='userWhoReserved') # cambiar table per # CustomUser
+    userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='userWhoReserved') # cambiar table per # CustomUser
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
     clientName = models.CharField(max_length=20)
     clientPhoneNumber = models.CharField(max_length=20)
@@ -84,6 +84,9 @@ class ReservedTable(models.Model):
 
     class Meta:
         unique_together = ('shift', 'userWhoReserved', 'reservationDate') # Evitar duplicaciones de reservas
+
+    def __str__(self):
+        return f'Mesa {self.tableReserved} {self.clientName} ({self.reservationDate} - {self.shift})'
 
 class Bill(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -129,7 +132,7 @@ class RestaurantProduct(models.Model):
 
 class RestaurantOrder(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    roomBooking = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, null=True)
     products = models.ManyToManyField(RestaurantProduct, through="RestaurantOrderedProduct")
     table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True)
     date = models.DateField(null=True)

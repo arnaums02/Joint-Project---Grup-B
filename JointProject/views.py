@@ -8,7 +8,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
-    RestaurantOrderForm
+    RestaurantOrderForm, RestaurantPayedOrderForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
     RestaurantOrder, ItemToPay
 
@@ -184,7 +184,7 @@ def checkOut(request, roomBookingId):
     return render(request, 'roomBookingDetails.html', context)
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(restaurantOrRoomStaff_required, login_url='')
 def show_tables(request):
     available_tables = None
     reserved_tables = None
@@ -456,8 +456,10 @@ def addRestaurantOrderToBill(request):
     if request.method == 'POST':
         form = RestaurantOrderForm(request.POST)
         if form.is_valid():
-            order = form.save()
-            customer = form.cleaned_data['customer']
+            #order =
+            form.save()
+            """
+            roomBooking = form.cleaned_data['roomBooking']
             try:
                 bill = Bill.objects.get(customer=customer)
             except Bill.DoesNotExist:
@@ -465,28 +467,28 @@ def addRestaurantOrderToBill(request):
             ItemToPay.objects.create(name="Restaurante", bill=bill,
                                      details="Fecha:" + form.cleaned_data['date'].strftime(""),
                                      price=order.calculateTotalOrder())
+             """
             return redirect('getRestaurantOrdersHistory')
     else:
         form = RestaurantOrderForm()
         context = {
             'form': form
         }
-    return render(request, 'addRestaurantOrderToBill.html', context)
+        return render(request, 'addRestaurantOrderToBill.html', context)
 
 
 @user_passes_test(restaurantStaff_required, login_url='')
 def addRestaurantPayedOrder(request):
     if request.method == 'POST':
-        form = RestaurantOrderForm(request.POST)
+        form = RestaurantPayedOrderForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('getRestaurantOrdersHistory')
     else:
-        form = RestaurantOrderForm()
-        form.fields.pop('customer')
-        context = {
-            'form': form
-        }
+        form = RestaurantPayedOrderForm()
+    context = {
+        'form': form
+    }
     return render(request, 'addRestaurantPayedOrder.html', context)
 
 
