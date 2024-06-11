@@ -1,0 +1,32 @@
+h1{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.carousel {
+    position: relative;
+    max-width: 80%;
+    margin: 20px auto;
+    margin-top: 100px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide img {
+    width: 100%; /* Ajustar el tamaño de todas las imágenes */
+    height: auto; /* Mantener la proporción de las imágenes */
+    object-fit: cover; /* Asegurar que todas las imágenes llenen su contenedor */
+    max-height: 800px; /* Ajustar la altura máxima según sea necesario */
+}

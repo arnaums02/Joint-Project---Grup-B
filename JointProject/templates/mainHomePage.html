@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Algo per provar
+{% endblock %}
+
+{% block content %}
+    <head>
+        <title>HomePage</title>
+    </head>
+
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homePage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/carousel.css' %}">
+
+    <h1>Nuestras instalaciones</h1>
+
+    <!-- Carrusel de imágenes -->
+    <div class="carousel">
+        <div class="slides">
+            <div class="slide"><img src="{% static 'img/wp1846070.jpg' %}" alt="Instalación 1"></div>
+            <div class="slide"><img src="{% static 'img/download.jpg' %}" alt="Instalación 2"></div>
+            <div class="slide"><img src="{% static 'img/descarga.jpeg' %}" alt="Instalación 3"></div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/carousel.js' %}"></script>
+
+{% endblock %}
