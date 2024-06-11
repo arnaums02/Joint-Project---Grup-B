@@ -2,7 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from accounts.models import CustomUser
-from .models import RoomBookings, ReservedTable, Room, Bill, ItemToPay, RestaurantOrderedProduct, RestaurantOrder, RestaurantProduct, Table, Shift
+from .models import RoomBookings, ReservedTable, Room, Bill, ItemToPay, RestaurantOrderedProduct, RestaurantOrder, \
+    RestaurantProduct, Table, Shift
 
 
 class RoomBookingForm(forms.ModelForm):
@@ -13,6 +14,7 @@ class RoomBookingForm(forms.ModelForm):
             'startDate': forms.DateInput(attrs={'type': 'date'}),
             'endDate': forms.DateInput(attrs={'type': 'date'}),
         }"""
+
 
 class AvailableRoomsForm(forms.Form):
     ROOM_TYPES = [
@@ -38,26 +40,30 @@ class AvailableRoomsForm(forms.Form):
 class MyForm(forms.Form):
     my_date_field = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     my_time_field = forms.ChoiceField(choices=[
-                                        ('12-13', '12:00 - 13:00'),
-                                        ('13-14', '13:00 - 14:00'),
-                                        ('14-15', '14:00 - 15:00'),
-                                        ('19-20', '19:00 - 20:00'),
-                                        ('20-21', '20:00 - 21:00'),
-                                        ('21-22', '21:00 - 22:00'),], widget=forms.Select())
+        ('12-13', '12:00 - 13:00'),
+        ('13-14', '13:00 - 14:00'),
+        ('14-15', '14:00 - 15:00'),
+        ('19-20', '19:00 - 20:00'),
+        ('20-21', '20:00 - 21:00'),
+        ('21-22', '21:00 - 22:00'), ], widget=forms.Select())
+
 
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = ReservedTable
         fields = ['clientName', 'clientPhoneNumber', 'numberOfClients']
 
+
 class BillForm(forms.ModelForm):
     class Meta:
         model = Bill
         fields = ['customer']
 
-class ItemToPayForm(forms.ModelForm):
 
-    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all(), widget=forms.Select(attrs={'class': 'customer-select'}))
+class ItemToPayForm(forms.ModelForm):
+    customer = forms.ModelChoiceField(queryset=CustomUser.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'customer-select'}))
+
     class Meta:
         model = ItemToPay
         fields = ['name', 'details', 'price']
@@ -65,14 +71,14 @@ class ItemToPayForm(forms.ModelForm):
             'details': forms.Textarea(attrs={'rows': 4, 'cols': 30}),  # Ajusta el tamaño de la caja de texto
         }
 
-class RestaurantOrderForm(forms.ModelForm):
+
+class RestaurantPayedOrderForm(forms.ModelForm):
     class Meta:
         model = RestaurantOrder
-        fields = ['customer', 'table', 'date', 'shift']
+        fields = ['table', 'date', 'shift']
 
     def __init__(self, *args, **kwargs):
-        super(RestaurantOrderForm, self).__init__(*args, **kwargs)
-        self.fields['customer'].queryset = CustomUser.objects.all()  # Obtener todos los clientes disponibles
+        super(RestaurantPayedOrderForm, self).__init__(*args, **kwargs)
         self.fields['table'].queryset = Table.objects.all()  # Obtener todas las mesas disponibles
         self.fields['date'].widget = forms.DateInput(attrs={'type': 'date'})  # Agregar un widget de fecha
         self.fields['shift'].queryset = Shift.objects.all()  # Obtener todos los turnos disponibles
@@ -82,7 +88,7 @@ class RestaurantOrderForm(forms.ModelForm):
             self.fields[f'quantity_{product.id}'] = forms.IntegerField(label=product.name, min_value=0, required=False)
 
     def save(self, commit=True):
-        instance = super(RestaurantOrderForm, self).save(commit=False)
+        instance = super(RestaurantPayedOrderForm, self).save(commit=False)
         if commit:
             instance.save()
 
@@ -90,6 +96,17 @@ class RestaurantOrderForm(forms.ModelForm):
             if field_name.startswith('quantity_') and field_value:
                 product_id = field_name.replace('quantity_', '')
                 quantity = field_value
-                ordered_product = RestaurantOrderedProduct.objects.create(product_id=product_id, quantity=quantity, order=instance)
+                ordered_product = RestaurantOrderedProduct.objects.create(product_id=product_id, quantity=quantity,
+                                                                          order=instance)
 
         return instance
+
+
+class RestaurantOrderForm(RestaurantPayedOrderForm):
+    class Meta(RestaurantPayedOrderForm.Meta):
+        fields = ['roomBooking'] + RestaurantPayedOrderForm.Meta.fields
+
+    def __init__(self, *args, **kwargs):
+        super(RestaurantOrderForm, self).__init__(*args, **kwargs)
+        self.fields['roomBooking'].queryset = RoomBookings.objects.filter(checkIn=True, checkOut=False, bookingState='active')
+
