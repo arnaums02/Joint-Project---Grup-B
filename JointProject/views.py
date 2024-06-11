@@ -180,6 +180,7 @@ def checkOut(request, roomBookingId):
         roomBooking.checkOut = True
         roomBooking.toClean = True
         roomBooking.save()
+        return render(request, 'obtainRoomBookings.html')
     return render(request, 'roomBookingDetails.html', context)
 
 
