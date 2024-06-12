@@ -1,8 +1,10 @@
 import uuid
+from datetime import datetime
 
 from django.core.validators import MinValueValidator
 from accounts.models import CustomUser
 from django.db import models
+
 
 # Create your models here.
 
@@ -13,18 +15,28 @@ class Room(models.Model):
         ('lowCost', 'Economica')
     ]
 
+
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    #booked = models.BooleanField(default=False)
+    # booked = models.BooleanField(default=False)
     bookings = models.ManyToManyField('RoomBookings', related_name='bookings', blank=True)
     roomNumber = models.IntegerField(unique=True)
     roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=[MinValueValidator(1)])
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')
+
+
 
     def __str__(self):
         return f'Habitación nº{self.roomNumber}, piso {self.roomFloor} ({self.roomType})'
 
 
 class RoomBookings(models.Model):
+    PRICES = {
+        'standard': 30,
+        'deluxe': 70,
+        'lowCost': 20
+    }
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     userWhoBooked = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='userWhoBooked')
     guestName = models.CharField(max_length=100)
@@ -36,13 +48,20 @@ class RoomBookings(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
 
-    bookingState = models.CharField(max_length=10, choices=[('active', 'Activa'), ('cancelled', 'Cancelada')], default='active')
+    bookingState = models.CharField(max_length=10, choices=[('active', 'Activa'), ('cancelled', 'Cancelada')],
+                                    default='active')
 
     checkIn = models.BooleanField(default=False)
     checkOut = models.BooleanField(default=False)
 
     toClean = models.BooleanField(default=False)
     cleaned = models.BooleanField(default=False)
+
+    def get_price(self):
+        date_format = '%Y-%m-%d'
+        print(self.endDate)
+        print(self.PRICES[self.roomBooked.roomType] * (datetime.strptime(self.endDate, date_format) - datetime.strptime(self.startDate, date_format)).days)
+        return self.PRICES[self.roomBooked.roomType] * (datetime.strptime(self.endDate, date_format) - datetime.strptime(self.startDate, date_format)).days
 
     def __str__(self):
         return f'Reserva de {self.guestName} ({self.startDate} - {self.endDate})'
@@ -68,13 +87,15 @@ class Shift(models.Model):
     )
 
     shift = models.CharField(max_length=5, choices=SHIFT_CHOICES, unique=True)
+
     def __str__(self):
         return self.shift
 
 
 class ReservedTable(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='userWhoReserved') # cambiar table per # CustomUser
+    userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
+                                        related_name='userWhoReserved')  # cambiar table per # CustomUser
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
     clientName = models.CharField(max_length=20)
     clientPhoneNumber = models.CharField(max_length=20)
@@ -83,19 +104,21 @@ class ReservedTable(models.Model):
     tableReserved = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='tableReserved', default=None)
 
     class Meta:
-        unique_together = ('shift', 'userWhoReserved', 'reservationDate') # Evitar duplicaciones de reservas
+        unique_together = ('shift', 'userWhoReserved', 'reservationDate')  # Evitar duplicaciones de reservas
 
     def __str__(self):
         return f'Mesa {self.tableReserved} {self.clientName} ({self.reservationDate} - {self.shift})'
 
+
 class Bill(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    #customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer')
-    roomBooking  = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='booking')
+    # customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer')
+    roomBooking = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='booking')
 
     def calculateTotalPrice(self):
         totalPrice = sum(item.price for item in self.items.all())
         return totalPrice
+
 
 class ItemToPay(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -107,9 +130,8 @@ class ItemToPay(models.Model):
 
 class CompletedPayment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    #customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customerWhoPayed')
-    roomBooking  = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='roomBooking')
-
+    # customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customerWhoPayed')
+    roomBooking = models.ForeignKey(RoomBookings, on_delete=models.CASCADE, related_name='roomBooking')
 
     def calculateTotalPayed(self):
         totalPrice = sum(item.price for item in self.items.all())
@@ -141,18 +163,15 @@ class RestaurantOrder(models.Model):
     date = models.DateField(null=True)
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, null=True)
 
-
     def calculateTotalOrder(self):
         totalPrice = 0
         for orderedProduct in RestaurantOrderedProduct.objects.filter(order=self):
             totalPrice += orderedProduct.quantity * orderedProduct.product.price
         return totalPrice
 
+
 class RestaurantOrderedProduct(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     product = models.ForeignKey(RestaurantProduct, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     order = models.ForeignKey(RestaurantOrder, on_delete=models.CASCADE)
-
-
-

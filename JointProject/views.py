@@ -90,10 +90,13 @@ def createRoomBookings(request, roomId, startDate, endDate):
         roomBooking.save()
 
         try:
-            Bill.objects.get(roomBooking=roomBooking)
+            bill = Bill.objects.get(roomBooking=roomBooking)
         except Bill.DoesNotExist:
-            Bill.objects.create(roomBooking=roomBooking)
+            bill = Bill.objects.create(roomBooking=roomBooking)
 
+        ItemToPay.objects.create(name=roomBooking, bill=bill,
+                                 details=roomBooking.roomBooked,
+                                 price=roomBooking.get_price())
 
         return redirect('obtainRoomBookings')
     return render(request, 'createRoomBooking.html', context)
