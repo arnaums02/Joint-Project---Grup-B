@@ -34,5 +34,13 @@
             {% endif %}
         </ul>
     </div>
+
+    {% if messages %}
+        <div style="text-align: center">
+            {% for message in messages %}
+                <p style="color: darkred"> {{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 </body>
 {% endblock %}

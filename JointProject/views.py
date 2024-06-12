@@ -177,30 +177,26 @@ def roomBookingDetails(request, roomBookingId):
 @user_passes_test(roomStaff_required, login_url='')
 def checkIn(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
-    bill = Bill.objects.get(roomBooking=roomBooking)
-    context = {
-        'roomBooking': roomBooking,
-        'bill': bill
-    }
     roomBooking.checkIn = True
     roomBooking.save()
-    return render(request, 'roomBookingDetails.html', context)
+    return redirect('roomBookingDetails', roomBookingId)
 
 
 @user_passes_test(roomStaff_required, login_url='')
 def checkOut(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
-    bill = Bill.objects.get(roomBooking=roomBooking)
-    context = {
-        'roomBooking': roomBooking,
-        'bill': bill
-    }
+    bill = get_object_or_404(Bill, roomBooking=roomBooking)
+    itemsToPay = bill.items.all()
+    print(itemsToPay)
     if roomBooking.checkIn:
-        roomBooking.checkOut = True
-        roomBooking.toClean = True
-        roomBooking.save()
-        return render(request, 'obtainRoomBookings.html')
-    return render(request, 'roomBookingDetails.html', context)
+        if not itemsToPay.exists():
+            roomBooking.checkOut = True
+            roomBooking.toClean = True
+            roomBooking.save()
+            return redirect('obtainRoomBookings')
+        else:
+            messages.error(request, "Existen pagos pendientes de pagar")
+    return redirect('roomBookingDetails', roomBookingId)
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
