@@ -8,7 +8,7 @@
     
 <title>Detalles de la reserva de la habitacion</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-
+{% if roomBooking.userWhoBooked == user %}
 <body>
     <div class="styled-table">
         <h1>Detalles de la reserva de la habitacion</h1>
@@ -24,7 +24,7 @@
             <p><strong>DNI del huesped:</strong> {{ roomBooking.guestDNI }}</p>
             <p><strong>Numero de huespedes en la habitación:</strong> {{ roomBooking.numberGuest }}</p>
 
-            {% if roomBooking.bookingState == 'active' %}
+            {% if roomBooking.bookingState == 'active' and user.user_type != 'client' %}
                 {% if not roomBooking.checkIn %}
                     <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-in</button></a>
                 {% else %}
@@ -43,4 +43,5 @@
         </div>
     {% endif %}
 </body>
+{% endif %}
 {% endblock %}
