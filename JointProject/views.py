@@ -8,7 +8,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
-    RestaurantOrderForm, RestaurantPayedOrderForm
+    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
     RestaurantOrder, ItemToPay
 
@@ -549,14 +549,59 @@ def roomIsClean(request, roomBookingId, floor):
 
 @user_passes_test(cleaningStaff_required, login_url='')
 def roomToBeCleaned(request, roomBookingId, floor):
-    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    form = RoomFilterForm(request.GET or None)
+    room_bookings = RoomBookings.objects.filter(toClean=True)
 
-    if roomBooking.checkIn:
-        roomBooking.toClean = True
-        roomBooking.cleaned = False
-        roomBooking.save()
-    return redirect('cleanedRooms', floor)
+    if form.is_valid():
+        floor = form.cleaned_data.get('floor')
+        if floor and floor != '0':  # Filtrar por planta si se selecciona una opción específica
+            room_bookings = room_bookings.filter(roomBooked__roomFloor=floor)
+
+    context = {
+        'form': form,
+        'room_bookings': room_bookings,
+    }
+    return redirect('cleanedRooms', context)
 
 
 def about_us(request):
     return render(request, 'about_us.html')
+
+def room_booking_cleaning_view(request):
+    form = RoomFilterForm(request.GET or None)
+    room_bookings = RoomBookings.objects.filter(toClean=True)
+
+    if form.is_valid():
+        floor = form.cleaned_data.get('planta')
+        if floor and floor != '0':
+            room_bookings = room_bookings.filter(roomBooked__roomFloor=floor)
+
+    context = {
+        'form': form,
+        'room_bookings': room_bookings,
+    }
+    return render(request, 'room_booking_cleaning.html', context)
+
+
+def mark_as_cleaned(request, booking_id):
+    booking = get_object_or_404(RoomBookings, id=booking_id)
+    booking.mark_as_cleaned()
+    return redirect('room_bookings_cleaning')
+
+
+def room_bookings_clean_view(request):
+    form = RoomFilterForm(request.GET)
+    room_bookings_clean = RoomBookings.objects.filter(cleaned=True)
+
+    selected_floors = form.cleaned_data.get('planta', []) if form.is_valid() else []
+
+    if '0' not in selected_floors and selected_floors:
+        room_bookings_clean = room_bookings_clean.filter(roomBooked__roomFloor__in=selected_floors)
+
+    return render(request, 'room_bookings_clean.html', {'room_bookings_clean': room_bookings_clean, 'form': form})
+
+
+def mark_as_dirty(request, booking_id):
+    booking = get_object_or_404(RoomBookings, id=booking_id)
+    booking.mark_as_dirty()
+    return redirect('room_bookings_clean')

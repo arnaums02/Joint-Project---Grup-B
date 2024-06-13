@@ -62,14 +62,23 @@ urlpatterns = [
     path('addRestaurantOrderToBill/', addRestaurantOrderToBill, name='addRestaurantOrderToBill'),
     path('addRestaurantPayedOrder/', addRestaurantPayedOrder, name='addRestaurantPayedOrder'),
     path('getRestaurantOrderDetails/<uuid:orderId>', getRestaurantOrderDetails, name='getRestaurantOrderDetails'),
-    path('roomsForCleaning/P<int:floor>', roomsForCleaning, name='roomsForCleaning'),
-    path('roomsForCleaning/', roomsForCleaning, {'floor': 1}, name='roomsForCleaning'),
+    path('roomsForCleaning/P<str:floor>', roomsForCleaning, name='roomsForCleaning'),
+    path('roomsForCleaning/', roomsForCleaning, {'floor': 'all'}, name='roomsForCleaning'),
     path('cleanedRooms/P<int:floor>', cleanedRooms, name='cleanedRooms'),
-    path('cleanedRooms/', cleanedRooms, {'floor': 1}, name='cleanedRooms'),
+    path('cleanedRooms/', cleanedRooms, {'floor': 'all'}, name='cleanedRooms'),
     path('roomIsClean/<uuid:roomBookingId>/<int:floor>', roomIsClean, name='roomIsClean'),
-    path('roomToBeCleaned/<uuid:roomBookingId>/<int:floor>', roomToBeCleaned, name='roomToBeCleaned'),
+
+    path('roomToBeCleaned/', roomToBeCleaned, name='roomToBeCleaned'),
+
     path('tableReservationDetails/<uuid:table_id>', tableReservationDetails, name='tableReservationDetails'),
 
     path('about_us/', about_us, name='about_us'),
 
+
+    path('room-bookings/cleaning/', room_booking_cleaning_view, name='room_bookings_cleaning'),
+    path('room-bookings/<uuid:booking_id>/mark-as-cleaned/', mark_as_cleaned, name='mark_as_cleaned'),
+
+    path('room-bookings/clean/', room_bookings_clean_view, name='room_bookings_clean'),
+    path('room-bookings/<uuid:booking_id>/mark-as-dirty/', mark_as_dirty, name='mark_as_dirty'),
 ]
+

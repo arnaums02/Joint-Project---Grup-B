@@ -22,7 +22,7 @@
             {% if floor == 2 %}
                 <a href="{% url 'cleanedRooms' 2 %}"><button type="submit" class="button-66" style="background-color: grey">P2</button></a>
             {% else %}
-                <a href="{% url 'cleanedRooms' 2 %}"><button type="submit" class="button-66">P2</button></a>
+                <a href="{% url 'cleanedRooms' '2' %}"><button type="submit" class="button-66">P2</button></a>
             {% endif %}
 
             {% if floor == 3 %}
@@ -30,18 +30,31 @@
             {% else %}
                 <a href="{% url 'cleanedRooms' 3 %}"><button type="submit" class="button-66">P3</button></a>
             {% endif %}
+
+            {% if floor == 'all' %}
+                <a href="{% url 'cleanedRooms' %}"><button type="submit" class="button-66" style="background-color: grey">All</button></a>
+            {% else %}
+                <a href="{% url 'cleanedRooms' %}"><button type="submit" class="button-66">All</button></a>
+            {% endif %}
+
         </div>
         <br>
         
         <ul>
             {% for roomBooking in roomBookings %}
-                {% if roomBooking.cleaned and roomBooking.roomBooked.roomFloor == floor %}
+                {% if roomBooking.cleaned %}
+                    {% if floor == 'all' or roomBooking.roomBooked.roomFloor == floor %}
                     
                     <li><strong>{{ roomBooking.roomBooked }}:</strong> Fecha de inicio: {{ roomBooking.startDate }} Fecha de finalizacion: {{ roomBooking.endDate }}
 
                     <div class="button-container">
-                        <a href="{% url 'roomToBeCleaned' roomBooking.id floor %}"><button type="submit" class="button-55">Marcar como pendiente</button></a>
+                        {% if floor != all %}
+                            <a href="{% url 'roomToBeCleaned' roomBooking.id floor %}"><button type="submit" class="button-55">Marcar como pendiente</button></a>
+                        {% else %}
+                            <a href="{% url 'roomToBeCleaned' roomBooking.id %}"><button type="submit" class="button-55">Marcar como pendiente</button></a>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </ul>

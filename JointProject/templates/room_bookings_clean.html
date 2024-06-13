@@ -1,0 +1,32 @@
+<!-- room_bookings_clean.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Reservas Limpias
+{% endblock %}
+
+{% block content %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <h2>Reservas con Habitaciones Limpias</h2>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit" class="button-66">Filtrar</button>
+    </form>
+
+    <ul>
+        {% for booking in room_bookings_clean %}
+            <li>
+                {{ booking }}
+                <form action="{% url 'mark_as_dirty' booking.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Marcar como sucia</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No hay reservas con habitaciones limpias.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

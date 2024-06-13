@@ -380,3 +380,11 @@ nav input{
   font-weight: 300;
   text-align: center;
 }
+
+
+.rounded-select {
+    border-radius: 10px; /* Reducir el radio para hacer esquinas más suaves */
+    padding: 5px; /* Reducir el relleno para hacer el selector más compacto */
+    width: 150px; /* Reducir el ancho del selector */
+    font-size: 14px; /* Ajustar el tamaño de la fuente si es necesario */
+}
