@@ -119,3 +119,9 @@ class RoomFilterForm(forms.Form):
     ]
 
     planta = forms.ChoiceField(choices=FLOOR_CHOICES, required=False,  widget=forms.Select(attrs={'class': 'rounded-select'}))
+
+
+class RestaurantProductPriceForm(forms.ModelForm):
+    class Meta:
+        model = RestaurantProduct
+        fields = ['price']

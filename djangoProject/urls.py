@@ -80,5 +80,8 @@ urlpatterns = [
 
     path('room-bookings/clean/', room_bookings_clean_view, name='room_bookings_clean'),
     path('room-bookings/<uuid:booking_id>/mark-as-dirty/', mark_as_dirty, name='mark_as_dirty'),
+
+
+    path('manage-prices/', manage_prices, name='manage_prices'),
 ]
 

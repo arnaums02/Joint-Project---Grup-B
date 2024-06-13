@@ -8,9 +8,9 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
-    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm
+    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm, RestaurantProductPriceForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
-    RestaurantOrder, ItemToPay
+    RestaurantOrder, ItemToPay, RestaurantProduct
 
 
 def roomStaff_required(user):
@@ -605,3 +605,49 @@ def mark_as_dirty(request, booking_id):
     booking = get_object_or_404(RoomBookings, id=booking_id)
     booking.mark_as_dirty()
     return redirect('room_bookings_clean')
+
+
+
+def manage_prices(request):
+    room_prices = {
+        'standard': RoomBookings.PRICES['standard'],
+        'deluxe': RoomBookings.PRICES['deluxe'],
+        'lowCost': RoomBookings.PRICES['lowCost'],
+    }
+
+    restaurant_products = RestaurantProduct.objects.all()
+    restaurant_product_form = RestaurantProductPriceForm()
+
+    if request.method == 'POST':
+        # Imprimir el POST completo para ver qué datos se envían
+        print(request.POST)
+
+        # Actualizar precios de las habitaciones
+        for room_type, default_price in room_prices.items():
+            new_price = request.POST.get(room_type)
+            if new_price:
+                RoomBookings.PRICES[room_type] = int(new_price)
+                print(f"Nuevo precio para {room_type}: {new_price}")
+
+        # Procesar el formulario de productos del restaurante
+        restaurant_products = RestaurantProduct.objects.all()
+        restaurant_product_form = RestaurantProductPriceForm()
+
+        if request.method == 'POST':
+            # Procesar los precios de los productos del restaurante
+            for product in restaurant_products:
+                form_field_name = f'price_{product.id}'
+                new_price = request.POST.get(form_field_name)
+                if new_price is not None:
+                    product.price = new_price
+                    product.save()
+                    print(f"Nuevo precio para {product.name}: {new_price}")
+
+            return redirect('manage_prices')
+
+    context = {
+        'room_prices': room_prices,
+        'restaurant_products': restaurant_products,
+        'restaurant_product_form': restaurant_product_form,
+    }
+    return render(request, 'manage_prices.html', context)
