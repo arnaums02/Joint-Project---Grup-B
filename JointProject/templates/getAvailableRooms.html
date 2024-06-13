@@ -5,7 +5,7 @@
 
 {% block content %}
     <head>
-        <title>Obtenir habitacions disponibles</title>
+        <title>Habitaciones disponibles</title>
     </head>
     
     <title>Seleccione fecha y tipo de habitación</title>
@@ -25,6 +25,11 @@
             <label for="id_endDate">Fecha de fin:</label>
             <input type="date" name="endDate" id="id_endDate">
         </div>
+        
+        <div class="form-group">
+            <label for="id_capacity">Numero de huespedes:</label>
+            <input type="number" name="capacity" id="id_capacity">
+        </div>
 
         <div class="form-group">
             <label for="id_roomType">Tipo de habitación:</label>
@@ -35,7 +40,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn">Ver disponibilidad</button>
+        <button type="submit" class="button-66">Ver disponibilidad</button>
     </form>
     {% if messages %}
         {% for message in messages %}

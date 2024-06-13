@@ -8,9 +8,9 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
-    RestaurantOrderForm, RestaurantPayedOrderForm
+    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm, RestaurantProductPriceForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
-    RestaurantOrder, ItemToPay
+    RestaurantOrder, ItemToPay, RestaurantProduct
 
 
 def roomStaff_required(user):
@@ -60,45 +60,56 @@ def cancelRoomBooking(request, roomBookingId):
 @user_passes_test(roomStaff_required, login_url='')
 def activateRoomBooking(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    roomToBook = roomBooking.roomBooked
+    colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=roomBooking.endDate, endDate__gte=roomBooking.startDate) |
+                                                       Q(startDate__gte=roomBooking.startDate, startDate__lte=roomBooking.endDate) |
+                                                       Q(endDate__gte=roomBooking.startDate, endDate__lte=roomBooking.endDate),
+                                                       bookingState='active', roomBooked=roomToBook)
 
-    roomBooking.bookingState = 'active'
-    roomBooking.save()
+    if colidingRoomBookings.count() == 0:
+        roomBooking.bookingState = 'active'
+        roomBooking.save()
+
+
     return redirect('obtainRoomBookings', 'cancelled')
 
 
 @user_passes_test(roomStaff_required, login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
-    form = RoomBookingForm(request.POST)
+    room = get_object_or_404(Room, id=roomId)
+    form = RoomBookingForm(request.POST or None)
     context = {
-        'form': form
+        'form': form,
+        'room': room,
+        'startDate': startDate,
+        'endDate': endDate
     }
-    if form.is_valid():
-        roomBooking = form.save(commit=False)
 
-        """
-        if roomBooking.roomBooked.booked == False:
-            roomBooking.userWhoBooked = request.user
-            roomBooking.roomBooked.booked = True
-            roomBooking.save()
-            return redirect('obtainRoomBookings')
-        else:
-            return HttpResponse("Room already booked")"""
-        roomBooking.userWhoBooked = request.user
-        roomBooking.roomBooked = Room.objects.get(id=roomId)
-        roomBooking.startDate = startDate
-        roomBooking.endDate = endDate
-        roomBooking.save()
+    if request.method == 'POST':
+        if form.is_valid():
+            numberGuest = form.cleaned_data['numberGuest']
 
-        try:
-            bill = Bill.objects.get(roomBooking=roomBooking)
-        except Bill.DoesNotExist:
-            bill = Bill.objects.create(roomBooking=roomBooking)
+            if numberGuest > room.capacity:
+                messages.error(request, f"La habitación solo tiene capacidad para {room.capacity} huéspedes.")
+            else:
+                roomBooking = form.save(commit=False)
+                roomBooking.userWhoBooked = request.user
+                roomBooking.roomBooked = room
+                roomBooking.startDate = startDate
+                roomBooking.endDate = endDate
+                roomBooking.save()
 
-        ItemToPay.objects.create(name=roomBooking, bill=bill,
-                                 details=roomBooking.roomBooked,
-                                 price=roomBooking.get_price())
+                try:
+                    bill = Bill.objects.get(roomBooking=roomBooking)
+                except Bill.DoesNotExist:
+                    bill = Bill.objects.create(roomBooking=roomBooking)
 
-        return redirect('obtainRoomBookings')
+                ItemToPay.objects.create(name=roomBooking, bill=bill,
+                                         details=roomBooking.roomBooked,
+                                         price=roomBooking.get_price())
+
+                return redirect('obtainRoomBookings', bookingState='active')
+
     return render(request, 'createRoomBooking.html', context)
 
 
@@ -134,13 +145,15 @@ def getAvailableRooms(request):
             startTime = form.cleaned_data['startDate']
             endTime = form.cleaned_data['endDate']
             roomType = form.cleaned_data['roomType']
+            numGuests = form.cleaned_data['capacity']
 
-            availableRooms = checkAvailableRooms(startTime, endTime, roomType)
+            availableRooms = checkAvailableRooms(startTime, endTime, roomType, numGuests)
 
             context = {
                 'rooms': availableRooms,
                 'startDate': startTime,
-                'endDate': endTime
+                'endDate': endTime,
+                'numGuests': numGuests
             }
             return render(request, 'availableRoomBookings.html', context)
     else:
@@ -151,13 +164,13 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
-def checkAvailableRooms(startTime, endTime, roomType):
+def checkAvailableRooms(startTime, endTime, roomType, numGuests):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
-                                                       Q(endDate__gte=startTime, endDate__lte=endTime))
+                                                       Q(endDate__gte=startTime, endDate__lte=endTime), bookingState='active')
 
-    filteredTypeRooms = Room.objects.filter(roomType=roomType)
-    colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
+    filteredTypeRooms = Room.objects.filter(roomType=roomType, capacity__gte=numGuests)
+    colidingRoomBookings =  colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
     availableRooms = filteredTypeRooms.exclude(pk__in=colidingRoomBookings.values_list('roomBooked__pk', flat=True))
 
     return availableRooms
@@ -549,14 +562,105 @@ def roomIsClean(request, roomBookingId, floor):
 
 @user_passes_test(cleaningStaff_required, login_url='')
 def roomToBeCleaned(request, roomBookingId, floor):
-    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    form = RoomFilterForm(request.GET or None)
+    room_bookings = RoomBookings.objects.filter(toClean=True)
 
-    if roomBooking.checkIn:
-        roomBooking.toClean = True
-        roomBooking.cleaned = False
-        roomBooking.save()
-    return redirect('cleanedRooms', floor)
+    if form.is_valid():
+        floor = form.cleaned_data.get('floor')
+        if floor and floor != '0':  # Filtrar por planta si se selecciona una opción específica
+            room_bookings = room_bookings.filter(roomBooked__roomFloor=floor)
+
+    context = {
+        'form': form,
+        'room_bookings': room_bookings,
+    }
+    return redirect('cleanedRooms', context)
 
 
 def about_us(request):
     return render(request, 'about_us.html')
+
+def room_booking_cleaning_view(request):
+    form = RoomFilterForm(request.GET or None)
+    room_bookings = RoomBookings.objects.filter(toClean=True)
+
+    if form.is_valid():
+        floor = form.cleaned_data.get('planta')
+        if floor and floor != '0':
+            room_bookings = room_bookings.filter(roomBooked__roomFloor=floor)
+
+    context = {
+        'form': form,
+        'room_bookings': room_bookings,
+    }
+    return render(request, 'room_booking_cleaning.html', context)
+
+
+def mark_as_cleaned(request, booking_id):
+    booking = get_object_or_404(RoomBookings, id=booking_id)
+    booking.mark_as_cleaned()
+    return redirect('room_bookings_cleaning')
+
+
+def room_bookings_clean_view(request):
+    form = RoomFilterForm(request.GET)
+    room_bookings_clean = RoomBookings.objects.filter(cleaned=True)
+
+    selected_floors = form.cleaned_data.get('planta', []) if form.is_valid() else []
+
+    if '0' not in selected_floors and selected_floors:
+        room_bookings_clean = room_bookings_clean.filter(roomBooked__roomFloor__in=selected_floors)
+
+    return render(request, 'room_bookings_clean.html', {'room_bookings_clean': room_bookings_clean, 'form': form})
+
+
+def mark_as_dirty(request, booking_id):
+    booking = get_object_or_404(RoomBookings, id=booking_id)
+    booking.mark_as_dirty()
+    return redirect('room_bookings_clean')
+
+
+
+def manage_prices(request):
+    room_prices = {
+        'standard': RoomBookings.PRICES['standard'],
+        'deluxe': RoomBookings.PRICES['deluxe'],
+        'lowCost': RoomBookings.PRICES['lowCost'],
+    }
+
+    restaurant_products = RestaurantProduct.objects.all()
+    restaurant_product_form = RestaurantProductPriceForm()
+
+    if request.method == 'POST':
+        # Imprimir el POST completo para ver qué datos se envían
+        print(request.POST)
+
+        # Actualizar precios de las habitaciones
+        for room_type, default_price in room_prices.items():
+            new_price = request.POST.get(room_type)
+            if new_price:
+                RoomBookings.PRICES[room_type] = int(new_price)
+                print(f"Nuevo precio para {room_type}: {new_price}")
+
+        # Procesar el formulario de productos del restaurante
+        restaurant_products = RestaurantProduct.objects.all()
+        restaurant_product_form = RestaurantProductPriceForm()
+
+        if request.method == 'POST':
+            # Procesar los precios de los productos del restaurante
+            for product in restaurant_products:
+                form_field_name = f'price_{product.id}'
+                new_price = request.POST.get(form_field_name)
+                if new_price is not None:
+                    product.price = new_price
+                    product.save()
+                    print(f"Nuevo precio para {product.name}: {new_price}")
+
+            return redirect('manage_prices')
+
+    context = {
+        'room_prices': room_prices,
+        'restaurant_products': restaurant_products,
+        'restaurant_product_form': restaurant_product_form,
+    }
+    return render(request, 'manage_prices.html', context)

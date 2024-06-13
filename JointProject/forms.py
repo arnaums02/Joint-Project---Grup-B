@@ -25,6 +25,7 @@ class AvailableRoomsForm(forms.Form):
     startDate = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
     endDate = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
     roomType = forms.ChoiceField(choices=ROOM_TYPES, label='Tipo de habitación')
+    capacity = forms.IntegerField(label='Numero de huespedes')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -110,3 +111,18 @@ class RestaurantOrderForm(RestaurantPayedOrderForm):
         super(RestaurantOrderForm, self).__init__(*args, **kwargs)
         self.fields['roomBooking'].queryset = RoomBookings.objects.filter(checkIn=True, checkOut=False, bookingState='active')
 
+class RoomFilterForm(forms.Form):
+    FLOOR_CHOICES = [
+        (1, 'Planta 1'),
+        (2, 'Planta 2'),
+        (3, 'Planta 3'),
+        (0, 'Todas las plantas'),
+    ]
+
+    planta = forms.ChoiceField(choices=FLOOR_CHOICES, required=False,  widget=forms.Select(attrs={'class': 'rounded-select'}))
+
+
+class RestaurantProductPriceForm(forms.ModelForm):
+    class Meta:
+        model = RestaurantProduct
+        fields = ['price']

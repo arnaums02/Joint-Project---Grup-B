@@ -69,8 +69,8 @@
                   <input type="checkbox" id="showDrop1">
                   <label for="showDrop1" class="mobile-item">Limpieza</label>
                   <ul class="drop-menu">
-                      <li><a href="{% url 'roomsForCleaning' %}">Limpieza pendiente</a></li>
-                      <li><a href="{% url 'cleanedRooms' %}">Limpieza finalizada</a></li>
+                      <li><a href="{% url 'room_bookings_cleaning' %}">Limpieza pendiente</a></li>
+                      <li><a href="{% url 'room_bookings_clean' %}">Limpieza finalizada</a></li>
                   </ul>
               </li>
 
@@ -151,6 +151,7 @@
                       <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
                       <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
                       <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
+                      <li><a href="{% url 'manage_prices' %}">Modificar precios</a></li>
                   </ul>
               </li>
               <li>
@@ -158,8 +159,8 @@
                   <input type="checkbox" id="showDrop1">
                   <label for="showDrop1" class="mobile-item">Limpieza</label>
                   <ul class="drop-menu">
-                      <li><a href="{% url 'roomsForCleaning' %}">Limpieza pendiente</a></li>
-                      <li><a href="{% url 'cleanedRooms' %}">Limpieza finalizada</a></li>
+                      <li><a href="{% url 'room_bookings_cleaning' %}">Limpieza pendiente</a></li>
+                      <li><a href="{% url 'room_bookings_clean' %}">Limpieza finalizada</a></li>
                   </ul>
               </li>
 

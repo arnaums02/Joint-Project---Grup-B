@@ -23,7 +23,7 @@ class Room(models.Model):
     roomNumber = models.IntegerField(unique=True)
     roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=[MinValueValidator(1)])
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')
-
+    capacity = models.IntegerField(validators=[MinValueValidator(1)])
 
 
     def __str__(self):
@@ -62,6 +62,17 @@ class RoomBookings(models.Model):
         print(self.endDate)
         print(self.PRICES[self.roomBooked.roomType] * (datetime.strptime(self.endDate, date_format) - datetime.strptime(self.startDate, date_format)).days)
         return self.PRICES[self.roomBooked.roomType] * (datetime.strptime(self.endDate, date_format) - datetime.strptime(self.startDate, date_format)).days
+
+    def mark_as_cleaned(self):
+        self.toClean = False
+        self.cleaned = True
+        self.save()
+
+    def mark_as_dirty(self):
+        self.toClean = True
+        self.cleaned = False
+        self.save()
+
 
     def __str__(self):
         return f'Reserva de {self.guestName} ({self.startDate} - {self.endDate})'
@@ -175,3 +186,5 @@ class RestaurantOrderedProduct(models.Model):
     product = models.ForeignKey(RestaurantProduct, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     order = models.ForeignKey(RestaurantOrder, on_delete=models.CASCADE)
+
+
