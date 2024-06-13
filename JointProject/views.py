@@ -587,7 +587,8 @@ def addRestaurantPayedOrder(request):
     if request.method == 'POST':
         form = RestaurantPayedOrderForm(request.POST)
         if form.is_valid():
-            form.save()
+            restaurantOrder = form.save()
+            generateBillRestaurant(restaurantOrder)
             return redirect('getRestaurantOrdersHistory')
     else:
         form = RestaurantPayedOrderForm()
@@ -595,6 +596,71 @@ def addRestaurantPayedOrder(request):
         'form': form
     }
     return render(request, 'addRestaurantPayedOrder.html', context)
+
+def generateBillRestaurant(restaurantOrder):
+    fecha_actual = datetime.now()
+
+    meses_espanol = {
+        1: 'enero', 2: 'febrero', 3: 'marzo', 4: 'abril',
+        5: 'mayo', 6: 'junio', 7: 'julio', 8: 'agosto',
+        9: 'septiembre', 10: 'octubre', 11: 'noviembre', 12: 'diciembre'
+    }
+
+    # Obtener año, mes y día
+    year = fecha_actual.year
+    month = fecha_actual.month
+    day = fecha_actual.day
+
+    fechaFactura =f'{year}/{month}/{day}'
+
+    nombre_mes = meses_espanol[month]
+
+    directory = f'facturas/{year}/{nombre_mes}/{day}'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f'INFO -> SE HA CREADO EL DIRECTORIO {directory}')
+        print('')
+
+    files = os.listdir(directory)
+    pdfCounter = 0
+
+    for file in files:
+        pdfCounter += 1
+
+    #order = get_object_or_404(RestaurantOrder, id=roomBookingId)
+    #completedPayments = get_object_or_404(CompletedPayment, roomBooking=roomBooking)
+    #products = restaurantOrder.products
+
+    totalPayed = restaurantOrder.calculateTotalOrder()
+
+    nombreFactura = f'{pdfCounter + 1}'
+
+
+
+    context = {
+        'order': restaurantOrder,
+        'totalPayed': totalPayed,
+        'fechaFactura': fechaFactura,
+        'nombreFactura': nombreFactura,
+    }
+
+    html_string = render_to_string('pdf_template_restaurant.html', context)
+
+    pdf_file = os.path.join(directory,f'Factura{pdfCounter + 1}.pdf')
+
+    result_file = open(pdf_file, "w+b")
+    pisa_status = pisa.CreatePDF(html_string, dest=result_file)
+
+    result_file.close()
+
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF')
+
+    with open(pdf_file, 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="PRUEBA.pdf"'
+        return response
+
 
 
 @user_passes_test(restaurantStaff_required, login_url='')

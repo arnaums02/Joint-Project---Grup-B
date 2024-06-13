@@ -219,6 +219,14 @@ nav .wrapper{
   #showMega:checked ~ .mega-box{
     max-height: 100%;
   }
+  #showDrop5:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
+  #showDrop6:checked ~ .drop-menu,
+  #showMega:checked ~ .mega-box{
+    max-height: 100%;
+  }
   .nav-links .desktop-item{
     display: none;
   }
