@@ -4,16 +4,44 @@
 {% load static %}
 
 {% block content %}
+    <head>
+        <title>Habitaciones por limpiar</title>
+    </head>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 
-    <h2>Room Bookings que Necesitan Limpieza</h2>
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit" class="button-66">Filtrar</button>
-    </form>
+    <body>
+        <h1>Habitaciones que Necesitan Limpieza</h1>
+        <form method="get">
+            {{ form.as_p }}
+            <button type="submit" class="button-66">Filtrar</button>
+        </form>
+        <h3>Listado de Reservas para Limpiar:</h3>
+        <table class="styled-table2">
+            <thead>
+                <tr>
+                    <th>Habitaciones por limpiar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in room_bookings %}
+                <tr>
+                    <td>{{ booking }} {% if not booking.cleaned %} <a href="{% url 'mark_as_cleaned' booking.id %}" class="button-66">Marcar como limpia</a></td>
+                </tr>
+                    {% endif %}
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay habitaciones para limpiar</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
 
-    <h3>Listado de Reservas para Limpiar:</h3>
+{% endblock %}
+
+<h3>Listado de Reservas para Limpiar:</h3>
     <ul>
         {% for booking in room_bookings %}
             <li>
@@ -28,4 +56,3 @@
             <li>No hay reservas para limpiar.</li>
         {% endfor %}
     </ul>
-{% endblock %}

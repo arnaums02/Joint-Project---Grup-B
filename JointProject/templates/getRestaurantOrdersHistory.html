@@ -2,38 +2,38 @@
 {% load static %}
 
 {% block content %}
-<head>
-    <title>Historial restaurant</title>
-</head>
+    <head>
+        <title>Detalles pedidos del restaurante</title>
+    </head>
 
     <title>Hisorial de pedidos del restaurante</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
 
-<body>
-    <h1>Hisorial de pedidos del restaurante</h1>
-    <table class="styled-table2">
-        <thead>
-            <tr>
-                <th>Mesa</th>
-                <th>Fecha</th>
-                <th>Turno</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for restaurantOrder in restaurantOrders %}
-            <tr>
-                <td>{{ restaurantOrder.table }}</td>
-                <td>{{ restaurantOrder.date }}</td>
-                <td>{{ restaurantOrder.shift }}</td>
-                <td><a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a></td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No hay pedidos del restaurante</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
+    <body>
+        <h1>Hisorial de pedidos del restaurante</h1>
+        <table class="styled-table available-table">
+            <thead>
+                <tr>
+                    <th>Mesa</th>
+                    <th>Fecha</th>
+                    <th>Turno</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for restaurantOrder in restaurantOrders %}
+                <tr>
+                    <td>{{ restaurantOrder.table }}</td>
+                    <td>{{ restaurantOrder.date }}</td>
+                    <td>{{ restaurantOrder.shift }}</td>
+                    <td><a href="{% url 'getRestaurantOrderDetails' restaurantOrder.id %}" class="button-66" role="button">Ver detalles del pedido</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay pedidos del restaurante</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
 {% endblock %}

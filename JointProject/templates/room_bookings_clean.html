@@ -8,15 +8,43 @@
 {% endblock %}
 
 {% block content %}
-      <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
-    <h2>Reservas con Habitaciones Limpias</h2>
+    <head>
+        <title>Habitaciones limpias</title>
+    </head>
 
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit" class="button-66">Filtrar</button>
-    </form>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 
-    <ul>
+    <body>
+        <h1>Habitaciones limpias</h1>
+        <form method="get">
+            {{ form.as_p }}
+            <button type="submit" class="button-66">Filtrar</button>
+        </form>
+        <h3>Listado de Reservas Limpias:</h3>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Habitaciones limpias</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in room_bookings_clean %}
+                <tr>
+                    <td>{{ booking }} <a href="{% url 'mark_as_dirty' booking.id %}" class="button-55"></a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay habitaciones limpias</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+
+{% endblock %}
+
+<ul>
         {% for booking in room_bookings_clean %}
             <li>
                 {{ booking }}
@@ -29,4 +57,3 @@
             <li>No hay reservas con habitaciones limpias.</li>
         {% endfor %}
     </ul>
-{% endblock %}
