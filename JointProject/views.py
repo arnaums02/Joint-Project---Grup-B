@@ -21,6 +21,12 @@ from django.template.loader import  render_to_string
 def roomStaff_required(user):
     return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin')
 
+def roomStaffOrRestaurantOrCllient_required(user):
+    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
+
+
+def roomStaffOrClient_required(user):
+    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
 
 def cleaningStaff_required(user):
     return user.is_authenticated and (user.user_type == 'cleaningStaff' or user.user_type == 'admin')
@@ -43,7 +49,7 @@ def homePage(request):
 def profilePage(request):
     return render(request, 'homePage.html')
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def obtainRoomBookings(request, bookingState):
     roomBookings = RoomBookings.objects.all()
     context = {
@@ -53,7 +59,7 @@ def obtainRoomBookings(request, bookingState):
     return render(request, 'obtainRoomBookings.html', context)
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def cancelRoomBooking(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
 
@@ -62,7 +68,7 @@ def cancelRoomBooking(request, roomBookingId):
     return redirect('obtainRoomBookings', 'active')
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def activateRoomBooking(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     roomToBook = roomBooking.roomBooked
@@ -79,7 +85,7 @@ def activateRoomBooking(request, roomBookingId):
     return redirect('obtainRoomBookings', 'cancelled')
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
     room = get_object_or_404(Room, id=roomId)
     form = RoomBookingForm(request.POST or None)
@@ -142,7 +148,7 @@ def deleteRoomBookings(request, roomBookingId):
             room = """
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def getAvailableRooms(request):
     if request.method == 'POST':
         form = AvailableRoomsForm(request.POST)
@@ -181,13 +187,14 @@ def checkAvailableRooms(startTime, endTime, roomType, numGuests):
     return availableRooms
 
 
-@user_passes_test(roomStaff_required, login_url='')
+@user_passes_test(roomStaffOrClient_required, login_url='')
 def roomBookingDetails(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     bill = Bill.objects.get(roomBooking=roomBooking)
     context = {
         'roomBooking': roomBooking,
-        'bill': bill
+        'bill': bill,
+        'user': request.user
     }
     return render(request, 'roomBookingDetails.html', context)
 
@@ -284,7 +291,7 @@ def generateBillRoomBooking(roomBookingId):
 
 
 
-@user_passes_test(restaurantOrRoomStaff_required, login_url='')
+@user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
 def show_tables(request):
     available_tables = None
     reserved_tables = None
@@ -367,7 +374,7 @@ def get_available_and_reserved_tables(shift, selected_date):
     return available_tables, reserved_tables
 
 
-@user_passes_test(restaurantOrRoomStaff_required, login_url='')
+@user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
 def reserve_table(request, table_id, selected_date, selected_time):
     try:
         table = Table.objects.get(pk=table_id)
@@ -408,7 +415,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
     return render(request, 'reserve_table.html', context)
 
 
-@user_passes_test(restaurantOrRoomStaff_required, login_url='')
+@user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
 def consultar_reserva(request, table_id, selected_date, selected_time):
     fecha_seleccionada = datetime.strptime(selected_date, "%d-%m-%Y").date()
 
@@ -430,7 +437,7 @@ def consultar_reserva(request, table_id, selected_date, selected_time):
     return render(request, 'info_reserve.html', context)
 
 
-@user_passes_test(restaurantOrRoomStaff_required, login_url='')
+@user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
 def tableReservationDetails(request, table_id):
     reserva = get_object_or_404(ReservedTable, id=table_id)
     context = {
@@ -439,7 +446,7 @@ def tableReservationDetails(request, table_id):
     return render(request, 'tableReservationDetails.html', context)
 
 
-@user_passes_test(restaurantOrRoomStaff_required, login_url='')
+@user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
 def getTablesReservationHistory(request):
     tablesReservations = ReservedTable.objects.all()
     context = {
