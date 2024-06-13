@@ -25,10 +25,10 @@ h1{
 }
 
 .slide img {
-    width: auto; /* Ajustar el tamaño de todas las imágenes */
-    height: auto; /* Mantener la proporción de las imágenes */
+    width: 100%; /* Ajustar el tamaño de todas las imágenes */
+    height: 100%; /* Mantener la proporción de las imágenes */
     object-fit: cover; /* Asegurar que todas las imágenes llenen su contenedor */
-    max-height: 550px; /* Ajustar la altura máxima según sea necesario */
-    max-width: 900px;
+    max-height: 1300px; /* Ajustar la altura máxima según sea necesario */
+    max-width: 2000px;
     display: block;
 }
