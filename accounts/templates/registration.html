@@ -8,19 +8,11 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <div class="container">
-            <h1>Registre</h1>
-            <form action="{% url 'register' %}" method="post">
-                <label for="username">Username:</label><br>
-                <input type="text" id="username" name="username"><br>
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email"><br>
+            <h2>Registro de Cliente</h2>
+            <form method="post">
                 {% csrf_token %}
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password"><br>
-                {% csrf_token %}
-                <label for="password2">Repeat password:</label><br>
-                <input type="password" id="password2" name="password2"><br>
-                 <button type="submit">Register</button>
+                {{ form.as_p }}
+                <button type="submit">Registrar</button>
             </form>
-        </div>
+    </div>
 {% endblock %}

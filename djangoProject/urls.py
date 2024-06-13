@@ -18,10 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from JointProject.views import *
-from accounts.views import signIn
+from accounts.views import signIn, register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', register, name='register'),
     path('', homePage, name='homePage'),
     path('accounts/login/', signIn, name='signIn'),
     path('profilePage/', profilePage, name='profilePage'),
