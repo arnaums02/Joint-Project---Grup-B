@@ -25,6 +25,7 @@ class AvailableRoomsForm(forms.Form):
     startDate = forms.DateField(label='Fecha de inicio', widget=forms.DateInput(attrs={'type': 'date'}))
     endDate = forms.DateField(label='Fecha de fin', widget=forms.DateInput(attrs={'type': 'date'}))
     roomType = forms.ChoiceField(choices=ROOM_TYPES, label='Tipo de habitación')
+    capacity = forms.IntegerField(label='Numero de huespedes')
 
     def clean(self):
         cleaned_data = super().clean()

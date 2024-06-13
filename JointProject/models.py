@@ -23,7 +23,7 @@ class Room(models.Model):
     roomNumber = models.IntegerField(unique=True)
     roomFloor = models.IntegerField(null=False, blank=False, default=1, validators=[MinValueValidator(1)])
     roomType = models.CharField(max_length=30, choices=ROOM_TYPES, default='standard')
-
+    capacity = models.IntegerField(validators=[MinValueValidator(1)])
 
 
     def __str__(self):

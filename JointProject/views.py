@@ -60,45 +60,56 @@ def cancelRoomBooking(request, roomBookingId):
 @user_passes_test(roomStaff_required, login_url='')
 def activateRoomBooking(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    roomToBook = roomBooking.roomBooked
+    colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=roomBooking.endDate, endDate__gte=roomBooking.startDate) |
+                                                       Q(startDate__gte=roomBooking.startDate, startDate__lte=roomBooking.endDate) |
+                                                       Q(endDate__gte=roomBooking.startDate, endDate__lte=roomBooking.endDate),
+                                                       bookingState='active', roomBooked=roomToBook)
 
-    roomBooking.bookingState = 'active'
-    roomBooking.save()
+    if colidingRoomBookings.count() == 0:
+        roomBooking.bookingState = 'active'
+        roomBooking.save()
+
+
     return redirect('obtainRoomBookings', 'cancelled')
 
 
 @user_passes_test(roomStaff_required, login_url='')
 def createRoomBookings(request, roomId, startDate, endDate):
-    form = RoomBookingForm(request.POST)
+    room = get_object_or_404(Room, id=roomId)
+    form = RoomBookingForm(request.POST or None)
     context = {
-        'form': form
+        'form': form,
+        'room': room,
+        'startDate': startDate,
+        'endDate': endDate
     }
-    if form.is_valid():
-        roomBooking = form.save(commit=False)
 
-        """
-        if roomBooking.roomBooked.booked == False:
-            roomBooking.userWhoBooked = request.user
-            roomBooking.roomBooked.booked = True
-            roomBooking.save()
-            return redirect('obtainRoomBookings')
-        else:
-            return HttpResponse("Room already booked")"""
-        roomBooking.userWhoBooked = request.user
-        roomBooking.roomBooked = Room.objects.get(id=roomId)
-        roomBooking.startDate = startDate
-        roomBooking.endDate = endDate
-        roomBooking.save()
+    if request.method == 'POST':
+        if form.is_valid():
+            numberGuest = form.cleaned_data['numberGuest']
 
-        try:
-            bill = Bill.objects.get(roomBooking=roomBooking)
-        except Bill.DoesNotExist:
-            bill = Bill.objects.create(roomBooking=roomBooking)
+            if numberGuest > room.capacity:
+                messages.error(request, f"La habitación solo tiene capacidad para {room.capacity} huéspedes.")
+            else:
+                roomBooking = form.save(commit=False)
+                roomBooking.userWhoBooked = request.user
+                roomBooking.roomBooked = room
+                roomBooking.startDate = startDate
+                roomBooking.endDate = endDate
+                roomBooking.save()
 
-        ItemToPay.objects.create(name=roomBooking, bill=bill,
-                                 details=roomBooking.roomBooked,
-                                 price=roomBooking.get_price())
+                try:
+                    bill = Bill.objects.get(roomBooking=roomBooking)
+                except Bill.DoesNotExist:
+                    bill = Bill.objects.create(roomBooking=roomBooking)
 
-        return redirect('obtainRoomBookings')
+                ItemToPay.objects.create(name=roomBooking, bill=bill,
+                                         details=roomBooking.roomBooked,
+                                         price=roomBooking.get_price())
+
+                return redirect('obtainRoomBookings', bookingState='active')
+
     return render(request, 'createRoomBooking.html', context)
 
 
@@ -134,13 +145,15 @@ def getAvailableRooms(request):
             startTime = form.cleaned_data['startDate']
             endTime = form.cleaned_data['endDate']
             roomType = form.cleaned_data['roomType']
+            numGuests = form.cleaned_data['capacity']
 
-            availableRooms = checkAvailableRooms(startTime, endTime, roomType)
+            availableRooms = checkAvailableRooms(startTime, endTime, roomType, numGuests)
 
             context = {
                 'rooms': availableRooms,
                 'startDate': startTime,
-                'endDate': endTime
+                'endDate': endTime,
+                'numGuests': numGuests
             }
             return render(request, 'availableRoomBookings.html', context)
     else:
@@ -151,13 +164,13 @@ def getAvailableRooms(request):
     return render(request, 'getAvailableRooms.html', context)
 
 
-def checkAvailableRooms(startTime, endTime, roomType):
+def checkAvailableRooms(startTime, endTime, roomType, numGuests):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
-                                                       Q(endDate__gte=startTime, endDate__lte=endTime))
+                                                       Q(endDate__gte=startTime, endDate__lte=endTime), bookingState='active')
 
-    filteredTypeRooms = Room.objects.filter(roomType=roomType)
-    colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
+    filteredTypeRooms = Room.objects.filter(roomType=roomType, capacity__gte=numGuests)
+    colidingRoomBookings =  colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
     availableRooms = filteredTypeRooms.exclude(pk__in=colidingRoomBookings.values_list('roomBooked__pk', flat=True))
 
     return availableRooms
