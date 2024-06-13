@@ -16,5 +16,5 @@ document.addEventListener('DOMContentLoaded', function () {
     showSlide(currentIndex);
 
     // Configurar el intervalo para cambiar las imágenes
-    setInterval(nextSlide, 5000); // Cambiar a 5 segundos
+    setInterval(nextSlide, 3000); // Cambiar a 3 segundos
 });
