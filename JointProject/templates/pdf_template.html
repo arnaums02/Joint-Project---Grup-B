@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .header, .footer, .details, .items, .summary {
+            margin-bottom: 20px;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .details, .items, .summary {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .details .section, .summary .section {
+            margin-bottom: 10px;
+        }
+        .items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .items th, .items td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .items th {
+            background-color: #f4f4f4;
+        }
+        .summary .section {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HOTEL LAS PALMERAS</h1>
+            <p>Carrer San Ramon de Penyafort, Tosa de Mar</p>
+            <p>CIF: 1111111111L</p>
+        </div>
+
+        <div class="details">
+            <div class="section">
+                <strong>Factura</strong> Nº{{nombreFactura}}
+            </div>
+            <div class="section">
+                <strong>Fecha:</strong> {{fechaFactura}}
+            </div>
+        </div>
+
+        <div class="items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Asunto</th>
+                        <th>Detalles</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{ item.details }}</td>
+                        <td>{{ item.price }}</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="summary">
+            <div class="section">
+                <span>Forma de pago:</span> BANCO CAJAMAR<br>
+                <span>IBAN:</span> ES00 0000 0000 0000 0000 0000
+            </div>
+            <div class="section">
+                <span>Subtotal:</span> <strong>{{suma}} €</strong>
+            </div>
+            <div class="section">
+                <span>IVA (21%):</span> <strong>{{iva}} €</strong>
+            </div>
+            <div class="section">
+                <span>Retención (-7%):</span> <strong>{{retencion}} €</strong>
+            </div>
+            <div class="section">
+                <span>Total:</span> <strong>{{totalPayed}} €</strong>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Gracias por su estancia en HOTEL LAS PALMERAS</p>
+        </div>
+    </div>
+</body>
+</html>
