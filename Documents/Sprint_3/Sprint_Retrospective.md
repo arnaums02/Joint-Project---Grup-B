@@ -10,9 +10,9 @@
 
 | Team Member  | Issue Found  |  
 |---|---|
-| Giovani  | Problemas al intentar organizar las habitaciones por pisos  |   
-| Albert  | Problemas al definir un formulario para relacionar un cliente con pagos pendientes a la horaa de asignarle un pedido del restaurante  |
-| Arnau | Problemes al configurar els elements de la "HomePage", ja que no correspon als continguts que haurien d'aparèixer a una "HomePage". |
+| Quim  | Problemes en el moments d'actualitzar els preus de les RoomBookings  |   
+| Albert  | Problemas a l'hora de implementar el generador de pdfs per a les factures en el moment de instalar i utilitzar 'xhtml2pdf'  |
+| Arnau | Problemes a l'hora de implementar la nova homepage ja que he hagut de treballar amb archius javascript que no tenia domini |
 
 
 ## Restrospective Actions
