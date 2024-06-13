@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
+from .forms import UserRegistrationForm
 from accounts.forms import SignInForm
 from accounts.models import CustomUser
 
@@ -26,3 +27,14 @@ def signIn(request):
 
     return render(request, 'signIn.html')
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('homePage')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration.html', {'form': form})
