@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Administrar Precios
+{% endblock %}
+
+{% block content %}
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin: 20px; /* Añadimos margen exterior */
+    }
+
+    .column {
+        flex: 1 1 calc(50% - 20px); /* Ajustamos el ancho de las columnas y aumentamos el espacio entre columnas */
+        margin-bottom: 20px; /* Añadimos espacio entre columnas */
+        padding: 0 10px; /* Añadimos padding para margen entre tablas */
+    }
+
+    .table-container {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 30px; /* Aumentamos el margen inferior */
+        margin-top: 30px; /* Aumentamos el margen superior */
+    }
+
+    .table {
+        width: 100%; /* Ancho completo de la tabla */
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .table td input[type="number"] {
+        width: 80px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin: 0 auto; /* Centramos el botón */
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .column {
+            flex: 1 1 100%; /* Cambiamos a una sola columna en dispositivos pequeños */
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="column">
+        <div class="table-container">
+            <h3>Modificar Precio Reserva Habitación</h3>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Habitación</th>
+                            <th>Precio actual</th>
+                            <th>Nuevo Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for room_type, price in room_prices.items %}
+                        <tr>
+                            <td>{{ room_type }}</td>
+                            <td>{{ price }},00 €</td>>
+                            <td><input type="number" name="{{ room_type }}" value="{{ price }}"></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay precios definidos.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="table-container">
+            <h3>Modificar Precio Productos Restaurante</h3>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Precio actual</th>
+                            <th>Nuevo Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in restaurant_products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price }}</td>
+                            <td><input type="number" name="price_{{ product.id }}" value="{{ product.price }}"></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay productos de restaurante registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
