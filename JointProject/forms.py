@@ -110,3 +110,12 @@ class RestaurantOrderForm(RestaurantPayedOrderForm):
         super(RestaurantOrderForm, self).__init__(*args, **kwargs)
         self.fields['roomBooking'].queryset = RoomBookings.objects.filter(checkIn=True, checkOut=False, bookingState='active')
 
+class RoomFilterForm(forms.Form):
+    FLOOR_CHOICES = [
+        (1, 'Planta 1'),
+        (2, 'Planta 2'),
+        (3, 'Planta 3'),
+        (0, 'Todas las plantas'),
+    ]
+
+    planta = forms.ChoiceField(choices=FLOOR_CHOICES, required=False,  widget=forms.Select(attrs={'class': 'rounded-select'}))
