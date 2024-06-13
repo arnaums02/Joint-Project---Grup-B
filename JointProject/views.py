@@ -1,3 +1,5 @@
+import os
+
 from datetime import datetime
 
 from django.contrib import messages
@@ -11,6 +13,9 @@ from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm,
     RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm, RestaurantProductPriceForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
     RestaurantOrder, ItemToPay, RestaurantProduct
+
+from xhtml2pdf import pisa
+from django.template.loader import  render_to_string
 
 
 def roomStaff_required(user):
@@ -206,10 +211,77 @@ def checkOut(request, roomBookingId):
             roomBooking.checkOut = True
             roomBooking.toClean = True
             roomBooking.save()
+            generateBillRoomBooking(roomBookingId)
             return redirect('obtainRoomBookings')
         else:
             messages.error(request, "Existen pagos pendientes de pagar")
     return redirect('roomBookingDetails', roomBookingId)
+
+
+def generateBillRoomBooking(roomBookingId):
+    fecha_actual = datetime.now()
+
+    meses_espanol = {
+        1: 'enero', 2: 'febrero', 3: 'marzo', 4: 'abril',
+        5: 'mayo', 6: 'junio', 7: 'julio', 8: 'agosto',
+        9: 'septiembre', 10: 'octubre', 11: 'noviembre', 12: 'diciembre'
+    }
+
+    # Obtener año, mes y día
+    year = fecha_actual.year
+    month = fecha_actual.month
+    day = fecha_actual.day
+
+    fechaFactura =f'{year}/{month}/{day}'
+
+    nombre_mes = meses_espanol[month]
+
+    directory = f'facturas/{year}/{nombre_mes}/{day}'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f'INFO -> SE HA CREADO EL DIRECTORIO {directory}')
+        print('')
+
+    files = os.listdir(directory)
+    pdfCounter = 0
+
+    for file in files:
+        pdfCounter += 1
+
+    roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
+    completedPayments = get_object_or_404(CompletedPayment, roomBooking=roomBooking)
+    items = ItemPayed.objects.filter(completedPayment=completedPayments)
+
+    totalPayed = completedPayments.calculateTotalPayed()
+
+    nombreFactura = f'{pdfCounter + 1}'
+
+
+
+    context = {
+        'items': items,
+        'totalPayed': totalPayed,
+        'fechaFactura': fechaFactura,
+        'nombreFactura': nombreFactura,
+    }
+
+    html_string = render_to_string('pdf_template.html', context)
+
+    pdf_file = os.path.join(directory,f'Factura{pdfCounter + 1}.pdf')
+
+    result_file = open(pdf_file, "w+b")
+    pisa_status = pisa.CreatePDF(html_string, dest=result_file)
+
+    result_file.close()
+
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF')
+
+    with open(pdf_file, 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="PRUEBA.pdf"'
+        return response
+
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
