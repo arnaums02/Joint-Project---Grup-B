@@ -106,7 +106,7 @@ class Shift(models.Model):
 class ReservedTable(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     userWhoReserved = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
-                                        related_name='userWhoReserved')  # cambiar table per # CustomUser
+                                        related_name='userWhoReserved')
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
     clientName = models.CharField(max_length=20)
     clientPhoneNumber = models.CharField(max_length=20)

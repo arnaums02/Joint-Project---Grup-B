@@ -391,7 +391,7 @@ def reserve_table(request, table_id, selected_date, selected_time):
                 # creamos la reserva
                 reservation = ReservedTable.objects.create(
                     shift=shift_wanted,
-                    userWhoReserved=table,
+                    userWhoReserved=request.user,
                     tableReserved=table,
                     reservationDate=datetime.strptime(selected_date, "%d-%m-%Y").date(),
                     **form.cleaned_data
