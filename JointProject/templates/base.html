@@ -151,7 +151,6 @@
                       <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
                       <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
                       <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
-                      <li><a href="{% url 'manage_prices' %}">Modificar precios</a></li>
                   </ul>
               </li>
               <li>
@@ -164,9 +163,18 @@
                   </ul>
               </li>
               <li>
-                  <a href="#" class="desktop-item">Usuario</a>
+                  <a href="#" class="desktop-item">Contabilidad</a>
                   <input type="checkbox" id="showDrop5">
-                  <label for="showDrop5" class="mobile-item">Usuario</label>
+                  <label for="showDrop5" class="mobile-item">Contabilidad</label>
+                  <ul class="drop-menu">
+                      <li><a href="#">Facturas</a></li>
+                      <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop6">
+                  <label for="showDrop6" class="mobile-item">Usuario</label>
                   <ul class="drop-menu">
                       <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
                       <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
@@ -202,6 +210,20 @@
                   <ul class="drop-menu">
                       <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
                       <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+      {% elif user.user_type == 'comptable' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Contabilidad</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Contabilidad</label>
+                  <ul class="drop-menu">
+                      <li><a href="#">Facturas</a></li>
+                      <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
                   </ul>
               </li>
           </ul>

@@ -36,7 +36,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('roomStaff', 'Personal de habitaciones'),
         ('cleaningStaff', 'Personal de limpieza'),
         ('restaurantStaff', 'Personal de restaurante'),
-        ('admin', 'Administrador')
+        ('admin', 'Administrador'),
+        ('comptable', 'Comptables'),
     ]
     user_type = models.CharField(max_length=30, choices=USER_TYPES, default='client')
     email = models.EmailField(unique=True)
