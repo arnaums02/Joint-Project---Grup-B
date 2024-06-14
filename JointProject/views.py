@@ -1,4 +1,5 @@
 import os
+from collections import defaultdict
 
 from datetime import datetime
 
@@ -6,27 +7,31 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 
 from .forms import RoomBookingForm, MyForm, ReservationForm, AvailableRoomsForm, ItemToPayForm, \
-    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm, RestaurantProductPriceForm
+    RestaurantOrderForm, RestaurantPayedOrderForm, RoomFilterForm, RestaurantProductPriceForm, FacturaFilterForm
 from .models import RoomBookings, Room, Table, Shift, ReservedTable, Bill, CompletedPayment, ItemPayed, \
     RestaurantOrder, ItemToPay, RestaurantProduct
 
 from xhtml2pdf import pisa
-from django.template.loader import  render_to_string
+from django.template.loader import render_to_string
 
 
 def roomStaff_required(user):
     return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin')
 
+
 def roomStaffOrRestaurantOrCllient_required(user):
-    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
+    return user.is_authenticated and (
+            user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
 
 
 def roomStaffOrClient_required(user):
-    return user.is_authenticated and (user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
+    return user.is_authenticated and (
+            user.user_type == 'roomStaff' or user.user_type == 'admin' or user.user_type == 'client')
+
 
 def cleaningStaff_required(user):
     return user.is_authenticated and (user.user_type == 'cleaningStaff' or user.user_type == 'admin')
@@ -45,9 +50,11 @@ def restaurantOrRoomStaff_required(user):
 def homePage(request):
     return render(request, 'mainHomePage.html')
 
+
 @login_required(login_url='')
 def profilePage(request):
     return render(request, 'homePage.html')
+
 
 @user_passes_test(roomStaffOrClient_required, login_url='')
 def obtainRoomBookings(request, bookingState):
@@ -72,15 +79,15 @@ def cancelRoomBooking(request, roomBookingId):
 def activateRoomBooking(request, roomBookingId):
     roomBooking = get_object_or_404(RoomBookings, id=roomBookingId)
     roomToBook = roomBooking.roomBooked
-    colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=roomBooking.endDate, endDate__gte=roomBooking.startDate) |
-                                                       Q(startDate__gte=roomBooking.startDate, startDate__lte=roomBooking.endDate) |
-                                                       Q(endDate__gte=roomBooking.startDate, endDate__lte=roomBooking.endDate),
-                                                       bookingState='active', roomBooked=roomToBook)
+    colidingRoomBookings = RoomBookings.objects.filter(
+        Q(startDate__lte=roomBooking.endDate, endDate__gte=roomBooking.startDate) |
+        Q(startDate__gte=roomBooking.startDate, startDate__lte=roomBooking.endDate) |
+        Q(endDate__gte=roomBooking.startDate, endDate__lte=roomBooking.endDate),
+        bookingState='active', roomBooked=roomToBook)
 
     if colidingRoomBookings.count() == 0:
         roomBooking.bookingState = 'active'
         roomBooking.save()
-
 
     return redirect('obtainRoomBookings', 'cancelled')
 
@@ -178,10 +185,11 @@ def getAvailableRooms(request):
 def checkAvailableRooms(startTime, endTime, roomType, numGuests):
     colidingRoomBookings = RoomBookings.objects.filter(Q(startDate__lte=endTime, endDate__gte=startTime) |
                                                        Q(startDate__gte=startTime, startDate__lte=endTime) |
-                                                       Q(endDate__gte=startTime, endDate__lte=endTime), bookingState='active')
+                                                       Q(endDate__gte=startTime, endDate__lte=endTime),
+                                                       bookingState='active')
 
     filteredTypeRooms = Room.objects.filter(roomType=roomType, capacity__gte=numGuests)
-    colidingRoomBookings =  colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
+    colidingRoomBookings = colidingRoomBookings.filter(roomBooked__in=filteredTypeRooms)
     availableRooms = filteredTypeRooms.exclude(pk__in=colidingRoomBookings.values_list('roomBooked__pk', flat=True))
 
     return availableRooms
@@ -239,7 +247,7 @@ def generateBillRoomBooking(roomBookingId):
     month = fecha_actual.month
     day = fecha_actual.day
 
-    fechaFactura =f'{year}/{month}/{day}'
+    fechaFactura = f'{year}/{month}/{day}'
 
     nombre_mes = meses_espanol[month]
 
@@ -263,8 +271,6 @@ def generateBillRoomBooking(roomBookingId):
 
     nombreFactura = f'{pdfCounter + 1}'
 
-
-
     context = {
         'items': items,
         'totalPayed': totalPayed,
@@ -274,7 +280,7 @@ def generateBillRoomBooking(roomBookingId):
 
     html_string = render_to_string('pdf_template.html', context)
 
-    pdf_file = os.path.join(directory,f'Factura{pdfCounter + 1}.pdf')
+    pdf_file = os.path.join(directory, f'Factura{pdfCounter + 1}.pdf')
 
     result_file = open(pdf_file, "w+b")
     pisa_status = pisa.CreatePDF(html_string, dest=result_file)
@@ -288,7 +294,6 @@ def generateBillRoomBooking(roomBookingId):
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'filename="PRUEBA.pdf"'
         return response
-
 
 
 @user_passes_test(roomStaffOrRestaurantOrCllient_required, login_url='')
@@ -473,7 +478,7 @@ def addItemToBill(request):
                 bill = Bill.objects.create(roomBooking=roomBooking)
             itemToPay.bill = bill
             itemToPay.save()
-            return redirect('getCustomersBills') #CAMBIAR
+            return redirect('getCustomersBills')  # CAMBIAR
     else:
         form = ItemToPayForm()
     context = {
@@ -488,7 +493,7 @@ def getCustomersBills(request):
     context = {
         'bills': bills
     }
-    return render(request, 'getCustomersBills.html', context) #CAMBIAR
+    return render(request, 'getCustomersBills.html', context)  # CAMBIAR
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
@@ -522,7 +527,7 @@ def payBills(request, billId):
         )
 
     items.delete()
-    return redirect('getCustomersBills') #CAMBIAR
+    return redirect('getCustomersBills')  # CAMBIAR
 
 
 @user_passes_test(restaurantOrRoomStaff_required, login_url='')
@@ -597,6 +602,7 @@ def addRestaurantPayedOrder(request):
     }
     return render(request, 'addRestaurantPayedOrder.html', context)
 
+
 def generateBillRestaurant(restaurantOrder):
     fecha_actual = datetime.now()
 
@@ -611,7 +617,7 @@ def generateBillRestaurant(restaurantOrder):
     month = fecha_actual.month
     day = fecha_actual.day
 
-    fechaFactura =f'{year}/{month}/{day}'
+    fechaFactura = f'{year}/{month}/{day}'
 
     nombre_mes = meses_espanol[month]
 
@@ -627,15 +633,13 @@ def generateBillRestaurant(restaurantOrder):
     for file in files:
         pdfCounter += 1
 
-    #order = get_object_or_404(RestaurantOrder, id=roomBookingId)
-    #completedPayments = get_object_or_404(CompletedPayment, roomBooking=roomBooking)
-    #products = restaurantOrder.products
+    # order = get_object_or_404(RestaurantOrder, id=roomBookingId)
+    # completedPayments = get_object_or_404(CompletedPayment, roomBooking=roomBooking)
+    # products = restaurantOrder.products
 
     totalPayed = restaurantOrder.calculateTotalOrder()
 
     nombreFactura = f'{pdfCounter + 1}'
-
-
 
     context = {
         'order': restaurantOrder,
@@ -646,7 +650,7 @@ def generateBillRestaurant(restaurantOrder):
 
     html_string = render_to_string('pdf_template_restaurant.html', context)
 
-    pdf_file = os.path.join(directory,f'Factura{pdfCounter + 1}.pdf')
+    pdf_file = os.path.join(directory, f'Factura{pdfCounter + 1}.pdf')
 
     result_file = open(pdf_file, "w+b")
     pisa_status = pisa.CreatePDF(html_string, dest=result_file)
@@ -660,7 +664,6 @@ def generateBillRestaurant(restaurantOrder):
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'filename="PRUEBA.pdf"'
         return response
-
 
 
 @user_passes_test(restaurantStaff_required, login_url='')
@@ -725,6 +728,7 @@ def roomToBeCleaned(request, roomBookingId, floor):
 def about_us(request):
     return render(request, 'about_us.html')
 
+
 def room_booking_cleaning_view(request):
     form = RoomFilterForm(request.GET or None)
     room_bookings = RoomBookings.objects.filter(toClean=True)
@@ -763,7 +767,6 @@ def mark_as_dirty(request, booking_id):
     booking = get_object_or_404(RoomBookings, id=booking_id)
     booking.mark_as_dirty()
     return redirect('room_bookings_clean')
-
 
 
 def manage_prices(request):
@@ -809,3 +812,53 @@ def manage_prices(request):
         'restaurant_product_form': restaurant_product_form,
     }
     return render(request, 'manage_prices.html', context)
+
+
+def getHotelBills(request):
+    year = ""
+    month = ""
+    result = []
+    meses_espanol = {
+        '1': 'enero', '2': 'febrero', '3': 'marzo', '4': 'abril',
+        '5': 'mayo', '6': 'junio', '7': 'julio', '8': 'agosto',
+        '9': 'septiembre', '10': 'octubre', '11': 'noviembre', '12': 'diciembre'
+    }
+    if request.method == 'POST':
+
+        form = FacturaFilterForm(request.POST)
+        
+
+        if form.is_valid():
+            year = form.cleaned_data['year']
+            print(form.cleaned_data)
+            month = meses_espanol[form.cleaned_data['month']]
+            directory = f'facturas/{year}/{month}'
+
+            if os.path.exists(directory):
+                for day in os.listdir(directory):
+                    path = os.path.join(directory, day)
+                    if os.path.isdir(path) and day.isdigit():
+                        files = os.listdir(path)
+
+                        for file in files:
+                            result.append((int(day), file))
+
+    else:
+        
+        form = FacturaFilterForm()
+
+    context = {
+        'form': form,
+        'bills': result,
+        'year': year,
+        'month': month
+    }
+
+    return render(request, 'getHotelBills.html', context)
+
+
+def pdf_view(request, year, month, day, pdf):
+    try:
+        return FileResponse(open(f'facturas/{year}/{month}/{day}/{pdf}', 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404()

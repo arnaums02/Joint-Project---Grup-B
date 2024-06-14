@@ -23,7 +23,7 @@ class ModelTests(TestCase):
         self.room1 = Room.objects.create(roomNumber=101, roomType='standard')
         self.room2 = Room.objects.create(roomNumber=102, roomType='deluxe')
 
-        self.booking1 = RoomBookings.objects.create(userWhoBooked=self.user1, guestName='Guest 1',
+        self.booking1 = RoomBookings.objects.create(userWhoBooked=self.user1, guestName='Guest Enero',
                                                     guestEmail='guest1@example.com',
                                                     guestPhoneNumber='123456789', guestDNI='123456789A', numberGuest=2,
                                                     roomBooked=self.room1, startDate=timezone.now(),
@@ -41,12 +41,12 @@ class ModelTests(TestCase):
         self.shift1 = Shift.objects.create(shift='12-13')
 
         self.reserved_table1 = ReservedTable.objects.create(userWhoReserved=self.table1, shift=self.shift1,
-                                                            clientName='Client 1', clientPhoneNumber='111222333',
+                                                            clientName='Client Enero', clientPhoneNumber='111222333',
                                                             numberOfClients=3, reservationDate=timezone.now(),
                                                             tableReserved=self.table1)
 
         self.bill1 = Bill.objects.create(customer=self.user1)
-        self.item1 = ItemToPay.objects.create(name='Item 1', bill=self.bill1, details='Details for Item 1', price=10.50)
+        self.item1 = ItemToPay.objects.create(name='Item Enero', bill=self.bill1, details='Details for Item Enero', price=10.50)
 
     def test_room_booking(self):
         self.assertEqual(self.booking1.userWhoBooked, self.user1)
@@ -57,7 +57,7 @@ class ModelTests(TestCase):
     def test_reserved_table(self):
         self.assertEqual(self.reserved_table1.userWhoReserved, self.table1)
         self.assertEqual(self.reserved_table1.shift, self.shift1)
-        self.assertEqual(self.reserved_table1.clientName, 'Client 1')
+        self.assertEqual(self.reserved_table1.clientName, 'Client Enero')
         self.assertEqual(self.reserved_table1.numberOfClients, 3)
 
     def test_bill(self):
@@ -65,8 +65,8 @@ class ModelTests(TestCase):
         self.assertEqual(self.bill1.calculateTotalPrice(), 10.50)
 
     def test_item_to_pay(self):
-        self.assertEqual(self.item1.name, 'Item 1')
-        self.assertEqual(self.item1.details, 'Details for Item 1')
+        self.assertEqual(self.item1.name, 'Item Enero')
+        self.assertEqual(self.item1.details, 'Details for Item Enero')
         self.assertEqual(self.item1.price, 10.50)
 
 

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Facturas</title>
+    </head>
+        <title>Facturas</title>
+        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <body>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Filtrar</button>
+    </form>
+
+
+    {% for day, bill in bills %}
+        {% if forloop.first %}
+            <h1>Día {{ day }}</h1>
+        {% endif %}
+        <li>{{ bill }} <a href="{% url 'pdf_view' year month day bill %}"class="button-66" role="button">Ver PDF</a></li>
+    {% endfor %}
+
+    </body>
+{% endblock %}

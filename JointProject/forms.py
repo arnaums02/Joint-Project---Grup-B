@@ -1,3 +1,5 @@
+import os
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -113,7 +115,7 @@ class RestaurantOrderForm(RestaurantPayedOrderForm):
 
 class RoomFilterForm(forms.Form):
     FLOOR_CHOICES = [
-        (1, 'Planta 1'),
+        (1, 'Planta Enero'),
         (2, 'Planta 2'),
         (3, 'Planta 3'),
         (0, 'Todas las plantas'),
@@ -126,3 +128,20 @@ class RestaurantProductPriceForm(forms.ModelForm):
     class Meta:
         model = RestaurantProduct
         fields = ['price']
+
+
+
+class FacturaFilterForm(forms.Form):
+    year = forms.ChoiceField(label='Año')
+    month = forms.ChoiceField(label='Mes', choices=[(str(i), str(i)) for i in range(1, 13)])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['year'].choices = self.get_year_choices()
+
+    def get_year_choices(self):
+        directory = 'facturas'
+        if os.path.exists(directory):
+            years = sorted([d for d in os.listdir(directory) if os.path.isdir(os.path.join(directory, d))])
+            return [(year, year) for year in years]
+        return []
