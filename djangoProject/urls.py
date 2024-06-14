@@ -85,7 +85,6 @@ urlpatterns = [
     path('manage-prices/', manage_prices, name='manage_prices'),
     path('getHotelBills/', getHotelBills, name='getHotelBills'),
 
-
     path('showPDF/<str:year>/<str:month>/<str:day>/<str:pdf>', pdf_view, name='pdf_view')
 ]
 

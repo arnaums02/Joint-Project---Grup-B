@@ -164,10 +164,10 @@
               </li>
               <li>
                   <a href="#" class="desktop-item">Contabilidad</a>
-                  <input type="checkbox" id="showDrop5">
-                  <label for="showDrop5" class="mobile-item">Contabilidad</label>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Contabilidad</label>
                   <ul class="drop-menu">
-                      <li><a href="#">Facturas</a></li>
+                      <li><a href="{% url 'getHotelBills' %}">Facturas</a></li>
                       <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
                   </ul>
               </li>
@@ -222,8 +222,18 @@
                   <input type="checkbox" id="showDrop1">
                   <label for="showDrop1" class="mobile-item">Contabilidad</label>
                   <ul class="drop-menu">
-                      <li><a href="#">Facturas</a></li>
+                      <li><a href="{% url 'getHotelBills' %}">Facturas</a></li>
                       <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
+                  </ul>
+              </li>
+          
+            <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
                   </ul>
               </li>
           </ul>

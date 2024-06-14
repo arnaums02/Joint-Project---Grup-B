@@ -16,13 +16,19 @@
         <button type="submit">Filtrar</button>
     </form>
 
-
-    {% for day, bill in bills %}
-        {% if forloop.first %}
-            <h1>Día {{ day }}</h1>
-        {% endif %}
-        <li>{{ bill }} <a href="{% url 'pdf_view' year month day bill %}"class="button-66" role="button">Ver PDF</a></li>
-    {% endfor %}
+    <ul>
+        {% for day, bill in bills %}
+            {% if forloop.first %}
+                <h1>Día {{ day }}</h1>
+            {% endif %}
+            <li style="display: flex; align-items: center; ">
+                {{ bill }}
+                <a href="{% url 'pdf_view' year month day bill %}">
+                    <img style="max-height: 40px; margin-left: 8px;" src="{% static 'img/adobe.png' %}" alt="Adobe Icon">
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
     </body>
 {% endblock %}
