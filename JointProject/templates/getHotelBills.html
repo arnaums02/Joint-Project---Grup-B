@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 
     <body>
-
+    <h1>Facturas Hotel Las Palmeras</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -17,10 +17,10 @@
     </form>
 
     <ul>
+
         {% for day, bill in bills %}
-            {% if forloop.first %}
-                <h1>Día {{ day }}</h1>
-            {% endif %}
+            <h2>Día {{ day }}</h2>
+
             <li style="display: flex; align-items: center; ">
                 {{ bill }}
                 <a href="{% url 'pdf_view' year month day bill %}">

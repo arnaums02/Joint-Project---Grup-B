@@ -31,7 +31,7 @@
             <tbody>
                 {% for booking in room_bookings_clean %}
                 <tr>
-                    <td>{{ booking }} <a href="{% url 'mark_as_dirty' booking.id %}" class="button-55"></a></td>
+                    <td>{{ booking }} <a href="{% url 'mark_as_dirty' booking.id %}" class="button-55">Marcar como sucia</a></td>
                 </tr>
                 {% empty %}
                 <tr>

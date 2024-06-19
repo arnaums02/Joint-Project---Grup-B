@@ -115,7 +115,7 @@ class RestaurantOrderForm(RestaurantPayedOrderForm):
 
 class RoomFilterForm(forms.Form):
     FLOOR_CHOICES = [
-        (1, 'Planta Enero'),
+        (1, 'Planta 1'),
         (2, 'Planta 2'),
         (3, 'Planta 3'),
         (0, 'Todas las plantas'),

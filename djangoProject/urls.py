@@ -28,7 +28,8 @@ urlpatterns = [
     path('profilePage/', profilePage, name='profilePage'),
     path('obtainRoomBookings/<str:bookingState>', obtainRoomBookings, name='obtainRoomBookings'),
     path('obtainRoomBookings/', obtainRoomBookings, {'bookingState': 'active'}, name='obtainRoomBookings'),
-    path('cancelRoomBooking/<uuid:roomBookingId>', cancelRoomBooking, name='cancelRoomBooking'),
+    path('cancelRoomBoq'
+         'oking/<uuid:roomBookingId>', cancelRoomBooking, name='cancelRoomBooking'),
     path('activateRoomBooking/<uuid:roomBookingId>', activateRoomBooking, name='activateRoomBooking'),
     path('createRoomBooking/<uuid:roomId>/<str:startDate>/<str:endDate>/', createRoomBookings,
          name='createRoomBookings'),
